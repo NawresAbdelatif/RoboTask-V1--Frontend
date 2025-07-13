@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Modifier le projet</h2>
+<mat-dialog-content>
+    <form>
+        <mat-form-field appearance="fill" style="width:100%">
+            <mat-label>Nom du projet</mat-label>
+            <input matInput [(ngModel)]="project.name" name="name" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width:100%">
+            <mat-label>Description</mat-label>
+            <input matInput [(ngModel)]="project.description" name="description" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width:100%">
+            <mat-label>Date de début</mat-label>
+            <input matInput type="date" [(ngModel)]="project.startDate" name="startDate" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width:100%">
+            <mat-label>Date de fin</mat-label>
+            <input matInput type="date" [(ngModel)]="project.endDate" name="endDate" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width:100%">
+            <mat-label>Statut</mat-label>
+            <mat-select [(ngModel)]="project.status" name="status">
+                <mat-option *ngFor="let s of statusList" [value]="s">{{ s }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancel()">Annuler</button>
+    <button mat-flat-button color="primary" (click)="update()">Mettre à jour</button>
+</mat-dialog-actions>

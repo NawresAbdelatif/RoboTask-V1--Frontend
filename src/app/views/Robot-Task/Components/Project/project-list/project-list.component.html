@@ -1,0 +1,372 @@
+<style>
+    .status-chip {
+        font-weight: 500;
+        font-size: 0.85rem;
+        height: 28px;
+        min-width: 70px;
+        padding: 0 14px;
+        border-radius: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff !important;
+        box-shadow: 0 1px 4px #0002;
+        letter-spacing: 0.3px;
+        margin: 0 auto;
+    }
+    .status-chip.primary { background: #1976d2; }
+    .status-chip.accent  { background: #ff4081; }
+    .status-chip.warn    { background: #e53935; }
+    .status-chip.default { background: #bdbdbd; color: #212121 !important; }
+
+    .avatar-initial {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        user-select: none;
+        box-shadow: 0 1px 4px #0001;
+        margin-right: 3px;
+    }
+
+    .reduced-card.mat-card {
+        padding: 18px 8px !important;
+        margin-bottom: 2px !important;
+        border-radius: 12px;
+        box-sizing: border-box;
+    }
+    .project-card-left {
+        padding-left: 12px;
+    }
+
+    .project-card-flex {
+        padding: 0 !important;            /* padding déjà géré au-dessus */
+        background: #fff;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        transition: box-shadow 0.18s;
+    }
+
+    .project-card-flex:hover {
+        box-shadow: 0 4px 24px #0001, 0 1.5px 7px #0001;
+    }
+
+    .project-card-main {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0px;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .project-info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        min-width: 160px;
+        flex: 2 1 240px;
+    }
+
+    .project-collabs {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+        min-width: 90px;
+    }
+
+    .project-status {
+        min-width: 100px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .project-menu {
+        min-width: 40px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    /* Responsive < 900px */
+    @media (max-width: 900px) {
+        .reduced-card.mat-card {
+            padding: 12px 8px !important;
+        }
+        .project-card-main {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 10px !important;
+        }
+        .project-info {
+            gap: 8px;
+            margin-bottom: 3px;
+            justify-content: flex-start;
+        }
+        .project-collabs {
+            margin-bottom: 4px;
+            justify-content: flex-start;
+        }
+        .project-status {
+            justify-content: center !important;
+            margin-bottom: 4px;
+        }
+        .project-menu {
+            justify-content: center !important;
+        }
+    }
+    .projets-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px 18px 16px;
+        margin-bottom: 0px;
+        gap: 10px;
+    }
+    .btn-create {
+        font-weight: 500;
+        font-size: 1rem;
+        text-transform: none;
+        box-shadow: 0 2px 10px #1976d21a;
+        border-radius: 8px;
+        min-width: 170px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 40px;
+    }
+
+    @media (max-width: 700px) {
+        .projets-header {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 0 8px 10px 8px;
+            gap: 8px;
+        }
+        .btn-create {
+            min-width: unset;
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    .filters-row {
+        display: flex;
+        flex-direction: row;
+        gap: 14px;
+        align-items: center;
+        margin-right: 20px;
+
+        .search-field, .status-field {
+            min-width: 160px;
+            flex: 1;
+        }
+    }
+
+    @media (max-width: 850px) {
+        .projets-header {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 10px;
+        }
+        .filters-row {
+            flex-direction: column;
+            align-items: stretch;
+            margin: 0 0 10px 0;
+            gap: 10px;
+        }
+        .btn-create {
+            width: 100%;
+            min-width: unset;
+            justify-content: center;
+        }
+        mat-card-title {
+            margin-bottom: 8px;
+        }
+    }
+
+
+
+    /* Responsive mobile < 600px */
+    @media (max-width: 900px) {
+        .reduced-card.mat-card {
+            padding: 12px 6px !important;
+            margin-bottom: 8px !important;
+            border-radius: 10px;
+        }
+    }
+    @media (max-width: 600px) {
+        .reduced-card.mat-card {
+            padding: 8px 2px !important;
+            margin-bottom: 6px !important;
+            border-radius: 8px;
+        }
+
+        .project-card-main {
+            gap: 5px !important;
+        }
+        .avatar-initial {
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+        }
+        .project-status {
+            min-width: 0;
+        }
+    }
+
+
+</style>
+
+<div style="padding:0;" fxLayout="column wrap">
+    <div class="projets-header">
+        <mat-card-title class="mx-8">Liste des projets</mat-card-title>
+        <div class="filters-row">
+            <!-- Barre de recherche -->
+            <mat-form-field class="search-field" appearance="outline">
+                <mat-label>Rechercher</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput
+                       placeholder="Nom du projet"
+                       [(ngModel)]="searchTerm"
+                       (keyup.enter)="loadProjects()"
+                       (input)="onSearchChange()" />
+                <button mat-icon-button matSuffix *ngIf="searchTerm" (click)="clearSearch()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+            <!-- Sélecteur d'état -->
+            <mat-form-field class="status-field" appearance="outline">
+                <mat-label>État</mat-label>
+                <mat-select [(ngModel)]="statusFilter" (selectionChange)="onSearchChange()">
+                    <mat-option value="">Tous</mat-option>
+                    <mat-option value="PLANNED">Planifié</mat-option>
+                    <mat-option value="IN_PROGRESS">En cours</mat-option>
+                    <mat-option value="COMPLETED">Terminé</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <button mat-flat-button color="primary" class="btn-create" (click)="openCreateDialog()">
+            <mat-icon>add</mat-icon>
+            Nouveau projet
+        </button>
+    </div>
+    <!-- Messages d’action projet -->
+    <mat-card *ngIf="successMsg" class="success-alert" role="alert">
+        <mat-icon class="success-icon" aria-hidden="true">check_circle</mat-icon>
+        <span class="success-text">{{successMsg}}</span>
+    </mat-card>
+    <mat-card *ngIf="errorMsg" class="error-alert" role="alert">
+        <mat-icon class="error-icon" aria-hidden="true">error_outline</mat-icon>
+        <span class="error-text">{{errorMsg}}</span>
+    </mat-card>
+
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <div *ngIf="errorMsg" class="text-red text-center">{{errorMsg}}</div>
+    <div *ngIf="!loading && projects.length === 0" class="text-center">
+        Aucun projet trouvé.
+    </div>
+
+    <div *ngFor="let project of projects; let projIdx = index">
+        <mat-card
+                class="project-card-flex reduced-card"
+                >
+            <div class="project-card-main">
+                <div class="project-info">
+                    <button mat-mini-fab [color]="getProjectColor(project.name)" class="mat-elevation-z0">
+                        <mat-icon class="mat-18">{{ getProjectIcon(project.name) }}</mat-icon>
+                    </button>
+                    <div>
+                        <div style="font-size:1.25rem; font-weight:500; text-transform:capitalize;">
+                            {{ project.name }}
+                        </div>
+                        <div>{{ project.description }}</div>
+                        <div class="text-muted">Début: {{ project.startDate | date }}</div>
+                        <div class="text-muted">Fin: {{ project.endDate | date }}</div>
+                        <div class="text-muted">Créateur: {{ project.creatorUsername }}</div>
+                    </div>
+                </div>
+
+                <div class="project-collabs">
+                    <ng-container *ngFor="let user of project.collaboratorsUsernames; let i = index">
+                        <div class="avatar-initial"
+                             [ngStyle]="{
+           'background': getColorForUser(user),
+           'color': '#fff'
+         }"
+                             *ngIf="i < 3"
+                             [matTooltip]="user">
+                            {{ user[0] | uppercase }}
+                        </div>
+                    </ng-container>
+                    <p *ngIf="project.collaboratorsUsernames.length > 3"
+                       class="rounded-circle d-flex avatar-sm m-0 mat-bg-warn text-14 align-items-center justify-content-center"
+                       style="margin-left:4px;">
+                        +{{ project.collaboratorsUsernames.length - 3 }}
+                    </p>
+                </div>
+                <div class="project-status">
+                    <mat-chip
+                            class="status-chip"
+                            [ngStyle]="{
+    'background-color': getProjectStatus(project.status).color,
+    'color': '#fff'
+  }"
+                            selected>
+                        {{ getProjectStatus(project.status).label }}
+                    </mat-chip>
+
+                </div>
+
+                <div class="project-menu">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions projet">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="viewDetails(project)">
+                            <mat-icon>visibility</mat-icon>
+                            <span>Voir détails</span>
+                        </button>
+                        <button mat-menu-item
+                                *ngIf="canEditOrDeleteProject(project)"
+                                (click)="editProject(project)">
+                            <mat-icon>edit</mat-icon>
+                            <span>Modifier</span>
+                        </button>
+                        <button mat-menu-item (click)="archiveProject(project)">
+                            <mat-icon>archive</mat-icon>
+                            <span>Archiver</span>
+                        </button>
+                        <button mat-menu-item
+                                *ngIf="canEditOrDeleteProject(project)"
+                                (click)="deleteProject(project)">
+                            <mat-icon>delete</mat-icon>
+                            <span>Supprimer</span>
+                        </button>
+
+
+
+                    </mat-menu>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
+<div class="paginator-container">
+    <mat-paginator
+            [length]="totalElements"
+            [pageSize]="size"
+            [pageIndex]="page"
+            [pageSizeOptions]="[5, 10, 20, 50]"
+            (page)="onPageChange($event)">
+    </mat-paginator>
+</div>

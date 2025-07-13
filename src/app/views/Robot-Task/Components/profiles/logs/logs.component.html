@@ -1,0 +1,52 @@
+<h2 class="title-center">Logs</h2>
+<div class="logs-wrapper">
+    <mat-card class="logs-card">
+        <table mat-table [dataSource]="dataSource" *ngIf="!loading" class="mat-elevation-z1 logs-table">
+        <!-- Date Column -->
+        <ng-container matColumnDef="timestamp">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let log">{{ log.timestamp | date:'short' }}</td>
+        </ng-container>
+
+        <!-- Level Column -->
+        <ng-container matColumnDef="level">
+            <th mat-header-cell *matHeaderCellDef>Niveau</th>
+            <td mat-cell *matCellDef="let log">
+                <mat-chip [color]="getLogLevelColor(log.level)" selected>{{ log.level }}</mat-chip>
+            </td>
+        </ng-container>
+
+        <!-- Message Column -->
+        <ng-container matColumnDef="message">
+            <th mat-header-cell *matHeaderCellDef>Message</th>
+            <td mat-cell *matCellDef="let log">{{ log.message }}</td>
+        </ng-container>
+
+        <!-- Username Column -->
+        <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef>Utilisateur</th>
+            <td mat-cell *matCellDef="let log">{{ log.username }}</td>
+        </ng-container>
+
+        <!-- IP Column -->
+        <ng-container matColumnDef="ip">
+            <th mat-header-cell *matHeaderCellDef>IP</th>
+            <td mat-cell *matCellDef="let log">{{ log.ip }}</td>
+        </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div class="logs-paginator" *ngIf="!loading">
+            <mat-paginator
+                    [pageSize]="size"
+                    [length]="totalElements"
+                    [pageSizeOptions]="[8, 16, 32]"
+                    (page)="onPageChange($event)"
+                    showFirstLastButtons>
+            </mat-paginator>
+        </div>
+
+        <div *ngIf="loading" class="loading">Chargement...</div>
+    </mat-card>
+</div>

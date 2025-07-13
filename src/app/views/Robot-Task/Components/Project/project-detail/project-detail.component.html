@@ -1,0 +1,71 @@
+<div class="project-detail-page" *ngIf="!loading && project">
+    <div class="project-header-pro fullpage">
+        <div class="header-left">
+            <div class="icon-box">
+                <mat-icon class="main-icon">calendar_today</mat-icon>
+            </div>
+            <div>
+                <div class="project-title">{{ project.name }}</div>
+                <div class="project-id">Projet #{{ project.id }}</div>
+            </div>
+        </div>
+        <div class="header-right">
+      <span class="status-badge"
+            [ngClass]="{
+              'planned': project.status === 'PLANNED',
+              'inprogress': project.status === 'IN_PROGRESS',
+              'completed': project.status === 'COMPLETED'
+            }">
+        <mat-icon class="status-icon">
+          {{
+            project.status === 'PLANNED' ? 'schedule' :
+                project.status === 'IN_PROGRESS' ? 'autorenew' :
+                    project.status === 'COMPLETED' ? 'check_circle' : 'help'
+            }}
+        </mat-icon>
+          {{ getStatusLabel(project.status) }}
+      </span>
+            <button mat-mini-fab color="primary"
+                    aria-label="Ajouter un collaborateur"
+                    *ngIf="canAddCollaborator()"
+                    (click)="openAddCollaboratorDialog()"
+                    class="add-collab-btn">
+                <mat-icon>person_add</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <hr class="header-divider"/>
+
+    <!-- DÉTAILS -->
+    <div class="project-details-content">
+        <div class="project-description">
+            <span><strong>Description :</strong></span>
+            <span class="desc-text">{{ project.description || '(Aucune description)' }}</span>
+        </div>
+
+        <div class="project-infos">
+            <div><span class="info-label">Début :</span> <span class="info-value">{{ project.startDate | date }}</span></div>
+            <div><span class="info-label">Fin :</span> <span class="info-value">{{ project.endDate | date }}</span></div>
+            <div><span class="info-label">Créateur :</span> <span class="creator-value">{{ project.creatorUsername }}</span></div>
+            <div class="collaborators-list">
+                <span class="info-label">Collaborateurs :</span>
+                <span *ngIf="!project.collaboratorsUsernames?.length" class="info-value">(Aucun)</span>
+                <ul *ngIf="project.collaboratorsUsernames?.length" class="collab-list">
+                    <li *ngFor="let u of project.collaboratorsUsernames" class="collab-list-item">
+            <span class="collaborator-avatar" [ngStyle]="{'background': getColorForUser(u)}" matTooltip="{{ u }}">
+              {{ getInitials(u) }}
+            </span>
+                        <span class="collaborator-fullname">{{ u }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions-bar">
+        <button mat-button color="primary" (click)="retourListe()">Retour à la liste</button>
+    </div>
+</div>
+<div *ngIf="loading" class="center-spinner"><mat-spinner></mat-spinner></div>
+<div *ngIf="errorMsg && !loading" class="error-alert text-center">{{errorMsg}}</div>

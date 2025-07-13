@@ -1,0 +1,147 @@
+<style>
+
+  .notif-header {
+    background: #1087ff;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    padding: 16px 0 12px 0;
+    font-size: 1.2rem;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  .notif-list { background: #fff; min-width: 260px; max-width: 340px; border-radius: 0 0 4px 4px; padding-bottom: 24px;}
+  .notif-item { display: flex; align-items: flex-start; padding: 14px 18px 8px 18px;}
+  .notif-icon { font-size: 1.5rem !important; margin-right: 14px; margin-top: 2px;}
+  .notif-content { flex: 1;}
+  .notif-title { font-weight: 500; font-size: 1.07rem; margin-bottom: 2px;}
+  .notif-time { font-size: 0.96rem; color: #7b7b7b;}
+  .notif-clear { text-align: center; margin-top: 15px; color: #333; cursor: pointer; font-size: 1.07rem; font-weight: 400; transition: color .2s;}
+  .notif-clear:hover { color: #1087ff;}
+  .notif-empty { text-align: center; padding: 32px 0 12px 0; color: #999;}
+
+</style>
+<mat-toolbar class="topbar mat-bg-card">
+  <!-- Sidenav toggle button -->
+  <button
+    *ngIf="layoutConf.sidebarStyle !== 'compact'"
+    mat-icon-button
+    id="sidenavToggle"
+    (click)="toggleSidenav()"
+    matTooltip="Toggle Hide/Open"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span fxFlex></span>
+  <!-- Language Switcher -->
+  <button mat-button [matMenuTriggerFor]="menu">
+    <span class="fi fi-{{currentLang.flag}} mr-8"></span>
+    <span>{{currentLang.name}}</span>
+  </button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item *ngFor="let lang of availableLangs" (click)="setLang(lang)">
+        <span class="fi mr-8 fi-{{lang.flag}}"></span>
+        <span>{{lang.name}}</span>
+  </button>
+</mat-menu>
+
+
+  <matx-search-input-over placeholder="Country (e.g. US)" resultPage="/search"></matx-search-input-over>
+  <!-- Open "views/search-view/result-page.component" to know more about subscribing to input field value -->
+
+  <!-- Notification toggle button -->
+  <!-- Bouton cloche -->
+  <button
+          mat-icon-button
+          matTooltip="Notifications"
+          [matMenuTriggerFor]="notificPanel"
+          [style.overflow]="'visible'"
+          class="topbar-button-right"
+  >
+    <mat-icon>notifications</mat-icon>
+    <span *ngIf="unreadCount > 0" class="notification-number mat-bg-warn">
+  {{ unreadCount }}
+</span>
+  </button>
+
+  <!-- Panneau des notifications -->
+  <mat-menu #notificPanel="matMenu" (menuOpened)="onNotificationsMenuOpened()" class="notif-menu-custom">
+    <div class="notif-header">Notifications</div>
+    <div class="notif-list">
+      <ng-container *ngIf="notifications.length > 0; else noNotif">
+        <div class="notif-item" *ngFor="let notif of notifications">
+          <mat-icon
+                  [ngStyle]="{
+            'color': notif.type === 'PROJECT_INVITE' ? '#1087ff' : '#f44336',
+            'font-size': '1.3rem'
+          }"
+                  class="notif-icon"
+          >
+            {{ notif.type === 'PROJECT_INVITE' ? 'person_add' : 'event_available' }}
+          </mat-icon>
+          <div class="notif-content">
+            <div class="notif-title">{{ notif.message }}</div>
+            <div class="notif-time">{{ timeAgo(notif.createdAt) }}</div>
+          </div>
+        </div>
+        <div class="notif-clear" (click)="clearAllNotifications()">
+          Clear all notifications
+        </div>
+      </ng-container>
+      <ng-template #noNotif>
+        <div class="notif-empty">No notifications</div>
+      </ng-template>
+    </div>
+  </mat-menu>
+
+
+
+  <!-- Top left user menu -->
+  <button
+          mat-icon-button
+          [matMenuTriggerFor]="accountMenu"
+          class="topbar-button-right img-button"
+  >
+    <div
+            class="avatar-initial"
+            [ngStyle]="{
+    'background': avatarBgColor,
+    'color': avatarTextColor
+  }"
+            style="
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.3rem;
+    font-weight:bold;
+    user-select:none;
+    text-transform:uppercase;"
+    >
+      {{ (userName ? userName[0] : 'U') | uppercase }}
+    </div>
+  </button>
+
+
+  <mat-menu #accountMenu="matMenu">
+    <button mat-menu-item [routerLink]="['/profile/overview']">
+      <mat-icon>account_box</mat-icon>
+      <span>Profile</span>
+    </button>
+    <button mat-menu-item [routerLink]="['/profile/settings']">
+      <mat-icon>settings</mat-icon>
+      <span>Account Settings</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+    <button mat-menu-item (click)="jwtAuth.signout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>{{ "SIGNOUT" | translate }}</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

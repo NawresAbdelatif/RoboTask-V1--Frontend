@@ -1,0 +1,78 @@
+
+.min-w-600 { min-width: 600px; }
+.p-0 { padding: 0 !important; }
+.overflow-x-auto { overflow-x: auto; }
+
+.logs-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.logs-card {
+  width: 98vw;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+  background: #fff;
+  overflow-x: auto; // SCROLL horizontal si besoin
+}
+
+.logs-table {
+  width: 100%;
+  min-width: 500px; // Largeur minimale pour le tableau
+}
+
+@media (max-width: 900px) {
+  .logs-card {
+    padding: 8px;
+    width: 100vw;
+    min-width: 0;
+  }
+  .logs-table {
+    min-width: 350px; // Diminue sur mobile
+  }
+}
+
+.title-center {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+.loading {
+  padding: 32px;
+  text-align: center;
+  color: #666;
+  font-size: 18px;
+}
+
+.logs-paginator {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+::ng-deep .mat-paginator {
+  background: #fafbfd;      // Couleur claire
+  border-radius: 16px;      // Angles arrondis
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08); // Ombre légère
+  padding: 8px 24px;
+}
+::ng-deep .logs-table th.mat-header-cell {
+  font-size:14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #263238;           // Optionnel : couleur foncée pour lisibilité
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+@media (max-width: 800px) {
+  .logs-table th:nth-child(5), // IP
+  .logs-table td:nth-child(5) {
+    display: none;
+  }
+}

@@ -1,0 +1,65 @@
+<div class="page-wrap h-full slate">
+    <div class="session-form-hold">
+        <mat-card>
+            <mat-card-content>
+                <div class="text-center logo-section">
+                    <img width="120px" src="assets/images/Choix3.png" alt="RoboTask Logo" />
+                    <div class="signin-title">Créer un compte</div>
+                    <p class="text-muted m-0" style="font-size:1.01rem;">Inscrivez-vous pour accéder à RoboTask</p>
+                </div>
+
+                <form [formGroup]="signupForm" (ngSubmit)="signup()">
+
+                    <!-- Username -->
+                    <mat-form-field appearance="outline" class="full-width mb-12">
+                        <mat-label>Nom d'utilisateur</mat-label>
+                        <input matInput placeholder="Nom d'utilisateur" formControlName="username" autocomplete="username">
+                        <mat-icon matSuffix>person</mat-icon>
+                        <mat-error *ngIf="signupForm.controls['username'].hasError('required')">Champ obligatoire</mat-error>
+                    </mat-form-field>
+
+                    <!-- Email -->
+                    <mat-form-field appearance="outline" class="full-width mb-12">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" placeholder="Adresse email" formControlName="email" autocomplete="email">
+                        <mat-icon matSuffix>mail</mat-icon>
+                        <mat-error *ngIf="signupForm.controls['email'].hasError('required')">Champ obligatoire</mat-error>
+                        <mat-error *ngIf="signupForm.controls['email'].hasError('email')">Email invalide</mat-error>
+                    </mat-form-field>
+
+                    <!-- Password -->
+                    <mat-form-field appearance="outline" class="full-width mb-12">
+                        <mat-label>Mot de passe</mat-label>
+                        <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Mot de passe" formControlName="password" autocomplete="new-password">
+                        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+                            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="signupForm.controls['password'].hasError('required')">Champ obligatoire</mat-error>
+                    </mat-form-field>
+
+                    <!-- Messages -->
+                    <mat-card *ngIf="errorMsg" class="error-alert" role="alert">
+                        <mat-icon class="error-icon" aria-hidden="true">error_outline</mat-icon>
+                        <span class="error-text">{{errorMsg}}</span>
+                    </mat-card>
+                    <mat-card *ngIf="successMsg" class="success-alert" role="alert">
+                        <mat-icon class="success-icon" aria-hidden="true">check_circle</mat-icon>
+                        <span class="success-text">{{successMsg}}</span>
+                    </mat-card>
+
+                    <!-- Button -->
+                    <button mat-raised-button color="primary" class="full-width mt-20" [disabled]="signupForm.invalid || loading">
+                        <span *ngIf="!loading">Créer mon compte</span>
+                        <mat-spinner *ngIf="loading" diameter="22" strokeWidth="3"></mat-spinner>
+                    </button>
+
+                    <!-- Lien déjà inscrit -->
+                    <div class="text-center" style="margin-top:18px;">
+                        <span>Déjà inscrit ?</span>
+                        <a [routerLink]="'/pages/signin'" style="color:#1976d2;font-weight:500;">Se connecter</a>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
