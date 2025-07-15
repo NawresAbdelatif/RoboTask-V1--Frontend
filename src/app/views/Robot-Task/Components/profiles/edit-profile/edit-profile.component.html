@@ -1,0 +1,120 @@
+
+<mat-card>
+    <div style="display: flex; align-items: center; gap: 32px; margin: 30px 0;">
+        <!-- Avatar à gauche -->
+        <div style="flex-shrink: 0;">
+            <div style="background: #e3f2fd; border-radius: 50%; width: 110px; height: 110px; display: flex; align-items: center; justify-content: center;">
+  <span class="material-icons" style="font-size: 88px; color: #1976d2;">
+    person
+  </span>
+            </div>
+
+
+        </div>
+        <!-- Infos à droite -->
+        <div style="flex:1;">
+            <div style="font-size: 1.8rem; font-weight: 600; margin-bottom: 18px;">Mon Profil</div>
+            <ng-container *ngIf="!editMode">
+                <p style="margin: 6px 0;"><strong>Nom:</strong> {{profile?.username}}</p>
+                <p style="margin: 6px 0;"><strong>Email:</strong> {{profile?.email}}</p>
+                <p style="margin: 6px 0;"><strong>Rôle(s):</strong>
+                    <ng-container *ngIf="profile?.roles">
+    <span *ngFor="let r of profile.roles; let last = last">
+      {{ getRoleLabel(r) }}<span *ngIf="!last">, </span>
+    </span>
+                    </ng-container>
+                </p>                <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                    <button mat-raised-button color="primary" (click)="editMode = true">
+                        Modifier
+                    </button>
+                </div>                <!-- Messages éventuels -->
+                <div *ngIf="message" class="alert"
+                     [ngClass]="{
+            'alert-success': message === 'Profil mis à jour !',
+            'alert-warning': message.includes('reconnecter'),
+            'alert-error': message.toLowerCase().includes('erreur')
+          }">
+                    <mat-icon *ngIf="message === 'Profil mis à jour !'">check_circle</mat-icon>
+                    <mat-icon *ngIf="message.includes('reconnecter')">warning</mat-icon>
+                    <mat-icon *ngIf="message.toLowerCase().includes('erreur')">error</mat-icon>
+                    {{message}}
+                </div>
+            </ng-container>
+
+            <form *ngIf="editMode" (ngSubmit)="saveProfile()">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Nom</mat-label>
+                    <input matInput [(ngModel)]="editData.username" name="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Email</mat-label>
+                    <input matInput [(ngModel)]="editData.email" name="email" type="email">
+                </mat-form-field>
+                <div>
+                    <button mat-stroked-button color="primary" type="submit">Enregistrer</button>
+                    <button mat-button type="button" (click)="editMode = false">Annuler</button>
+                </div>
+                <div *ngIf="message" class="alert"
+                     [ngClass]="{
+            'alert-success': message === 'Profil mis à jour !',
+            'alert-warning': message.includes('reconnecter'),
+            'alert-error': message.toLowerCase().includes('erreur')
+          }">
+                    <mat-icon *ngIf="message === 'Profil mis à jour !'">check_circle</mat-icon>
+                    <mat-icon *ngIf="message.includes('reconnecter')">warning</mat-icon>
+                    <mat-icon *ngIf="message.toLowerCase().includes('erreur')">error</mat-icon>
+                    {{message}}
+                </div>
+            </form>
+        </div>
+    </div>
+</mat-card>
+
+
+<mat-card class="mt-3">
+    <mat-card-title>Changer le mot de passe</mat-card-title>
+    <mat-card-content>
+        <form (ngSubmit)="changePassword()">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Ancien mot de passe</mat-label>
+                <input matInput
+                       [type]="showOldPassword ? 'text' : 'password'"
+                       [(ngModel)]="passwordData.oldPassword"
+                       name="oldPassword"
+                       required>
+                <button type="button" mat-icon-button matSuffix (click)="showOldPassword = !showOldPassword">
+                    <mat-icon>{{ showOldPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Nouveau mot de passe</mat-label>
+                <input matInput
+                       [type]="showNewPassword ? 'text' : 'password'"
+                       [(ngModel)]="passwordData.newPassword"
+                       name="newPassword"
+                       required>
+                <button type="button" mat-icon-button matSuffix (click)="showNewPassword = !showNewPassword">
+                    <mat-icon>{{ showNewPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+                </button>
+            </mat-form-field>
+
+
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+                <button mat-raised-button color="accent" type="submit">Changer</button>
+            </div>            <div *ngIf="passwordMessage" class="alert"
+                 [ngClass]="{
+       'alert-success': passwordMessage.toLowerCase().includes('succès') || passwordMessage.toLowerCase().includes('changé'),
+       'alert-warning': passwordMessage.includes('reconnecter'),
+       'alert-error': passwordMessage.toLowerCase().includes('erreur') || passwordMessage.toLowerCase().includes('incorrect')
+     }">
+                <mat-icon *ngIf="passwordMessage.toLowerCase().includes('succès') || passwordMessage.toLowerCase().includes('changé')">check_circle</mat-icon>
+                <mat-icon *ngIf="passwordMessage.includes('reconnecter')">warning</mat-icon>
+                <mat-icon *ngIf="passwordMessage.toLowerCase().includes('erreur') || passwordMessage.toLowerCase().includes('incorrect')">error</mat-icon>
+                {{passwordMessage}}
+            </div>
+
+        </form>
+    </mat-card-content>
+</mat-card>

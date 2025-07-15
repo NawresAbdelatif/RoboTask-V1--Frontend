@@ -1,0 +1,34 @@
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 12px 0;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 1.05em;
+  box-shadow: 0 1px 4px #0001;
+  animation: fadeIn 0.5s;
+}
+.alert mat-icon {
+  font-size: 24px;
+}
+.alert-success {
+  color: #216c2a;
+  background: #e6f8ea;
+  border: 1px solid #7bd18a;
+}
+.alert-warning {
+  color: #b86a00;
+  background: #fffbe7;
+  border: 1px solid #ffd980;
+}
+.alert-error {
+  color: #c62c2c;
+  background: #ffeaea;
+  border: 1px solid #e59595;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px);}
+  to   { opacity: 1; transform: none;}
+}
