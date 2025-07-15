@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { UserResponse } from "../../../Models/UserResponse.model";
 import { RobotTaskService } from "../../../Services/robot-task.service";
 import { getColorForUser } from "../../color.util";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-user-list',
@@ -18,9 +19,18 @@ export class AdminUserListComponent implements OnInit {
   roles: string[] = [];
   displayedColumns = ['username', 'email', 'roles'];
   selectedUserForRoleMenu: UserResponse | null = null;
-  allAvailableRoles: string[] = ['ROLE_OPERATOR', 'ROLE_ADMIN', 'ROLE_VISITOR'];
+  allAvailableRoles: string[] = [
+    'ROLE_ADMIN',
+    'ROLE_CREATOR',
+    'ROLE_EXECUTOR',
 
-  constructor(private userService: RobotTaskService) {}
+  ];
+  roleLabels: Record<string, string> = {
+    'ROLE_ADMIN': 'Admin',
+    'ROLE_CREATOR': 'Créateur',
+    'ROLE_EXECUTOR': 'Exécuteur',
+  };
+  constructor(private userService: RobotTaskService,private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.onResize();
@@ -62,9 +72,14 @@ export class AdminUserListComponent implements OnInit {
     this.userService.updateUserRole(user.id, role).subscribe({
       next: _ => {
         user.roles = [role];
+      },
+      error: err => {
+        this.errorMsg = err.error?.message || 'Erreur lors du changement de rôle';
       }
     });
   }
+
+
 
   onSearchChange(value: string) {
     this.search = value;
@@ -75,4 +90,39 @@ export class AdminUserListComponent implements OnInit {
     this.selectedRole = role;
     this.fetchUsers();
   }
+
+  displayRole(role: string): string {
+    return this.roleLabels[role] || role;
+  }
+
+
+  confirmDeleteUser(user: UserResponse) {
+    if (confirm(`Supprimer l'utilisateur ${user.username} ?`)) {
+      this.userService.deleteUser(user.id).subscribe({
+        next: () => {
+          this.users = this.users.filter(u => u.id !== user.id);
+          // Affiche la Snackbar stylée ici
+          this.snackBar.open(
+              `✅ Utilisateur "${user.username}" supprimé avec succès !`,
+              'Fermer',
+              {
+                duration: 4000,
+                panelClass: ['snackbar-success'] // Pour custom le style !
+              }
+          );
+        },
+        error: err => {
+          this.errorMsg = err.error?.message || 'Erreur lors de la suppression';
+          this.snackBar.open(
+              `❌ ${this.errorMsg}`,
+              'Fermer',
+              { duration: 4000, panelClass: ['snackbar-error'] }
+          );
+        }
+      });
+    }
+  }
+
 }
+
+

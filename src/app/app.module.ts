@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // import { GestureConfig } from '@angular/material/core';
 import { 
@@ -78,6 +79,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatProgressBarModule,
         CommonModule,
         MatIconModule,
+        MatSnackBarModule,
 ],
   declarations: [AppComponent, RobotTaskComponent, UserComponent,SignUpComponent],
   providers: [

@@ -11,6 +11,9 @@ import {LogEntry} from "../Models/log-entry.model";
 import { tap } from 'rxjs/operators';
 import {ApiResponse} from "../Models/api-response.model";
 import {UserResponse} from "../Models/UserResponse.model";
+import {UserProfile} from "../Models/user-profile.model";
+import {UserProfileUpdate} from "../Models/user-profile-update.model";
+import {PasswordChange} from "../Models/password-change.model";
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +45,9 @@ export class RobotTaskService {
   updateUserRole(userId: number, newRole: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/users/${userId}/role`, { role: newRole });
   }
-
+  deleteUser(userId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/users/${userId}`);
+  }
 
 
   signin(username: string, password: string): Observable<any> {
@@ -64,6 +69,18 @@ export class RobotTaskService {
         );
   }
 
+  getProfile(): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${this.apiUrl}/profile`);
+  }
+
+  updateProfile(profile: UserProfileUpdate): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/updateProfile`, profile);
+  }
+
+
+  changePassword(data: PasswordChange): Observable<any> {
+    return this.http.put(`${this.apiUrl}/password`, data);
+  }
   getRoles(): string[] {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user?.roles ?? [];

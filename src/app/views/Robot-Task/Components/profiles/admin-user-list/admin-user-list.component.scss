@@ -168,4 +168,32 @@
   .user-card { display: none !important; }
 }
 
+::ng-deep .snackbar-success {
+  background: #43a047;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-size: 1rem;
+}
+::ng-deep .snackbar-error {
+  background: #c62828;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-size: 1rem;
+}
+::ng-deep td.mat-cell {
+  vertical-align: middle;
+}
+
+th.mat-header-cell, td.mat-cell {
+  &.role-col {
+    width: 230px; // ou 200px ou 180px, ajuste selon ton besoin
+    min-width: 180px;
+    max-width: 240px;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
 

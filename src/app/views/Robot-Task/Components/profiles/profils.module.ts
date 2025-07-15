@@ -24,13 +24,21 @@ import {LogsComponent} from "./logs/logs.component";
 import {ProfilsRoutingModule} from "./profils-routing.module";
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AdminUserListComponent } from './admin-user-list/admin-user-list.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 @NgModule({
     declarations: [
         LogsComponent,
-        AdminUserListComponent
+        AdminUserListComponent,
+        EditProfileComponent
     ],
     imports: [
+        MatSnackBarModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
         CommonModule,
         MatTableModule,
         MatMenuModule,
