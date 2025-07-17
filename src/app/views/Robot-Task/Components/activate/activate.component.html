@@ -1,0 +1,23 @@
+<div class="page-wrap h-full slate">
+    <div class="session-form-hold">
+        <mat-card>
+            <mat-card-content>
+                <div class="text-center logo-section">
+                    <img width="120px" src="assets/images/Choix3.png" alt="RoboTask Logo" />
+                    <div class="signin-title">Activation du compte</div>
+                </div>
+
+                <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+                <div *ngIf="!loading">
+                    <div [ngClass]="{'success-message': success, 'error-message': !success}" style="margin-bottom: 18px;">
+                        {{ message }}
+                    </div>
+                    <button *ngIf="success" mat-raised-button color="primary" class="full-width" (click)="goToLogin()">
+                        Se connecter
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

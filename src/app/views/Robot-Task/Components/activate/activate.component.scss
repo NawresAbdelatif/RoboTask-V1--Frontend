@@ -1,0 +1,51 @@
+@import '../signin/signin.component.scss';
+
+.logo-section {
+  margin-bottom: 2rem;
+}
+.signin-title {
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 1.25rem;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  color: #3A4252;
+  letter-spacing: 0.5px;
+}
+.page-wrap, .slate, body {
+  min-height: 100vh;
+  background: #1976d2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.session-form-hold {
+  max-width: 370px;
+  margin: auto;
+  width: 100%;
+  box-shadow: 0 8px 32px #0002, 0 1.5px 7px #0001;
+  border-radius: 18px;
+}
+mat-card {
+  border-radius: 18px;
+}
+.success-message {
+  color: #388e3c;
+  background: #e8f5e9;
+  border: 1.5px solid #43a047;
+  border-radius: 7px;
+  padding: 13px;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.error-message {
+  color: #c62828;
+  background: #fff3e0;
+  border: 1.5px solid #ef5350;
+  border-radius: 7px;
+  padding: 13px;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.full-width { width: 100%; }
