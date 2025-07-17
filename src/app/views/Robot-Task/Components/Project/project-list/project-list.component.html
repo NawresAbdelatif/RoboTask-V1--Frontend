@@ -342,10 +342,13 @@
                             <mat-icon>edit</mat-icon>
                             <span>Modifier</span>
                         </button>
-                        <button mat-menu-item (click)="archiveProject(project)">
+                        <button mat-menu-item
+                                *ngIf="canEditOrDeleteProject(project)"
+                                (click)="archiveProject(project)">
                             <mat-icon>archive</mat-icon>
                             <span>Archiver</span>
                         </button>
+
                         <button mat-menu-item
                                 *ngIf="canEditOrDeleteProject(project)"
                                 (click)="deleteProject(project)">

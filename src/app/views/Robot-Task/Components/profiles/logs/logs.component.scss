@@ -1,46 +1,65 @@
-
-.min-w-600 { min-width: 600px; }
-.p-0 { padding: 0 !important; }
-.overflow-x-auto { overflow-x: auto; }
+.title-center {
+  font-size: 2rem;
+  margin: 2rem 0 1rem 0;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #23272f;
+}
 
 .logs-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 24px;
+  padding: 0 0 20px 0;
 }
 
 .logs-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px #0001;
   width: 98vw;
   max-width: 1200px;
   margin: 0 auto;
   padding: 24px;
   box-sizing: border-box;
-  background: #fff;
-  overflow-x: auto; // SCROLL horizontal si besoin
+  overflow-x: auto; // scroll horizontal si besoin sur petit écran
 }
 
 .logs-table {
   width: 100%;
-  min-width: 500px; // Largeur minimale pour le tableau
+  min-width: 500px;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+
+  th, td {
+    padding: 12px 14px;
+    font-size: 1rem;
+    vertical-align: middle;
+    text-align: left;
+  }
+  th {
+    background: #f7f7fa;
+    color: #23272f;
+    font-weight: 600;
+    letter-spacing: .03em;
+    font-size: 1.03rem;
+    border-bottom: 1px solid #eee;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  td {
+    border-bottom: 1px solid #f1f1f4;
+    background: #fff;
+  }
 }
 
-@media (max-width: 900px) {
-  .logs-card {
-    padding: 8px;
-    width: 100vw;
-    min-width: 0;
-  }
-  .logs-table {
-    min-width: 350px; // Diminue sur mobile
-  }
-}
-
-.title-center {
-  text-align: center;
-  margin-top: 32px;
-  font-size: 2rem;
-  letter-spacing: 1px;
+.logs-paginator {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
 }
 
 .loading {
@@ -50,29 +69,84 @@
   font-size: 18px;
 }
 
-.logs-paginator {
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-}
-
 ::ng-deep .mat-paginator {
-  background: #fafbfd;      // Couleur claire
-  border-radius: 16px;      // Angles arrondis
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08); // Ombre légère
+  background: #fafbfd;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   padding: 8px 24px;
 }
+
 ::ng-deep .logs-table th.mat-header-cell {
-  font-size:14px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.5px;
-  color: #263238;           // Optionnel : couleur foncée pour lisibilité
+  color: #263238;
   padding-top: 12px;
   padding-bottom: 12px;
 }
-@media (max-width: 800px) {
-  .logs-table th:nth-child(5), // IP
+
+@media (max-width: 900px) {
+  .logs-card {
+    padding: 8px;
+    width: 100vw;
+    min-width: 0;
+    border-radius: 11px;
+  }
+  .logs-table {
+    min-width: 350px;
+    font-size: 0.98rem;
+  }
+  // Masquer la colonne IP sur mobile
+  .logs-table th:nth-child(5),
   .logs-table td:nth-child(5) {
     display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .title-center {
+    font-size: 1.5rem;
+  }
+  .logs-card {
+    padding: 2px;
+  }
+}
+
+::ng-deep .mat-raised-button.mat-warn:hover {
+  background: #f44336 !important;
+  color: #fff !important;
+}
+.logs-mobile-list {
+  display: none;
+  @media (max-width: 800px) {
+    display: block;
+    width: 100%;
+  }
+}
+
+.log-mobile-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 16px 14px;
+  margin-bottom: 18px;
+  font-size: 1.01rem;
+}
+.log-mobile-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  .label {
+    color: #868ca0;
+    font-weight: 500;
+    font-size: 0.98em;
+    min-width: 100px;
+  }
+  .value {
+    color: #23272f;
+    font-weight: 600;
+    margin-left: 1rem;
+    text-align: right;
+    word-break: break-all;
   }
 }

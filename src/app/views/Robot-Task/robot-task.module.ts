@@ -15,7 +15,9 @@ import {TokenInterceptor} from "../../shared/interceptors/token.interceptor";
 import { LogsComponent } from './Components/profiles/logs/logs.component';
 import { VerifyEmailComponent } from './Components/verify-email/verify-email.component';
 import {MatIconModule} from "@angular/material/icon";
-
+import { ActivateComponent } from './Components/activate/activate.component';
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 
 @NgModule({
     imports: [
@@ -30,6 +32,8 @@ import {MatIconModule} from "@angular/material/icon";
         RouterLinkWithHref,
         MatIconModule,
 
+
+
     ],
 
     providers: [
@@ -42,6 +46,9 @@ import {MatIconModule} from "@angular/material/icon";
     declarations: [
       SignUpComponent,
       VerifyEmailComponent,
+      ActivateComponent,
+      ForgotPasswordComponent,
+      ResetPasswordComponent,
 
     ]
 })

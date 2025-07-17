@@ -30,13 +30,17 @@ export class AdminUserListComponent implements OnInit {
     'ROLE_CREATOR': 'Créateur',
     'ROLE_EXECUTOR': 'Exécuteur',
   };
+  successMsg = '';
+  currentUserId: number | null = null;
   constructor(private userService: RobotTaskService,private snackBar: MatSnackBar) {}
-
   ngOnInit() {
     this.onResize();
-    this.fetchUsers();
+    this.fetchUsers(); // affiche tous les utilisateurs au début
+    this.userService.getProfile().subscribe({
+      next: user => this.currentUserId = user.id,
+      error: _ => this.currentUserId = null
+    });
   }
-
   getColorForUser(username: string) {
     return getColorForUser(username);
   }
@@ -48,12 +52,11 @@ export class AdminUserListComponent implements OnInit {
 
   fetchUsers() {
     this.loading = true;
-    this.userService.getUsers(this.search, this.selectedRole).subscribe({
+    this.userService.getUsers(this.search.trim(), this.selectedRole).subscribe({
       next: users => {
         this.users = users;
-        // Correction sans erreur TS
         const allRoles: string[] = users.reduce((acc: string[], user) => {
-          if (user.roles && Array.isArray(user.roles)) {
+          if (Array.isArray(user.roles)) {
             acc.push(...user.roles.filter(r => typeof r === 'string'));
           }
           return acc;
@@ -121,6 +124,27 @@ export class AdminUserListComponent implements OnInit {
         }
       });
     }
+  }
+  toggleUserEnabled(user: UserResponse) {
+    const enabled = !user.enabled; // On inverse la valeur actuelle
+    this.userService.setUserEnabled(user.id, enabled).subscribe({
+      next: () => {
+        user.enabled = enabled;
+        this.snackBar.open(
+            `✅ Compte "${user.username}" ${enabled ? 'activé' : 'désactivé'} avec succès !`,
+            'Fermer',
+            { duration: 3000, panelClass: ['snackbar-success'] }
+        );
+      },
+      error: err => {
+        this.errorMsg = err.error?.message || "Erreur lors de l'activation/désactivation";
+        this.snackBar.open(
+            `❌ ${this.errorMsg}`,
+            'Fermer',
+            { duration: 4000, panelClass: ['snackbar-error'] }
+        );
+      }
+    });
   }
 
 }

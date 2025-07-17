@@ -40,6 +40,9 @@ import {ProjectListComponent} from "./views/Robot-Task/Components/Project/projec
 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {CommonModule} from "@angular/common";
+import {ActivateComponent} from "./views/Robot-Task/Components/activate/activate.component";
+import {ForgotPasswordComponent} from "./views/Robot-Task/Components/forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./views/Robot-Task/Components/reset-password/reset-password.component";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -81,7 +84,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatIconModule,
         MatSnackBarModule,
 ],
-  declarations: [AppComponent, RobotTaskComponent, UserComponent,SignUpComponent],
+  declarations: [AppComponent, RobotTaskComponent, UserComponent,SignUpComponent,ActivateComponent,ForgotPasswordComponent,ResetPasswordComponent],
   providers: [
     { provide: ErrorHandler, useClass: ErrorHandlerService },
     // { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },

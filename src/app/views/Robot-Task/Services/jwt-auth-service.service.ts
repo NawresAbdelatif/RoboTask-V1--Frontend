@@ -20,25 +20,25 @@ export class JwtAuthService {
     return JSON.parse(localStorage.getItem('user') || '{}');
   }
 
-  signin(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { username, password })
-        .pipe(
-            tap(response => {
-              // Stocke dans le localStorage
-              localStorage.setItem('token', response.token);
-              localStorage.setItem('user', JSON.stringify({
-                username: response.username,
-                roles: response.roles
-              }));
-              this._currentUser$.next({
-                username: response.username,
-                roles: response.roles
-              });
-            })
-        );
-  }
+    signin(email: string, password: string): Observable<any> {
+        return this.http.post(`${this.apiUrl}/login`, { email, password })
+            .pipe(
+                tap(response => {
+                    localStorage.setItem('token', response.token);
+                    localStorage.setItem('user', JSON.stringify({
+                        username: response.username,
+                        roles: response.roles
+                    }));
+                    this._currentUser$.next({
+                        username: response.username,
+                        roles: response.roles
+                    });
+                })
+            );
+    }
 
-  signup(userData: any): Observable<any> {
+
+    signup(userData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, userData);
   }
 

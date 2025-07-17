@@ -6,8 +6,12 @@ import {UserComponent} from "./views/Robot-Task/Components/signin/signin.compone
 import {SignUpComponent} from "./views/Robot-Task/Components/signup/signup.component";
 import {LogsComponent} from "./views/Robot-Task/Components/profiles/logs/logs.component";
 import {VerifyEmailComponent} from "./views/Robot-Task/Components/verify-email/verify-email.component";
+import {ActivateComponent} from "./views/Robot-Task/Components/activate/activate.component";
+import {ForgotPasswordComponent} from "./views/Robot-Task/Components/forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./views/Robot-Task/Components/reset-password/reset-password.component";
 
 export const rootRouterConfig: Routes = [
+
 
   {
     path: '',
@@ -22,6 +26,20 @@ export const rootRouterConfig: Routes = [
   {
     path: 'pages/signup',
     component: SignUpComponent,
+  },
+
+  {
+    path: 'activate',
+    component: ActivateComponent,
+  },
+
+  {
+    path: 'pages/forgot-password',
+    component: ForgotPasswordComponent,
+  },
+  {
+    path: 'pages/reset-password',
+    component: ResetPasswordComponent,
   },
   // {
   //   path: '',
@@ -64,6 +82,7 @@ export const rootRouterConfig: Routes = [
       },
 
       { path: 'verify-email', component: VerifyEmailComponent },
+
 
       {
         path: 'others',

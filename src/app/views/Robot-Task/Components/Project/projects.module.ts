@@ -29,6 +29,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectAddCollaboratorDialogComponent } from './project-add-collaborator-dialog/project-add-collaborator-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ProjectArchivedListComponent } from './project-archived-list/project-archived-list.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
         ProjectEditDialogComponent,
         ConfirmDialogComponent,
         ProjectDetailComponent,
-        ProjectAddCollaboratorDialogComponent
+        ProjectAddCollaboratorDialogComponent,
+        ProjectArchivedListComponent
     ],
     imports: [
         CommonModule,

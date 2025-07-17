@@ -10,4 +10,5 @@ export interface ProjectResponse {
     creatorUsername: string;
     collaboratorsUsernames: string[];
     creator?: { username: string }
+    archived: boolean;
 }

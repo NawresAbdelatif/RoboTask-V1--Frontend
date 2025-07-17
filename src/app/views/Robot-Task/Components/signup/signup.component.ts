@@ -44,12 +44,9 @@ export class SignUpComponent implements OnInit {
 
     this.robotTaskService.signup(userPayload).subscribe({
       next: (res: ApiResponse) => {
-        this.successMsg = res.message;
+        this.successMsg = "Merci de vérifier votre e-mail pour activer votre compte avant de vous connecter.";
         this.loading = false;
-        setTimeout(() => {
-          this.successMsg = '';
-          this.router.navigate(['/pages/signin']);
-        }, 1800);
+
       },
       error: err => {
         this.loading = false;

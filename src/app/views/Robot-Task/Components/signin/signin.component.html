@@ -9,11 +9,11 @@
 
                 <form [formGroup]="signinForm" (ngSubmit)="signin()">
                     <mat-form-field appearance="outline" class="full-width mb-12">
-                        <mat-label>Nom d'utilisateur</mat-label>
-                        <input matInput placeholder="Nom d'utilisateur" formControlName="username" autocomplete="username">
-                        <mat-icon matSuffix>person</mat-icon>
-                        <mat-error *ngIf="signinForm.controls['username'].hasError('required')">Champ obligatoire</mat-error>
+                        <mat-label>Adresse e-mail</mat-label>
+                        <input matInput type="email" formControlName="email" autocomplete="email">
+                        <mat-icon matSuffix>mail</mat-icon>
                     </mat-form-field>
+
 
                     <mat-form-field appearance="outline" class="full-width mb-12">
                         <mat-label>Mot de passe</mat-label>
@@ -26,7 +26,7 @@
 
                     <div style="display:flex;align-items:center;justify-content:space-between;">
                         <mat-checkbox formControlName="rememberMe">Se souvenir de moi</mat-checkbox>
-                        <a [routerLink]="'/sessions/forgot-password'" style="font-size:0.96em;">Mot de passe oublié ?</a>
+                        <a [routerLink]="'/pages/forgot-password'" style="font-size:0.96em;">Mot de passe oublié ?</a>
                     </div>
 
                     <button mat-raised-button color="primary" class="full-width mt-20" [disabled]="signinForm.invalid || loading">

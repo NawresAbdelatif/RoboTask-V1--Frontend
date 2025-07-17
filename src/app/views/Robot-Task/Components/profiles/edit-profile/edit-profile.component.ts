@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {UserProfile} from "../../../Models/user-profile.model";
-import {UserProfileUpdate} from "../../../Models/user-profile-update.model";
-import {PasswordChange} from "../../../Models/password-change.model";
-import {RobotTaskService} from "../../../Services/robot-task.service";
+import { Router } from '@angular/router';
+import { UserProfile } from '../../../Models/user-profile.model';
+import { UserProfileUpdate } from '../../../Models/user-profile-update.model';
+import { PasswordChange } from '../../../Models/password-change.model';
+import { RobotTaskService } from '../../../Services/robot-task.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -20,7 +21,10 @@ export class EditProfileComponent implements OnInit {
   showOldPassword = false;
   showNewPassword = false;
 
-  constructor(private robotTaskService: RobotTaskService) {}
+  constructor(
+      private robotTaskService: RobotTaskService,
+      private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.robotTaskService.getProfile().subscribe({
@@ -35,11 +39,13 @@ export class EditProfileComponent implements OnInit {
   saveProfile() {
     this.robotTaskService.updateProfile(this.editData).subscribe({
       next: (data: any) => {
-        if (data.token || (this.editData.username !== this.profile?.username)) {
+        const usernameChanged = this.editData.username !== this.profile?.username;
+
+        if (usernameChanged) {
           this.message = "Votre nom d'utilisateur a été modifié. Merci de vous reconnecter.";
           setTimeout(() => {
             localStorage.clear();
-            window.location.href = '/login';
+            this.router.navigate(['/pages/signin']);
           }, 2000);
         } else if (data.profile) {
           this.profile = data.profile;
@@ -50,11 +56,11 @@ export class EditProfileComponent implements OnInit {
         }
       },
       error: (err) => {
-        if (err.status === 401 || err.status === 403 || err.status === 400) {
-          this.message = "Votre nom d'utilisateur a été modifié. Merci de vous reconnecter.";
+        if ([400, 401, 403].includes(err.status)) {
+          this.message = "Votre profil a été mis à jour. Merci de vous reconnecter.";
           setTimeout(() => {
             localStorage.clear();
-            window.location.href = '/pages/signin';
+            this.router.navigate(['/pages/signin']);
           }, 2000);
         } else {
           this.message = err.error?.message || 'Erreur de mise à jour';
@@ -69,7 +75,7 @@ export class EditProfileComponent implements OnInit {
         this.passwordMessage = 'Mot de passe changé, veuillez vous reconnecter.';
         setTimeout(() => {
           localStorage.clear();
-          window.location.href = '/pages/signin';
+          this.router.navigate(['/pages/signin']);
         }, 2000);
       },
       error: (err) => {
@@ -79,19 +85,12 @@ export class EditProfileComponent implements OnInit {
   }
 
   getRoleLabel(role: string): string {
-    switch(role) {
-      case 'ROLE_ADMIN':
-        return 'ADMIN';
-      case 'ROLE_EXECUTOR':
-        return 'Exécuteur';
-      case 'ROLE_CREATOR':
-        return 'Créateur';
-      case 'ROLE_VISITOR':
-        return 'Visiteur';
-      default:
-        return role;
+    switch (role) {
+      case 'ROLE_ADMIN': return 'ADMIN';
+      case 'ROLE_EXECUTOR': return 'Exécuteur';
+      case 'ROLE_CREATOR': return 'Créateur';
+      case 'ROLE_VISITOR': return 'Visiteur';
+      default: return role;
     }
   }
-
-
 }

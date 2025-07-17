@@ -14,8 +14,6 @@ export class LogsComponent implements OnInit {
   displayedColumns: string[] = ['timestamp', 'level', 'message', 'username', 'ip'];
   dataSource = new MatTableDataSource<LogEntry>([]);
   loading = true;
-
-
   page = 0;
   size = 8;
   totalElements = 0;
@@ -23,10 +21,20 @@ export class LogsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private logService: RobotTaskService) {}
-
+  isMobile = false;
   ngOnInit() {
+    this.checkMobile();
+    window.addEventListener('resize', this.checkMobile.bind(this));
     this.loadLogs();
   }
+  checkMobile() {
+    this.isMobile = window.innerWidth < 800;
+  }
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.checkMobile);
+  }
+
+
 
   loadLogs() {
     this.loading = true;
@@ -59,5 +67,14 @@ export class LogsComponent implements OnInit {
     }
   }
 
+  clearAllLogs() {
+    if (confirm('Voulez-vous vraiment supprimer tous les logs ?')) {
+      this.logService.clearLogs().subscribe({
+        next: () => {
+          this.loadLogs();
+        }
+      });
+    }
+  }
 
 }

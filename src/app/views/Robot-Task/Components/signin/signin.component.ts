@@ -35,7 +35,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.signinForm = new UntypedFormGroup({
-      username: new UntypedFormControl('', Validators.required),
+      email: new UntypedFormControl('', Validators.required),
       password: new UntypedFormControl('', Validators.required),
       rememberMe: new UntypedFormControl(true)
     });
@@ -86,12 +86,12 @@ export class UserComponent implements OnInit {
     this.loading = true;
     this.errorMsg = '';
 
-    this.jwtAuth.signin(signinData.username, signinData.password)
+    this.jwtAuth.signin(signinData.email, signinData.password)
         .subscribe({
           next: response => {
             localStorage.setItem('token', response.token);
             localStorage.setItem('user', JSON.stringify({
-              username: response.username,
+              email: response.email,
               roles: response.roles
             }));
             this.router.navigateByUrl('dashboard/analytics');

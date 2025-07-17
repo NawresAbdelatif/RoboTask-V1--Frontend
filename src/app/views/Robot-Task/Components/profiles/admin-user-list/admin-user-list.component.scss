@@ -15,7 +15,12 @@
   font-weight: 700;
   letter-spacing: 0.1px;
 }
-
+.responsive-user-table th.mat-header-cell {
+  font-size: 1rem;
+  font-weight: 600;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
 .user-card {
   display: flex;
   align-items: center;

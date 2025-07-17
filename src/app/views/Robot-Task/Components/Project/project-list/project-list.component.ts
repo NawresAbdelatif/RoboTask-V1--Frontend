@@ -208,7 +208,6 @@ export class ProjectListComponent implements OnInit {
     this.router.navigate(['/projets', project.id]);
   }
 
-  archiveProject(project: any) { console.log('Archiver', project); }
   canEditOrDeleteProject(project: ProjectResponse): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.username === project.creatorUsername || (user.roles && user.roles.includes('ROLE_ADMIN'));
@@ -216,4 +215,19 @@ export class ProjectListComponent implements OnInit {
   getColorForUser(username: string): string {
     return getColorForUser(username);
   }
+
+  archiveProject(project: ProjectResponse) {
+    this.projectService.archiveProject(project.id).subscribe({
+      next: () => {
+        this.successMsg = "Projet archivé avec succès!";
+        this.loadProjects();
+        setTimeout(() => this.successMsg = '', 3000);
+      },
+      error: err => {
+        this.errorMsg = err.error?.message || "Erreur lors de l'archivage";
+        setTimeout(() => this.errorMsg = '', 4000);
+      }
+    });
+  }
+
 }

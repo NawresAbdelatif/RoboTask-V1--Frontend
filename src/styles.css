@@ -1,3 +1,10 @@
+html, body, app-root, .page-wrap, .slate {
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: #212844;
+}
 /* You can add global styles to this file, and also import other style files */
 
 

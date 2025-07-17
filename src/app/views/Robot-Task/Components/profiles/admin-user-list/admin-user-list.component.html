@@ -4,59 +4,96 @@
 <div class="filters" style="display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
     <mat-form-field appearance="outline">
         <mat-label>Rechercher par nom ou email</mat-label>
-        <input matInput [(ngModel)]="search" (ngModelChange)="onSearchChange($event)" placeholder="Nom ou e-mail" />
+        <input
+                matInput
+                [(ngModel)]="search"
+                (ngModelChange)="onSearchChange($event)"
+                placeholder="Nom ou e-mail"
+        />
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
+
     <mat-form-field appearance="outline">
         <mat-label>Filtrer par rôle</mat-label>
         <mat-select [(value)]="selectedRole" (selectionChange)="onRoleChange($event.value)">
             <mat-option value="all">Tous les rôles</mat-option>
-            <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+            <mat-option *ngFor="let role of allAvailableRoles" [value]="role">
+                {{ displayRole(role) }}
+            </mat-option>
         </mat-select>
     </mat-form-field>
 </div>
+
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <div *ngIf="errorMsg" class="text-danger">{{ errorMsg }}</div>
 
-<!-- TABLEAU pour PC -->
 <table *ngIf="isDesktop && !loading && users.length"
        mat-table [dataSource]="users"
        class="mat-elevation-z1 responsive-user-table">
+
+    <!-- Avatar -->
     <ng-container matColumnDef="avatar">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let user">
-    <span class="user-avatar" [ngStyle]="{'background': getColorForUser(user.username)}">
-      {{ user.username ? user.username[0].toUpperCase() : '?' }}
-    </span>
+      <span class="user-avatar" [ngStyle]="{'background': getColorForUser(user.username)}">
+        {{ user.username ? user.username[0].toUpperCase() : '?' }}
+      </span>
         </td>
     </ng-container>
+
+    <!-- Nom -->
     <ng-container matColumnDef="username">
         <th mat-header-cell *matHeaderCellDef>Nom</th>
         <td mat-cell *matCellDef="let user">
             <span class="user-name">{{ user.username }}</span>
         </td>
     </ng-container>
+
+    <!-- Email -->
     <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef>Email</th>
         <td mat-cell *matCellDef="let user">{{ user.email }}</td>
     </ng-container>
+
+    <!-- Rôle -->
     <ng-container matColumnDef="roles">
         <th mat-header-cell *matHeaderCellDef>Rôle</th>
-        <td mat-cell *matCellDef="let user" style="display:flex;align-items:center;gap:8px;">
+        <td mat-cell *matCellDef="let user">
             <button mat-button [matMenuTriggerFor]="roleMenu" (click)="selectedUserForRoleMenu = user">
                 <mat-chip class="role-chip">
                     {{ displayRole(user.roles[0]) }}
                     <mat-icon>arrow_drop_down</mat-icon>
                 </mat-chip>
             </button>
-            <!-- Bouton de suppression -->
+        </td>
+    </ng-container>
+
+    <!-- Activation -->
+    <ng-container matColumnDef="activation">
+        <th mat-header-cell *matHeaderCellDef>Statut</th>
+        <td mat-cell *matCellDef="let user">
+            <mat-slide-toggle
+                    [checked]="user.enabled"
+                    (change)="toggleUserEnabled(user)"
+                    color="primary"
+                    [disabled]="user.id === currentUserId"
+            >
+                {{ user.enabled ? 'Activé' : 'Désactivé' }}
+            </mat-slide-toggle>
+        </td>
+    </ng-container>
+
+    <!-- Suppression -->
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef>Suppression</th>
+        <td mat-cell *matCellDef="let user">
             <button mat-icon-button color="warn" (click)="confirmDeleteUser(user)">
                 <mat-icon>delete</mat-icon>
             </button>
         </td>
     </ng-container>
 
-    <!-- Mat-Menu UNIQUE ! -->
+    <!-- MENU des rôles (un seul) -->
     <mat-menu #roleMenu="matMenu">
         <button mat-menu-item *ngFor="let role of allAvailableRoles"
                 (click)="setUserRole(selectedUserForRoleMenu, role)">
@@ -65,24 +102,32 @@
         </button>
     </mat-menu>
 
-    <tr mat-header-row *matHeaderRowDef="['avatar','username','email','roles']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['avatar','username','email','roles'];"></tr>
+    <!-- HEADER et ROW -->
+    <tr mat-header-row *matHeaderRowDef="['avatar','username','email','roles','activation','delete']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['avatar','username','email','roles','activation','delete'];"></tr>
 </table>
 
 <!-- LISTE pour MOBILE -->
 <div *ngIf="!isDesktop && !loading && users.length">
     <div *ngFor="let user of users" class="user-card">
-        <span class="user-avatar" [ngStyle]="{'background': getColorForUser(user.username)}">
-            {{ user.username ? user.username[0].toUpperCase() : '?' }}
-        </span>
+    <span class="user-avatar" [ngStyle]="{'background': getColorForUser(user.username)}">
+        {{ user.username ? user.username[0].toUpperCase() : '?' }}
+    </span>
         <div class="user-info">
             <div class="user-name">{{ user.username }}</div>
             <div class="user-email">{{ user.email }}</div>
             <div class="user-role">
                 <mat-chip class="role-chip">{{ displayRole(user.roles[0]) }}</mat-chip>
             </div>
+            <mat-slide-toggle
+                    [checked]="user.enabled"
+                    (change)="toggleUserEnabled(user)"
+                    color="primary"
+                    [disabled]="user.id === currentUserId"
+                    style="margin-top:8px;">
+                {{ user.enabled ? 'Activé' : 'Désactivé' }}
+            </mat-slide-toggle>
         </div>
-        <!-- Bouton suppression mobile -->
         <button mat-icon-button color="warn" (click)="confirmDeleteUser(user)">
             <mat-icon>delete</mat-icon>
         </button>

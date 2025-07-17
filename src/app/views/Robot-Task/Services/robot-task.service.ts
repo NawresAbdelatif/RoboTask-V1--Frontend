@@ -35,6 +35,13 @@ export class RobotTaskService {
     return JSON.parse(localStorage.getItem('user') || '{}');
   }
 
+  // getUsers(query: string = '', role: string = ''): Observable<UserResponse[]> {
+  //   let params = new HttpParams();
+  //   if (query) params = params.set('q', query);
+  //   if (role && role !== 'all') params = params.set('role', role);
+  //   return this.http.get<UserResponse[]>(`${this.apiUrl}/users`, { params });
+  // }
+
   getUsers(query: string = '', role: string = ''): Observable<UserResponse[]> {
     let params = new HttpParams();
     if (query) params = params.set('q', query);
@@ -42,25 +49,27 @@ export class RobotTaskService {
     return this.http.get<UserResponse[]>(`${this.apiUrl}/users`, { params });
   }
 
+
   updateUserRole(userId: number, newRole: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/users/${userId}/role`, { role: newRole });
   }
   deleteUser(userId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/users/${userId}`);
   }
+  setUserEnabled(userId: number, enabled: boolean) {
+    return this.http.put(`${this.apiUrl}/users/${userId}/enabled`, { enabled });
+  }
 
 
-  signin(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { username, password })
+  signin(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, { email, password })
         .pipe(
             tap(response => {
-              // Stocke dans le localStorage
               localStorage.setItem('token', response.token);
               localStorage.setItem('user', JSON.stringify({
                 username: response.username,
                 roles: response.roles
               }));
-              // Notifie tous les abonnés du changement d'utilisateur
               this._currentUser$.next({
                 username: response.username,
                 roles: response.roles
@@ -100,10 +109,21 @@ export class RobotTaskService {
     return this.http.get<ApiResponse>(`${this.apiUrl}/verify?token=${token}`);
   }
 
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/forgot-password`, { email });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/reset-password?token=${token}`, { password: newPassword });
+  }
+
   //////////////////////Logs///////////////////////
 
   getLogs(page = 0, size = 8): Observable<{ content: LogEntry[], totalElements: number }> {
     return this.http.get<{ content: LogEntry[], totalElements: number }>(`${this.apilogsUrl}?page=${page}&size=${size}`);
+  }
+  clearLogs(): Observable<void> {
+    return this.http.delete<void>(`${this.apilogsUrl}/clear`);
   }
 
   //////////////////////Projects///////////////////////
@@ -144,6 +164,20 @@ export class RobotTaskService {
   getProjectsCountByStatus() {
     return this.http.get<{ [status: string]: number }>(`${this.apiprojectUrl}/stats/by-status`);
   }
+
+  archiveProject(projectId: number): Observable<any> {
+    return this.http.put(`${this.apiprojectUrl}/${projectId}/archive`, {});
+  }
+
+  getArchivedProjects(page: number = 0, size: number = 5): Observable<{ content: ProjectResponse[], totalElements: number }> {
+    return this.http.get<{ content: ProjectResponse[], totalElements: number }>(`${this.apiprojectUrl}/archived?page=${page}&size=${size}`);
+  }
+
+  unarchiveProject(projectId: number): Observable<any> {
+    return this.http.put(`${this.apiprojectUrl}/${projectId}/unarchive`, {});
+  }
+
+
   ////////////////////Notification////////////////////
 
   getNotifications(): Observable<Notification[]> {

@@ -45,6 +45,7 @@ export class NavigationService {
       icon: 'work',
       sub: [
         { name: 'Liste Projets', state: 'projets/list' },
+        { name: 'Projets Archivés', state: 'projets/archived' }
         // { name: 'Créer Projet', state: 'projets/create' }
       ]
     },
