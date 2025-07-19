@@ -3,8 +3,8 @@ import { NavigationService } from "../../../shared/services/navigation.service";
 import { ThemeService } from "../../services/theme.service";
 import { Subscription } from "rxjs";
 import { ILayoutConf, LayoutService } from "app/shared/services/layout.service";
-import { JwtAuthService } from "app/shared/services/auth/jwt-auth.service";
-import {getColorForUser} from "../../../views/Robot-Task/Components/color.util";
+import { JwtAuthService } from "../../../views/Robot-Task/Services/jwt-auth-service.service"
+import { getColorForUser } from "../../../views/Robot-Task/Components/color.util";
 
 @Component({
   selector: "app-sidebar-side",
@@ -17,6 +17,7 @@ export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
   private menuItemsSub: Subscription;
   public layoutConf: ILayoutConf;
   userName: string = '';
+  avatarLetter: string = 'U';
   avatarBgColor = '#5e72e4';
   avatarTextColor = '#fff';
 
@@ -29,7 +30,8 @@ export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     const user = this.getUser();
-    this.userName = user?.username || 'User';
+    this.userName = user?.username || user?.email || 'Utilisateur';
+    this.avatarLetter = this.userName[0]?.toUpperCase() || 'U';
     this.avatarBgColor = getColorForUser(this.userName);
 
     this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;

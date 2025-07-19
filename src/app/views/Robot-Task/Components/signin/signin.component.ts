@@ -89,11 +89,6 @@ export class UserComponent implements OnInit {
     this.jwtAuth.signin(signinData.email, signinData.password)
         .subscribe({
           next: response => {
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('user', JSON.stringify({
-              email: response.email,
-              roles: response.roles
-            }));
             this.router.navigateByUrl('dashboard/analytics');
             this.loading = false;
           },

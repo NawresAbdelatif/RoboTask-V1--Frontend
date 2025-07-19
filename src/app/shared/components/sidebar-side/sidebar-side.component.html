@@ -49,14 +49,15 @@
         letter-spacing:1px;
       "
                   >
-                      {{ (userName ? userName[0] : 'U') | uppercase }}
+                      {{ avatarLetter }}
                   </div>
               </div>
               <div class="ml-16">
     <span class="app-user-name mb-4">
-      {{ getUser().username }}
-    </span>
-            <!-- Small buttons -->
+  {{ userName }}
+</span>
+
+                  <!-- Small buttons -->
             <div class="app-user-controls">
               <button
                 class="text-muted"

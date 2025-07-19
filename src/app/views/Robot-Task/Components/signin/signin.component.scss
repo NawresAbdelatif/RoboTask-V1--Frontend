@@ -23,7 +23,7 @@
   justify-content: center;
 }
 .session-form-hold {
-  max-width: 370px;
+  max-width: 420px;
   margin: auto;
   width: 100%;
   /* Optionnel : ajouter un effet de shadow pour la carte */
@@ -56,3 +56,28 @@ mat-card {
     flex: 1;
   }
 }
+.signup-bottom-link {
+  font-size: 1rem;
+  font-family: inherit;
+  color: #232A37;
+  margin-top: 18px;
+  display: block;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.signup-bottom-link a {
+  color: #1976d2;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 3px;
+}
+.signup-bottom-link a:hover {
+  text-decoration: underline;
+}
+::ng-deep .mat-form-field-label {
+  font-size: 1.2rem !important;
+  color: #2d3b52 !important;
+  letter-spacing: 0.05em;
+}
+

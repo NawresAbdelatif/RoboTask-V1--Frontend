@@ -3,6 +3,7 @@ import { UserResponse } from "../../../Models/UserResponse.model";
 import { RobotTaskService } from "../../../Services/robot-task.service";
 import { getColorForUser } from "../../color.util";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-admin-user-list',
@@ -32,6 +33,12 @@ export class AdminUserListComponent implements OnInit {
   };
   successMsg = '';
   currentUserId: number | null = null;
+
+  totalItems = 0;
+  totalPages = 0;
+  currentPage = 0;
+  pageSize = 10;
+
   constructor(private userService: RobotTaskService,private snackBar: MatSnackBar) {}
   ngOnInit() {
     this.onResize();
@@ -52,11 +59,14 @@ export class AdminUserListComponent implements OnInit {
 
   fetchUsers() {
     this.loading = true;
-    this.userService.getUsers(this.search.trim(), this.selectedRole).subscribe({
-      next: users => {
-        this.users = users;
-        const allRoles: string[] = users.reduce((acc: string[], user) => {
-          if (Array.isArray(user.roles)) {
+    this.userService.getUsers(this.search.trim(), this.selectedRole, this.currentPage, this.pageSize).subscribe({
+      next: res => {
+        this.users = res.users;
+        this.totalItems = res.totalItems;
+        this.totalPages = res.totalPages;
+        this.currentPage = res.currentPage;
+        const allRoles: string[] = this.users.reduce((acc: string[], user) => {
+          if (user.roles && Array.isArray(user.roles)) {
             acc.push(...user.roles.filter(r => typeof r === 'string'));
           }
           return acc;
@@ -70,6 +80,7 @@ export class AdminUserListComponent implements OnInit {
       }
     });
   }
+
   setUserRole(user: UserResponse, role: string) {
     if (user.roles.includes(role)) return;
     this.userService.updateUserRole(user.id, role).subscribe({
@@ -145,6 +156,16 @@ export class AdminUserListComponent implements OnInit {
         );
       }
     });
+  }
+
+  onPageChange(newPage: number) {
+    this.currentPage = newPage;
+    this.fetchUsers();
+  }
+  onPaginatorChange(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.fetchUsers();
   }
 
 }

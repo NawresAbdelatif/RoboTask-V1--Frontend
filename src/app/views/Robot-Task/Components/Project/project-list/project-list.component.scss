@@ -40,20 +40,19 @@
   align-items: center;
 }
 
-/* Centrer la ligne “items per page” */
+
 ::ng-deep .mat-paginator-page-size {
   justify-content: center !important;
   width: 100%;
 }
 
-/* Centrer aussi le label */
+
 ::ng-deep .mat-paginator-range-label {
   text-align: center !important;
   width: 100%;
   display: block;
 }
 
-/* Mettre toutes les lignes du paginator en colonne sur mobile */
 @media (max-width: 600px) {
   ::ng-deep .mat-paginator {
     flex-direction: column !important;

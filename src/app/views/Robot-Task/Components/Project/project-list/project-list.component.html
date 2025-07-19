@@ -265,16 +265,18 @@
         <mat-icon class="success-icon" aria-hidden="true">check_circle</mat-icon>
         <span class="success-text">{{successMsg}}</span>
     </mat-card>
-    <mat-card *ngIf="errorMsg" class="error-alert" role="alert">
+    <mat-card *ngIf="errorMsg && projects.length > 0" class="error-alert" role="alert">
         <mat-icon class="error-icon" aria-hidden="true">error_outline</mat-icon>
         <span class="error-text">{{errorMsg}}</span>
     </mat-card>
 
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
-    <div *ngIf="errorMsg" class="text-red text-center">{{errorMsg}}</div>
-    <div *ngIf="!loading && projects.length === 0" class="text-center">
-        Aucun projet trouvé.
+    <div *ngIf="errorMsg && projects.length > 0" class="text-red text-center">{{errorMsg}}</div>
+    <div *ngIf="!loading && projects.length === 0" class="text-center" style="margin: 40px auto; font-size: 1.2rem; color: #888;">
+        <mat-icon style="font-size: 48px; color: #ccc;">folder_off</mat-icon>
+        <div style="margin-top: 10px;">Aucun projet trouvé.</div>
     </div>
+
 
     <div *ngFor="let project of projects; let projIdx = index">
         <mat-card

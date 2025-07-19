@@ -42,12 +42,16 @@ export class RobotTaskService {
   //   return this.http.get<UserResponse[]>(`${this.apiUrl}/users`, { params });
   // }
 
-  getUsers(query: string = '', role: string = ''): Observable<UserResponse[]> {
-    let params = new HttpParams();
-    if (query) params = params.set('q', query);
-    if (role && role !== 'all') params = params.set('role', role);
-    return this.http.get<UserResponse[]>(`${this.apiUrl}/users`, { params });
+  getUsers(search: string, role: string, page: number = 0, size: number = 10) {
+    const params = {
+      search,
+      role,
+      page: page.toString(),
+      size: size.toString()
+    };
+    return this.http.get<any>(`${this.apiUrl}/users`, { params });
   }
+
 
 
   updateUserRole(userId: number, newRole: string): Observable<any> {
@@ -152,6 +156,9 @@ export class RobotTaskService {
   addCollaborator(projectId: number, collaboratorUsername: string): Observable<any> {
     return this.http.post(`${this.apiprojectUrl}/${projectId}/add-collaborator?collaboratorUsername=${encodeURIComponent(collaboratorUsername)}`, {});
   }
+  searchCollaborators(q: string) {
+    return this.http.get<{username: string, email: string}[]>(`${this.apiprojectUrl}/collaborators/search`, { params: { q } });
+  }
 
   searchProjects(search: string, status?: string, page: number = 0, size: number = 5): Observable<{ content: ProjectResponse[], totalElements: number }> {
     let url = `${this.apiprojectUrl}/search?search=${encodeURIComponent(search)}&page=${page}&size=${size}`;
@@ -187,12 +194,11 @@ export class RobotTaskService {
   getUnreadCount(): Observable<{ unreadCount: number }> {
     return this.http.get<{ unreadCount: number }>(`${this.apinotificationUrl}/unread-count`);
   }
+
   markAllAsRead(): Observable<any> {
     return this.http.post(`${this.apinotificationUrl}/mark-all-read`, {});
   }
-  getUnreadNotifications(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(this.apinotificationUrl + '/unread');
-  }
+
   clearNotifications(): Observable<any> {
     return this.http.post(`${this.apinotificationUrl}/clear`, {});
   }

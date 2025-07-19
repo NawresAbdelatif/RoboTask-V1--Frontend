@@ -27,7 +27,7 @@ export class ProjectListComponent implements OnInit {
   searchTerm: string = '';
   statusFilter: string = '';
   private refreshSub?: Subscription;
-
+  selectedProject: ProjectResponse | null = null;
 
   constructor(private dialog: MatDialog,
               private projectService: RobotTaskService,
@@ -67,6 +67,9 @@ export class ProjectListComponent implements OnInit {
   //
   loadProjects() {
     this.loading = true;
+    this.errorMsg = '';
+    this.successMsg = '';
+
     this.projectService.searchProjects(
         this.searchTerm,
         this.statusFilter,
@@ -77,17 +80,21 @@ export class ProjectListComponent implements OnInit {
         this.projects = data.content;
         this.totalElements = data.totalElements;
         this.loading = false;
+
+        // Ajuster la pagination si page vide
         if (this.projects.length === 0 && this.page > 0) {
           this.page--;
           this.loadProjects();
         }
       },
-      error: () => {
-        this.errorMsg = "Erreur lors du chargement des projets";
+      error: (err) => {
+        // Affiche uniquement les vraies erreurs serveur
+        this.errorMsg = err.error?.message || "Erreur lors du chargement des projets";
         this.loading = false;
       }
     });
   }
+
 
   onSearchChange() {
     this.page = 0;
@@ -129,8 +136,14 @@ export class ProjectListComponent implements OnInit {
         this.projectService.createProject(result).subscribe({
           next: () => {
             this.successMsg = "Projet créé avec succès !";
+
+            // Afficher la liste (sans réinitialiser le message ici)
             this.loadProjects();
-            setTimeout(() => this.successMsg = '', 3000);
+
+            // On laisse 3s pour voir le message
+            setTimeout(() => {
+              this.successMsg = '';
+            }, 3000);
           },
           error: err => {
             this.errorMsg = err.error?.message || "Erreur lors de la création du projet";
@@ -208,10 +221,16 @@ export class ProjectListComponent implements OnInit {
     this.router.navigate(['/projets', project.id]);
   }
 
+  isAdmin(): boolean {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.roles?.some((r: string) => r.toUpperCase() === 'ROLE_ADMIN');
+  }
+
   canEditOrDeleteProject(project: ProjectResponse): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.username === project.creatorUsername || (user.roles && user.roles.includes('ROLE_ADMIN'));
+    return user.username === project.creatorUsername || this.isAdmin();
   }
+
   getColorForUser(username: string): string {
     return getColorForUser(username);
   }

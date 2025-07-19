@@ -25,28 +25,32 @@
   .success-text { flex: 1; }
 }
 .logo-section {
-  margin-bottom: 2rem;
+  margin-bottom: 0rem;
 }
+.logo-section img {
+  margin-bottom: 0rem;
+}
+
 .signin-title {
-  margin-top: 8px;
+  margin-top: 0px;
+  margin-bottom: 4px;
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
   color: #3A4252;
   letter-spacing: 0.5px;
 }
 .full-width { width: 100%; }
-.mb-12 { margin-bottom: 12px; }
 .mt-20 { margin-top: 20px; }
 .page-wrap, .slate, body {
   min-height: 100vh;
-  background: #1976d2; // même bleu pro
+  background: #1976d2;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .session-form-hold {
-  max-width: 370px;
+  max-width: 450px;
   margin: auto;
   width: 100%;
   box-shadow: 0 8px 32px #0002, 0 1.5px 7px #0001;
@@ -80,4 +84,23 @@ mat-card {
   color: #1b5e20;
   .success-icon { color: #4caf50; margin-right: 8px; font-size: 22px; }
   .success-text { flex: 1; }
+}
+.signup-bottom-link {
+  font-size: 1.08rem;
+  font-family: inherit;
+  color: #232A37;
+  margin-top: 18px;
+  display: block;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.signup-bottom-link a {
+  color: #1976d2;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 3px;
+}
+.signup-bottom-link a:hover {
+  text-decoration: underline;
 }

@@ -67,7 +67,7 @@ export class HeaderSideComponent implements OnInit {
   // }
   fetchNotifications() {
     this.robotaskService.getNotifications().subscribe(n => {
-      this.notifications = n; // on garde toutes
+      this.notifications = n;
     });
     this.robotaskService.getUnreadCount().subscribe(c => this.unreadCount = c.unreadCount);
   }
@@ -79,12 +79,7 @@ export class HeaderSideComponent implements OnInit {
   // }
 
   onNotificationsMenuOpened() {
-    // UX instantanée
-    this.unreadCount = 0;
-    this.notifications.forEach(n => n.read = true);
-
     this.robotaskService.markAllAsRead().subscribe(() => {
-      // Optionnel : actualise le back ou recharge la liste
       this.fetchNotifications();
     });
   }
@@ -114,15 +109,6 @@ export class HeaderSideComponent implements OnInit {
     this.translate.use(lng.code);
   }
 
-  changeTheme(theme) {
-    // this.themeService.changeTheme(theme);
-  }
-
-  // PLUS BESOIN de getColorForLetter ! Supprimé
-
-  toggleNotific() {
-    this.notificPanel.toggle();
-  }
   toggleSidenav() {
     if (this.layoutConf.sidebarStyle === 'closed') {
       return this.layout.publishLayoutChange({

@@ -23,16 +23,15 @@ export class JwtAuthService {
     signin(email: string, password: string): Observable<any> {
         return this.http.post(`${this.apiUrl}/login`, { email, password })
             .pipe(
-                tap(response => {
+                tap((response: any) => {
+                    const userToStore = {
+                        username: response.username, // <-- nom récupéré du back
+                        email: email,
+                        roles: response.roles
+                    };
                     localStorage.setItem('token', response.token);
-                    localStorage.setItem('user', JSON.stringify({
-                        username: response.username,
-                        roles: response.roles
-                    }));
-                    this._currentUser$.next({
-                        username: response.username,
-                        roles: response.roles
-                    });
+                    localStorage.setItem('user', JSON.stringify(userToStore));
+                    this._currentUser$.next(userToStore);
                 })
             );
     }

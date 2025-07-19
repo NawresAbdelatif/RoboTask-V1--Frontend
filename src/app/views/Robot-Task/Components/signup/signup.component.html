@@ -3,15 +3,15 @@
         <mat-card>
             <mat-card-content>
                 <div class="text-center logo-section">
-                    <img width="120px" src="assets/images/Choix3.png" alt="RoboTask Logo" />
+                    <img width="150px" src="assets/images/Choix3.png" alt="RoboTask Logo" />
                     <div class="signin-title">Créer un compte</div>
-                    <p class="text-muted m-0" style="font-size:1.01rem;">Inscrivez-vous pour accéder à RoboTask</p>
+                    <p class="text-muted " style="font-size:1.01rem;margin-bottom:10px">Inscrivez-vous pour accéder à RoboTask</p>
                 </div>
 
                 <form [formGroup]="signupForm" (ngSubmit)="signup()">
 
                     <!-- Username -->
-                    <mat-form-field appearance="outline" class="full-width mb-12">
+                    <mat-form-field appearance="outline" class="full-width mb-6">
                         <mat-label>Nom d'utilisateur</mat-label>
                         <input matInput placeholder="Nom d'utilisateur" formControlName="username" autocomplete="username">
                         <mat-icon matSuffix>person</mat-icon>
@@ -19,7 +19,7 @@
                     </mat-form-field>
 
                     <!-- Email -->
-                    <mat-form-field appearance="outline" class="full-width mb-12">
+                    <mat-form-field appearance="outline" class="full-width mb-6">
                         <mat-label>Email</mat-label>
                         <input matInput type="email" placeholder="Adresse email" formControlName="email" autocomplete="email">
                         <mat-icon matSuffix>mail</mat-icon>
@@ -27,8 +27,24 @@
                         <mat-error *ngIf="signupForm.controls['email'].hasError('email')">Email invalide</mat-error>
                     </mat-form-field>
 
+                    <mat-form-field appearance="outline" class="full-width mb-6">
+                        <mat-label>Type de compte</mat-label>
+                        <mat-select formControlName="role" required>
+                            <mat-option value="CREATOR">
+                                🚀 Créateur – Je veux créer et gérer des projets
+                            </mat-option>
+                            <mat-option value="EXECUTOR">
+                                🛠️ Exécuteur – Je veux exécuter des tâches
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="signupForm.controls['role'].hasError('required')">
+                            Type de compte obligatoire
+                        </mat-error>
+                    </mat-form-field>
+
+
                     <!-- Password -->
-                    <mat-form-field appearance="outline" class="full-width mb-12">
+                    <mat-form-field appearance="outline" class="full-width mb-6">
                         <mat-label>Mot de passe</mat-label>
                         <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Mot de passe" formControlName="password" autocomplete="new-password">
                         <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
@@ -48,15 +64,14 @@
                     </mat-card>
 
                     <!-- Button -->
-                    <button mat-raised-button color="primary" class="full-width mt-20" [disabled]="signupForm.invalid || loading">
+                    <button mat-raised-button color="primary" class="full-width mt-10" [disabled]="signupForm.invalid || loading">
                         <span *ngIf="!loading">Créer mon compte</span>
                         <mat-spinner *ngIf="loading" diameter="22" strokeWidth="3"></mat-spinner>
                     </button>
 
                     <!-- Lien déjà inscrit -->
-                    <div class="text-center" style="margin-top:18px;">
-                        <span>Déjà inscrit ?</span>
-                        <a [routerLink]="'/pages/signin'" style="color:#1976d2;font-weight:500;">Se connecter</a>
+                    <div class="signup-bottom-link">
+                        Déjà inscrit ? <a [routerLink]="'/pages/signin'">Se connecter</a>
                     </div>
                 </form>
             </mat-card-content>

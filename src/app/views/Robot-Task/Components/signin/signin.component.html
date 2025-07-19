@@ -1,9 +1,11 @@
+
+
 <div class="page-wrap h-full slate" >
     <div class="session-form-hold">
         <mat-card style="box-shadow:0 4px 24px #0002;border-radius:16px;">
             <mat-card-content>
                 <div class="text-center logo-section">
-                    <img width="120px" src="assets/images/Choix3.png" alt="RoboTask Logo" />
+                    <img width="150px" src="assets/images/Choix3.png" alt="RoboTask Logo" />
                     <div class="signin-title">Connexion à votre compte</div>
                 </div>
 
@@ -24,7 +26,7 @@
                         <mat-error *ngIf="signinForm.controls['password'].hasError('required')">Champ obligatoire</mat-error>
                     </mat-form-field>
 
-                    <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;font-size:16px">
                         <mat-checkbox formControlName="rememberMe">Se souvenir de moi</mat-checkbox>
                         <a [routerLink]="'/pages/forgot-password'" style="font-size:0.96em;">Mot de passe oublié ?</a>
                     </div>
@@ -40,7 +42,7 @@
                     </mat-card>
 
 
-                    <div class="text-center" style="margin-top:18px;">
+                    <div class="signup-bottom-link" style="margin-top:18px;">
                         <span>Pas encore de compte ?</span>
                         <a [routerLink]="'/pages/signup'" style="color:#1976d2;font-weight:500;">Créer un compte</a>
                     </div>
