@@ -1,3 +1,4 @@
+
 <div class="project-detail-page" *ngIf="!loading && project">
     <div class="project-header-pro fullpage">
         <div class="header-left">
@@ -47,19 +48,28 @@
         <div class="project-infos">
             <div><span class="info-label">Début :</span> <span class="info-value">{{ project.startDate | date }}</span></div>
             <div><span class="info-label">Fin :</span> <span class="info-value">{{ project.endDate | date }}</span></div>
-            <div><span class="info-label">Créateur :</span> <span class="creator-value">{{ project.creatorUsername }}</span></div>
+            <div><span class="info-label">Créateur(rice) :</span> <span class="creator-value">{{ project.creatorUsername }}</span></div>
             <div class="collaborators-list">
-                <span class="info-label">Collaborateurs :</span>
-                <span *ngIf="!project.collaboratorsUsernames?.length" class="info-value">(Aucun)</span>
-                <ul *ngIf="project.collaboratorsUsernames?.length" class="collab-list">
-                    <li *ngFor="let u of project.collaboratorsUsernames" class="collab-list-item">
-            <span class="collaborator-avatar" [ngStyle]="{'background': getColorForUser(u)}" matTooltip="{{ u }}">
-              {{ getInitials(u) }}
-            </span>
-                        <span class="collaborator-fullname">{{ u }}</span>
+                <span class="info-label">collaborateur(rice)s :</span>
+                <span *ngIf="!project.collaborators?.length" class="info-value">(Aucun)</span>
+                <ul *ngIf="project.collaborators?.length" class="collab-list">
+                    <li *ngFor="let c of project.collaborators" class="collab-list-item">
+      <span class="collaborator-avatar"
+            [ngStyle]="{'background': getColorForUser(c.username)}"
+            matTooltip="{{ c.username + ' (' + c.email + ')' }}">
+        {{ getInitials(c.username) }}
+      </span>
+                        <span class="collaborator-fullname">{{ c.username }}</span>
+                        <button *ngIf="canAddCollaborator()"
+                                mat-icon-button color="warn"
+                                (click)="removeCollaborator(c.email, c.username)" style="margin-left:6px;">
+                            <mat-icon>person_remove</mat-icon>
+                        </button>
+
                     </li>
                 </ul>
             </div>
+
         </div>
     </div>
 
@@ -68,4 +78,3 @@
     </div>
 </div>
 <div *ngIf="loading" class="center-spinner"><mat-spinner></mat-spinner></div>
-<div *ngIf="errorMsg && !loading" class="error-alert text-center">{{errorMsg}}</div>

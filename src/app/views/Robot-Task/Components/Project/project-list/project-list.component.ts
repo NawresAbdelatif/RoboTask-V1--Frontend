@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProjectCreateComponent } from "../project-create/project-create.component";
 import { ProjectRequest } from "../../../Models/project-request.model";
 import { getColorForUser } from "../../color.util";
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { ProjectEditDialogComponent } from "../project-edit-dialog/project-edit-dialog.component";
 import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.component";
 import { PageEvent } from '@angular/material/paginator';
@@ -32,7 +34,9 @@ export class ProjectListComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private projectService: RobotTaskService,
               private router: Router,
-              private refreshService: RefreshProjectListService
+              private refreshService: RefreshProjectListService,
+              private snackBar: MatSnackBar
+
   ) {}
 
   ngOnInit(): void {
@@ -135,24 +139,23 @@ export class ProjectListComponent implements OnInit {
       if (result) {
         this.projectService.createProject(result).subscribe({
           next: () => {
-            this.successMsg = "Projet créé avec succès !";
-
-            // Afficher la liste (sans réinitialiser le message ici)
+            this.snackBar.open('✅ Projet créé avec succès!', 'Fermer', {
+              duration: 3500,
+              panelClass: ['snackbar-success']
+            });
             this.loadProjects();
-
-            // On laisse 3s pour voir le message
-            setTimeout(() => {
-              this.successMsg = '';
-            }, 3000);
           },
           error: err => {
-            this.errorMsg = err.error?.message || "Erreur lors de la création du projet";
-            setTimeout(() => this.errorMsg = '', 4000);
+            this.snackBar.open('❌ Erreur lors de la création du projet', 'Fermer', {
+              duration: 4000,
+              panelClass: ['snackbar-error']
+            });
           }
         });
       }
     });
   }
+
 
   editProject(project: ProjectResponse) {
     const dialogRef = this.dialog.open(ProjectEditDialogComponent, {
@@ -162,12 +165,15 @@ export class ProjectListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((updatedProject: ProjectResponse | undefined) => {
       if (updatedProject) {
-        this.successMsg = "Projet modifié avec succès !";
+        this.snackBar.open('✏️ Projet modifié avec succès!', 'Fermer', {
+          duration: 3500,
+          panelClass: ['snackbar-success']
+        });
         this.loadProjects();
-        setTimeout(() => this.successMsg = '', 3000);
       }
     });
   }
+
 
   deleteProject(project: ProjectResponse) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -178,19 +184,20 @@ export class ProjectListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.projectService.deleteProject(project.id).subscribe({
-          next: (res) => {
-            console.log("SUCCESS delete", res);
-            this.successMsg = "Projet supprimé avec succès !";
+          next: () => {
+            this.snackBar.open('🗑️ Projet supprimé avec succès!', 'Fermer', {
+              duration: 3500,
+              panelClass: ['snackbar-success']
+            });
             this.loadProjects();
-            setTimeout(() => this.successMsg = '', 3000);
           },
           error: err => {
-            console.error("DELETE ERROR", err);
-            this.errorMsg = err.error?.message || "Erreur lors de la suppression";
-            setTimeout(() => this.errorMsg = '', 4000);
+            this.snackBar.open('❌ Erreur lors de la suppression du projet', 'Fermer', {
+              duration: 4000,
+              panelClass: ['snackbar-error']
+            });
           }
         });
-
       }
     });
   }
@@ -238,15 +245,20 @@ export class ProjectListComponent implements OnInit {
   archiveProject(project: ProjectResponse) {
     this.projectService.archiveProject(project.id).subscribe({
       next: () => {
-        this.successMsg = "Projet archivé avec succès!";
+        this.snackBar.open('📦 Projet archivé avec succès!', 'Fermer', {
+          duration: 3500,
+          panelClass: ['snackbar-success']
+        });
         this.loadProjects();
-        setTimeout(() => this.successMsg = '', 3000);
       },
       error: err => {
-        this.errorMsg = err.error?.message || "Erreur lors de l'archivage";
-        setTimeout(() => this.errorMsg = '', 4000);
+        this.snackBar.open('❌ Erreur lors de l\'archivage du projet', 'Fermer', {
+          duration: 4000,
+          panelClass: ['snackbar-error']
+        });
       }
     });
   }
+
 
 }

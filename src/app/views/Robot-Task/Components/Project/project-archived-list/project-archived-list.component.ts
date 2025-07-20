@@ -5,6 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {getColorForUser} from "../../color.util";
 
 @Component({
@@ -23,7 +24,8 @@ export class ProjectArchivedListComponent implements OnInit {
   statusFilter: string = '';
   errorMsg = '';
 
-  constructor(private projectService: RobotTaskService,private dialog: MatDialog,private router: Router,) {}
+  constructor(private projectService: RobotTaskService,private dialog: MatDialog,private router: Router,  private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.loadArchivedProjects();
@@ -39,20 +41,28 @@ export class ProjectArchivedListComponent implements OnInit {
       },
       error: () => {
         this.loading = false;
+        this.snackBar.open('❌ Erreur lors du chargement des projets archivés', 'Fermer', {
+          duration: 4000,
+          panelClass: ['snackbar-error']
+        });
       }
     });
   }
 
-
   unarchiveProject(project: ProjectResponse) {
     this.projectService.unarchiveProject(project.id).subscribe({
       next: () => {
-        // Affiche succès, recharge la liste des archivés, etc.
+        this.snackBar.open('📂 Projet désarchivé avec succès!', 'Fermer', {
+          duration: 3500,
+          panelClass: ['snackbar-success']
+        });
         this.loadArchivedProjects();
-        // Si tu veux aussi rafraîchir la liste active, appelle-le via un service d’event
       },
       error: err => {
-        // Gestion d’erreur
+        this.snackBar.open('❌ Erreur lors du désarchivage du projet', 'Fermer', {
+          duration: 4000,
+          panelClass: ['snackbar-error']
+        });
       }
     });
   }
@@ -103,22 +113,24 @@ export class ProjectArchivedListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.projectService.deleteProject(project.id).subscribe({
-          next: (res) => {
-            console.log("SUCCESS delete", res);
-            this.successMsg = "Projet supprimé avec succès !";
-            this.loadProjects();
-            setTimeout(() => this.successMsg = '', 3000);
+          next: () => {
+            this.snackBar.open('🗑️ Projet supprimé avec succès!', 'Fermer', {
+              duration: 3500,
+              panelClass: ['snackbar-success']
+            });
+            this.loadArchivedProjects();
           },
           error: err => {
-            console.error("DELETE ERROR", err);
-            this.errorMsg = err.error?.message || "Erreur lors de la suppression";
-            setTimeout(() => this.errorMsg = '', 4000);
+            this.snackBar.open('❌ Erreur lors de la suppression', 'Fermer', {
+              duration: 4000,
+              panelClass: ['snackbar-error']
+            });
           }
         });
-
       }
     });
   }
+
   loadProjects() {
     this.loading = true;
     this.projectService.searchProjects(

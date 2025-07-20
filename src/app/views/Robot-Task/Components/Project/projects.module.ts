@@ -30,6 +30,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { ProjectAddCollaboratorDialogComponent } from './project-add-collaborator-dialog/project-add-collaborator-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProjectArchivedListComponent } from './project-archived-list/project-archived-list.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ProjectArchivedListComponent } from './project-archived-list/project-ar
     imports: [
         CommonModule,
         MatMenuModule,
+        MatSnackBarModule,
         MatCardModule,
         ReactiveFormsModule,
         MatCheckboxModule,

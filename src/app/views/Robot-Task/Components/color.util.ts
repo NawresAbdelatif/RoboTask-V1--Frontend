@@ -1,7 +1,6 @@
-// src/app/shared/utils/color.util.ts
 export const USER_COLORS = [
  '#5FACD3', '#0078B8', '#B1A09B', '#72A1B4', '#ba68c8',
-    '#BCCEC9', '#F8DE65', '#7986cb', '#a1887f', '#90a4ae'
+    '#BCCEC9', '#317AC1', '#7986cb', '#a1887f', '#90a4ae'
 ];
 
 export function getColorForUser(username: string): string {

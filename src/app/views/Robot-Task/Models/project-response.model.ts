@@ -1,5 +1,8 @@
 export type ProjectStatus = 'PLANNED' | 'IN_PROGRESS' | 'COMPLETED';
-
+export interface Collaborator {
+    username: string;
+    email: string;
+}
 export interface ProjectResponse {
     id: number;
     name: string;
@@ -11,4 +14,6 @@ export interface ProjectResponse {
     collaboratorsUsernames: string[];
     creator?: { username: string }
     archived: boolean;
+    collaborators: Collaborator[];
+
 }

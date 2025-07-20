@@ -153,9 +153,19 @@ export class RobotTaskService {
   getOperatorUsernames(): Observable<string[]> {
     return this.http.get<string[]>(this.apiprojectUrl + '/operators');
   }
-  addCollaborator(projectId: number, collaboratorUsername: string): Observable<any> {
-    return this.http.post(`${this.apiprojectUrl}/${projectId}/add-collaborator?collaboratorUsername=${encodeURIComponent(collaboratorUsername)}`, {});
+
+  removeCollaborator(projectId: number, email: string) {
+    return this.http.post<{ message: string }>(
+        `${this.apiprojectUrl}/${projectId}/remove-collaborator?collaboratorEmail=${email}`, {}
+    );
   }
+
+  addCollaborator(projectId: number, username: string) {
+    return this.http.post<{ message: string }>(
+        `${this.apiprojectUrl}/${projectId}/add-collaborator?collaboratorUsername=${username}`, {}
+    );
+  }
+
   searchCollaborators(q: string) {
     return this.http.get<{username: string, email: string}[]>(`${this.apiprojectUrl}/collaborators/search`, { params: { q } });
   }
