@@ -1,3 +1,28 @@
+<style>
+    .project-ref-badge {
+        display: inline-flex;
+        align-items: center;
+        background: #e3edfc;
+        color: #1565c0;
+        font-weight: 600;
+        font-size: 1.07rem;
+        border-radius: 12px;
+        padding: 2px 12px 2px 7px;
+        margin-top: 2px;
+        margin-left: 3px;
+    }
+    .creator-badge {
+        display:inline-flex;
+        align-items:center;
+        background: #e3f2fd;
+        padding: 2px 11px 2px 5px;
+        border-radius: 12px;
+        font-size: 1.05rem;
+        margin-left: 2px;
+        gap: 3px;
+    }
+
+</style>
 
 <div class="project-detail-page" *ngIf="!loading && project">
     <div class="project-header-pro fullpage">
@@ -7,7 +32,10 @@
             </div>
             <div>
                 <div class="project-title">{{ project.name }}</div>
-                <div class="project-id">Projet #{{ project.id }}</div>
+                <span class="project-ref-badge" *ngIf="project.reference">
+                    <mat-icon style="font-size:18px;vertical-align:middle;">tag</mat-icon>
+                 {{ project.reference }}
+</span>
             </div>
         </div>
         <div class="header-right">
@@ -46,9 +74,28 @@
         </div>
 
         <div class="project-infos">
-            <div><span class="info-label">Début :</span> <span class="info-value">{{ project.startDate | date }}</span></div>
-            <div><span class="info-label">Fin :</span> <span class="info-value">{{ project.endDate | date }}</span></div>
-            <div><span class="info-label">Créateur(rice) :</span> <span class="creator-value">{{ project.creatorUsername }}</span></div>
+            <div>
+  <span class="info-label">
+    <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>
+    Début :
+  </span>
+                <span class="info-value">{{ project.startDate | date }}</span>
+            </div>
+            <div>
+  <span class="info-label">
+    <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>
+    Fin :
+  </span>
+                <span class="info-value">{{ project.endDate | date }}</span>
+            </div>
+
+            <div>
+                <span class="info-label">Créateur(rice)&nbsp;:</span>
+                <span class="creator-badge">
+    <mat-icon style="font-size:17px;vertical-align:middle;color:#1976d2">person</mat-icon>
+    <span style="font-weight:bold; color:#1976d2;">{{ project.creatorUsername }}</span>
+  </span>
+            </div>
             <div class="collaborators-list">
                 <span class="info-label">collaborateur(rice)s :</span>
                 <span *ngIf="!project.collaborators?.length" class="info-value">(Aucun)</span>
@@ -74,7 +121,10 @@
     </div>
 
     <div class="actions-bar">
-        <button mat-button color="primary" (click)="retourListe()">Retour à la liste</button>
+        <button mat-button color="primary" (click)="retourListe()">
+            <mat-icon style="vertical-align:middle;">arrow_back</mat-icon>
+            Retour à la liste
+        </button>
     </div>
 </div>
 <div *ngIf="loading" class="center-spinner"><mat-spinner></mat-spinner></div>

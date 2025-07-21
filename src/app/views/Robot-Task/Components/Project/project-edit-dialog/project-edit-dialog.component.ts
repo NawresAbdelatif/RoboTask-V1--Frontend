@@ -20,6 +20,7 @@ export class ProjectEditDialogComponent {
       @Inject(MAT_DIALOG_DATA) public data: ProjectResponse
   ) {
     this.project = {
+      reference: data.reference,
       name: data.name,
       description: data.description,
       status: data.status,

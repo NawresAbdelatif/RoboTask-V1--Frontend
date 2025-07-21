@@ -9,6 +9,7 @@ import {ProjectRequest} from "../../../Models/project-request.model";
 })
 export class ProjectCreateComponent {
   project: ProjectRequest = {
+    reference: '',
     name: '',
     description: '',
     status: 'PLANNED',

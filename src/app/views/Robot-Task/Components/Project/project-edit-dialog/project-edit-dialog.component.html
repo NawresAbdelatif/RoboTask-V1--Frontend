@@ -2,6 +2,10 @@
 <mat-dialog-content>
     <form>
         <mat-form-field appearance="fill" style="width:100%">
+            <mat-label>Référence du projet</mat-label>
+            <input matInput [(ngModel)]="project.reference" name="reference" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width:100%">
             <mat-label>Nom du projet</mat-label>
             <input matInput [(ngModel)]="project.name" name="name" required />
         </mat-form-field>

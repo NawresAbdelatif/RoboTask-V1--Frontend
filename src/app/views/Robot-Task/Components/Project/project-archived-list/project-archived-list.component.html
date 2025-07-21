@@ -194,6 +194,11 @@
         }
     }
 
+    .project-card:hover {
+        /*box-shadow: 0 8px 24px 0 rgba(0,0,0,0.12);*/
+        transform: translateY(-3px) scale(1.01);
+        transition: box-shadow 0.25s, transform 0.2s;
+    }
 
 
     /* Responsive mobile < 600px */
@@ -255,10 +260,22 @@
                         <div style="font-size:1.25rem; font-weight:500; text-transform:capitalize;">
                             {{ project.name }}
                         </div>
-                        <div>{{ project.description }}</div>
-                        <div class="text-muted">Début: {{ project.startDate | date }}</div>
-                        <div class="text-muted">Fin: {{ project.endDate | date }}</div>
-                        <div class="text-muted">Créateur: {{ project.creatorUsername }}</div>
+<!--                        <div>{{ project.description }}</div>-->
+<!--                        <div class="text-muted">Début: {{ project.startDate | date }}</div>-->
+<!--                        <div class="text-muted">Fin: {{ project.endDate | date }}</div>-->
+<!--                        <div class="text-muted">Créateur: {{ project.creatorUsername }}</div>-->
+
+                        <div style="font-size:0.95rem;color:#888;">
+                            <mat-icon style="font-size:16px;vertical-align:middle;">date_range</mat-icon>
+                            {{ project.startDate | date:'mediumDate' }} → {{ project.endDate | date:'mediumDate' }}
+                        </div>
+
+                        <div> Créateur(rice):
+                            <span class="chip-user" style="background:#e3f2fd; color:#1976d2; border-radius:20px; padding:2px 12px;">
+                          <mat-icon style="font-size:16px;vertical-align:middle;">person</mat-icon>
+                          <b>{{ project.creatorUsername }}</b>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="project-collabs">

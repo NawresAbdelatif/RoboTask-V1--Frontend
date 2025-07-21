@@ -5,6 +5,7 @@ export interface Collaborator {
 }
 export interface ProjectResponse {
     id: number;
+    reference: string;
     name: string;
     description: string;
     status: ProjectStatus;
