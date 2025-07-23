@@ -18,6 +18,8 @@ import {MatIconModule} from "@angular/material/icon";
 import { ActivateComponent } from './Components/activate/activate.component';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
+import { PieceListComponent } from './Components/pieces/piece-list/piece-list.component';
+import { ImagePreviewDialogComponent } from './Components/shared/image-preview-dialog/image-preview-dialog.component';
 
 @NgModule({
     imports: [
@@ -49,6 +51,7 @@ import { ResetPasswordComponent } from './Components/reset-password/reset-passwo
       ActivateComponent,
       ForgotPasswordComponent,
       ResetPasswordComponent,
+      ImagePreviewDialogComponent,
 
     ]
 })

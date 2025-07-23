@@ -36,9 +36,12 @@
     "core-js": "^3.25.1",
     "date-fns": "^2.29.3",
     "echarts": "^5.3.3",
+    "file-saver": "^2.0.5",
     "flag-icons": "^6.6.6",
     "highlight.js": "^11.6.0",
     "hopscotch": "^0.3.1",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "moment": "^2.29.4",
     "ng-apexcharts": "^1.7.4",
     "ng-recaptcha": "^13.2.1",
@@ -56,6 +59,7 @@
     "rxjs-compat": "^6.6.7",
     "tinycolor2": "^1.4.2",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

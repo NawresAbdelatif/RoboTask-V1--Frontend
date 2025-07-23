@@ -50,6 +50,18 @@ export class NavigationService {
       ]
     },
     {
+      name: 'PIÈCES',
+      state: 'pieces/list',
+      type: 'link',
+      icon: 'settings_applications',
+    },
+    {
+      name: 'OUTILS',
+      state: 'outils/list',
+      type: 'link',
+      icon: 'build',
+    },
+    {
       name: 'PROFILS',
       type: 'dropDown',
       tooltip: 'Profils',

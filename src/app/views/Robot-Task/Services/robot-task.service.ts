@@ -14,6 +14,7 @@ import {UserResponse} from "../Models/UserResponse.model";
 import {UserProfile} from "../Models/user-profile.model";
 import {UserProfileUpdate} from "../Models/user-profile-update.model";
 import {PasswordChange} from "../Models/password-change.model";
+import {Piece} from "../Models/piece.model";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,7 @@ export class RobotTaskService {
   private apiprojectUrl = 'http://localhost:8090/api/projects';
   private apinotificationUrl = 'http://localhost:8090/api/notifications';
   private apilogsUrl = 'http://localhost:8090/api/logs';
+  private apiPieces = 'http://localhost:8090/api/pieces';
   private _currentUser$ = new BehaviorSubject<any>(this.getStoredUser());
   public currentUser$ = this._currentUser$.asObservable();
   constructor(private http: HttpClient) {}
@@ -212,5 +214,31 @@ export class RobotTaskService {
   clearNotifications(): Observable<any> {
     return this.http.post(`${this.apinotificationUrl}/clear`, {});
   }
+  ////////////////////Pieces////////////////////
+
+  // Pagination
+  getAll(page = 0, size = 5, search = ''): Observable<any> {
+    let params = new HttpParams()
+        .set('page', page)
+        .set('size', size);
+    if (search) params = params.set('search', search);
+    return this.http.get<any>(this.apiPieces, { params });
+  }
+
+  createPiece(piece: Piece): Observable<Piece> {
+    return this.http.post<Piece>(`${this.apiPieces}/create`, piece);
+  }
+
+  updatePiece(id: number, piece: Piece): Observable<Piece> {
+    return this.http.put<Piece>(`${this.apiPieces}/${id}/update`, piece);
+  }
+
+  deletePiece(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiPieces}/${id}/delete`);
+  }
+  uploadImage(formData: FormData) {
+    return this.http.post(`${this.apiPieces}/upload-image`, formData, { responseType: 'text' });
+  }
+
 
 }

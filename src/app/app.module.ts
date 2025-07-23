@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 // import { GestureConfig } from '@angular/material/core';
@@ -38,13 +39,17 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {SignUpComponent} from "./views/Robot-Task/Components/signup/signup.component";
-import {ProjectListComponent} from "./views/Robot-Task/Components/Project/project-list/project-list.component";
-
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 import {CommonModule} from "@angular/common";
 import {ActivateComponent} from "./views/Robot-Task/Components/activate/activate.component";
 import {ForgotPasswordComponent} from "./views/Robot-Task/Components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./views/Robot-Task/Components/reset-password/reset-password.component";
+import {PieceListComponent} from "./views/Robot-Task/Components/pieces/piece-list/piece-list.component";
+import {PieceDialogComponent} from "./views/Robot-Task/Components/pieces/piece-dialog/piece-dialog.component";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -85,9 +90,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatProgressBarModule,
         CommonModule,
         MatIconModule,
+        MatMenuModule,
         MatSnackBarModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatDialogModule,
+        MatProgressSpinnerModule,
 ],
-  declarations: [AppComponent, RobotTaskComponent, UserComponent,SignUpComponent,ActivateComponent,ForgotPasswordComponent,ResetPasswordComponent],
+  declarations: [AppComponent, RobotTaskComponent, UserComponent,SignUpComponent,ActivateComponent,ForgotPasswordComponent,ResetPasswordComponent,PieceListComponent,PieceDialogComponent],
   providers: [
     { provide: ErrorHandler, useClass: ErrorHandlerService },
     // { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
