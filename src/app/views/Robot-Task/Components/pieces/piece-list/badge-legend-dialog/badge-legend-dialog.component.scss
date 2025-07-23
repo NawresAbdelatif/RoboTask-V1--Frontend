@@ -1,0 +1,43 @@
+.badge-legend-modal {
+  padding: 24px 28px 18px 28px;
+  min-width: 280px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 18px #1976d217;
+  h2 {
+    margin-bottom: 18px;
+    font-size: 1.27em;
+    font-weight: 700;
+    color: #1976d2;
+    letter-spacing: .02em;
+  }
+  .badge-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 12px;
+    font-size: 1.06em;
+    .legend-icon {
+      font-size: 1.3em;
+      vertical-align: middle;
+      margin-right: 2px;
+    }
+    .qte-cell {
+      min-width: 38px;
+      padding: 5px 14px;
+      border-radius: 11px;
+      font-weight: bold;
+      font-size: 1.08em;
+      display: inline-block;
+      text-align: center;
+    }
+    .qte-badge-low   { background: #fdeaea; color: #d32f2f; border: 1.5px solid #d32f2f22;}
+    .qte-badge-medium{ background: #fff5e0; color: #e67c23; border: 1.5px solid #e67c231c;}
+    .qte-badge-ok    { background: #e8f6ef; color: #43a047; border: 1.5px solid #43a04715;}
+    .legend-label {
+      color: #888;
+      font-size: 1em;
+      margin-left: 2px;
+    }
+  }
+}

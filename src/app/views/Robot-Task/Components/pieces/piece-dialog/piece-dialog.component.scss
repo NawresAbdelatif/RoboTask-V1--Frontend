@@ -1,0 +1,27 @@
+.dialog-form {
+  width: 100%;
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .w-100 {
+    width: 100%;
+  }
+  .mb-2 {
+    margin-bottom: 16px;
+  }
+  .ml-2 {
+    margin-left: 12px;
+  }
+  .img-preview {
+    display: flex;
+    align-items: center;
+  }
+  .actions-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}
