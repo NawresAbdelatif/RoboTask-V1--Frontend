@@ -61,6 +61,7 @@ export class NavigationService {
       type: 'link',
       icon: 'build',
     },
+
     {
       name: 'PROFILS',
       type: 'dropDown',
@@ -83,6 +84,7 @@ export class NavigationService {
 
         }]
     },
+
     {
       name: 'FORMS',
       type: 'separator'

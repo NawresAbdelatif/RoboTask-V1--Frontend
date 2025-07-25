@@ -15,6 +15,7 @@ import {UserProfile} from "../Models/user-profile.model";
 import {UserProfileUpdate} from "../Models/user-profile-update.model";
 import {PasswordChange} from "../Models/password-change.model";
 import {Piece} from "../Models/piece.model";
+import {Outil} from "../Models/outil.model";
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class RobotTaskService {
   private apinotificationUrl = 'http://localhost:8090/api/notifications';
   private apilogsUrl = 'http://localhost:8090/api/logs';
   private apiPieces = 'http://localhost:8090/api/pieces';
+  private apiOutils = 'http://localhost:8090/api/outils';
   private _currentUser$ = new BehaviorSubject<any>(this.getStoredUser());
   public currentUser$ = this._currentUser$.asObservable();
   constructor(private http: HttpClient) {}
@@ -216,7 +218,6 @@ export class RobotTaskService {
   }
   ////////////////////Pieces////////////////////
 
-  // Pagination
   getAll(page = 0, size = 5, search = ''): Observable<any> {
     let params = new HttpParams()
         .set('page', page)
@@ -239,6 +240,29 @@ export class RobotTaskService {
   uploadImage(formData: FormData) {
     return this.http.post(`${this.apiPieces}/upload-image`, formData, { responseType: 'text' });
   }
+  ////////////////////Outils////////////////////
+
+  getAllOutils(page = 0, size = 5, search = ''): Observable<any> {
+    let params = new HttpParams()
+        .set('page', page)
+        .set('size', size);
+    if (search) params = params.set('search', search);
+    return this.http.get<any>(this.apiOutils, { params });
+  }
+
+  createOutil(outil: Outil): Observable<Outil> {
+    return this.http.post<Outil>(`${this.apiOutils}/create`, outil);
+  }
 
 
+  updateOutil(id: number, outil: Outil): Observable<Outil> {
+    return this.http.put<Outil>(`${this.apiOutils}/${id}/update`, outil);
+  }
+
+  deleteOutil(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiOutils}/${id}/delete`);
+  }
+  uploadImageOutil(formData: FormData) {
+    return this.http.post(`${this.apiOutils}/upload-image`, formData, { responseType: 'text' });
+  }
 }

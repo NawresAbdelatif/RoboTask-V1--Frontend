@@ -55,13 +55,11 @@ export class PieceDialogComponent {
   }
 
 
-
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
       this.selectedFile = file;
 
-      // Pour l’aperçu
       const reader = new FileReader();
       reader.onload = e => this.previewUrl = reader.result as string;
       reader.readAsDataURL(file);

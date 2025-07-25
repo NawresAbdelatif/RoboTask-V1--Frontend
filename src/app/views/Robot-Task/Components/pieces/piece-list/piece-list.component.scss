@@ -278,7 +278,7 @@
       gap: 7px;
       width: 100%;
 
-      // Force TOUS les boutons à prendre la largeur du parent
+
       button,
       .legend-btn,
       .mat-stroked-button,
@@ -329,7 +329,7 @@
         margin: 0 !important;
         border-radius: 8px !important;
         box-sizing: border-box;
-        background: #fff; // pour éviter fond transparent
+        background: #fff;
       }
       .mat-stroked-button {
         border: 1px solid #1976d2 !important;

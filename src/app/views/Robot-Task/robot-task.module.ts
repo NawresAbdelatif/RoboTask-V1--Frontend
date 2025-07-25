@@ -20,6 +20,14 @@ import { ForgotPasswordComponent } from './Components/forgot-password/forgot-pas
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 import { PieceListComponent } from './Components/pieces/piece-list/piece-list.component';
 import { ImagePreviewDialogComponent } from './Components/shared/image-preview-dialog/image-preview-dialog.component';
+import { OutilListComponent } from './Components/outils/outil-list/outil-list.component';
+import { OutilDialogComponent } from './Components/outils/outil-dialog/outil-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatTableModule} from "@angular/material/table";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
     imports: [
@@ -33,7 +41,12 @@ import { ImagePreviewDialogComponent } from './Components/shared/image-preview-d
         MatCardModule,
         RouterLinkWithHref,
         MatIconModule,
-
+        MatDialogModule,
+        MatMenuModule,
+        MatTableModule,
+        MatTooltipModule,
+        MatPaginatorModule,
+        MatProgressSpinnerModule,
 
 
     ],
@@ -52,6 +65,8 @@ import { ImagePreviewDialogComponent } from './Components/shared/image-preview-d
       ForgotPasswordComponent,
       ResetPasswordComponent,
       ImagePreviewDialogComponent,
+      OutilListComponent,
+      OutilDialogComponent,
 
     ]
 })

@@ -79,6 +79,12 @@ export const rootRouterConfig: Routes = [
         data: { title: 'Pieces', breadcrumb: 'PIÈCES' }
       },
 
+      {
+        path: 'outils',
+        loadChildren: () => import('./views/Robot-Task/Components/outils/outils.module').then(m => m.OutilsModule),
+        data: { title: 'Outils', breadcrumb: 'OUTILS' }
+      },
+
       // { path: 'profils/logs', component: LogsComponent },
 
       {
