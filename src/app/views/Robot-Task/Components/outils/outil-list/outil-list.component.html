@@ -1,0 +1,152 @@
+<div class="pieces-toolbar">
+    <mat-form-field appearance="outline" class="search-input">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="Référence ou désignation..." [(ngModel)]="search" (keyup.enter)="searchOutils()">
+        <button mat-button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''; searchOutils()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <div class="toolbar-actions">
+        <button mat-icon-button matTooltip="Légende des badges" (click)="openBadgeLegendDialog()" class="legend-btn">
+            <mat-icon>info</mat-icon>
+        </button>
+
+        <!-- Bouton Exporter avec menu déroulant -->
+        <button mat-stroked-button [matMenuTriggerFor]="exportMenu">
+            <mat-icon>file_download</mat-icon>
+            <span class="hide-on-mobile">Exporter</span>
+        </button>
+        <mat-menu #exportMenu="matMenu">
+            <button mat-menu-item (click)="exportExcel()">
+                <mat-icon>table_view</mat-icon>
+                <span>Excel</span>
+            </button>
+            <button mat-menu-item (click)="exportPdf()">
+                <mat-icon>picture_as_pdf</mat-icon>
+                <span>PDF</span>
+            </button>
+        </mat-menu>
+
+        <button mat-raised-button class="btn-add-piece" color="primary" (click)="openAddDialog()">
+            <mat-icon>add</mat-icon>
+            <span class="hide-on-mobile">Ajouter</span>
+        </button>
+    </div>
+</div>
+
+<!-- Desktop: Tableau + légende verticale à gauche -->
+<div class="mat-table-legend-wrapper" *ngIf="!isMobile">
+
+    <div class="mat-table-responsive" style="flex:1">
+        <mat-table [dataSource]="outils" *ngIf="outils.length">
+            <ng-container matColumnDef="reference">
+                <mat-header-cell *matHeaderCellDef> RÉFÉRENCE </mat-header-cell>
+                <mat-cell *matCellDef="let outil">
+                    <span class="reference-cell">{{outil.reference}}</span>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="designation">
+                <mat-header-cell *matHeaderCellDef> Désignation </mat-header-cell>
+                <mat-cell *matCellDef="let outil"> {{outil.designation}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="specification">
+                <mat-header-cell *matHeaderCellDef> Spécification </mat-header-cell>
+                <mat-cell *matCellDef="let outil">
+            {{outil.specification}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="quantite">
+                <mat-header-cell *matHeaderCellDef> QTÉ </mat-header-cell>
+                <mat-cell *matCellDef="let outil">
+          <span class="qte-cell" [ngClass]="getQteBadgeClass(outil.quantite)">
+            {{outil.quantite}}
+          </span>
+                </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="image">
+                <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
+                <mat-cell *matCellDef="let piece">
+                    <img
+                            *ngIf="piece.imageUrl"
+                            [src]="'http://localhost:8090' + piece.imageUrl"
+                            width="66"
+                            class="clickable-img"
+                            (click)="openImagePreview('http://localhost:8090' + piece.imageUrl)"
+                            matTooltip="Agrandir l'image"
+                            style="cursor: zoom-in"
+                    />
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+                <mat-cell *matCellDef="let outil"> {{outil.description}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let outil">
+                    <button mat-icon-button color="primary" (click)="openEditDialog(outil)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="deleteOutil(outil.id!)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="['reference','designation','specification','quantite','image','description','actions']"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: ['reference','designation','specification','quantite','image','description','actions'];"></mat-row>
+        </mat-table>
+    </div>
+</div>
+
+
+<!-- Mobile: cartes -->
+<div class="piece-cards" *ngIf="isMobile">
+    <div class="piece-card" *ngFor="let outil of outils">
+        <div class="ref">{{outil.reference}}</div>
+        <div class="desc">{{outil.designation}}</div>
+        <div class="desc">{{outil.specification}}</div>
+        <div class="qte">
+            Qté :
+            <span class="qte-cell" [ngClass]="getQteBadgeClass(outil.quantite)">
+        {{outil.quantite}}
+      </span>
+        </div>
+        <div class="img" *ngIf="outil.imageUrl">
+            <img
+                    [src]="'http://localhost:8090' + outil.imageUrl"
+                    width="60"
+                    (click)="openImagePreview('http://localhost:8090' + outil.imageUrl)"
+                    style="cursor: zoom-in; transition: box-shadow .15s;"
+                    [matTooltip]="'Agrandir l\'image'"
+            >
+        </div>
+        <div class="obs" *ngIf="outil.description">{{outil.description}}</div>
+        <div class="actions">
+            <button mat-icon-button color="primary" (click)="openEditDialog(outil)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteOutil(outil.id!)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="loading" class="text-center mt-5"><mat-spinner diameter="40"></mat-spinner></div>
+<div *ngIf="!loading && !outils.length" class="text-center mt-5">Aucune pièce trouvée.</div>
+
+<div class="paginator-container">
+    <mat-paginator
+            [length]="totalElements"
+            [pageSize]="size"
+            [pageIndex]="page"
+            [pageSizeOptions]="[5, 10, 20, 50]"
+            (page)="onPageChange($event)">
+    </mat-paginator>
+</div>
