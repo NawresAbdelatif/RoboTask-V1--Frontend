@@ -16,6 +16,7 @@ import {UserProfileUpdate} from "../Models/user-profile-update.model";
 import {PasswordChange} from "../Models/password-change.model";
 import {Piece} from "../Models/piece.model";
 import {Outil} from "../Models/outil.model";
+import {Assemblage} from "../Models/assemblage.model";
 
 @Injectable({
   providedIn: 'root'
@@ -265,4 +266,27 @@ export class RobotTaskService {
   uploadImageOutil(formData: FormData) {
     return this.http.post(`${this.apiOutils}/upload-image`, formData, { responseType: 'text' });
   }
+
+  ////////////////////Assemblage////////////////////
+
+  getAssemblages(projectId: number, page = 0, size = 5, search = ''): Observable<any> {
+    let params = new HttpParams()
+        .set('page', page)
+        .set('size', size);
+    if (search) params = params.set('search', search);
+    return this.http.get<any>(`${this.apiprojectUrl}/${projectId}/assemblages`, { params });
+  }
+
+  createAssemblage(projectId: number, assemblage: Assemblage): Observable<Assemblage> {
+    return this.http.post<Assemblage>(`${this.apiprojectUrl}/${projectId}/assemblages/create`, assemblage);
+  }
+
+  updateAssemblage(projectId: number, id: number, assemblage: Assemblage): Observable<Assemblage> {
+    return this.http.put<Assemblage>(`${this.apiprojectUrl}/${projectId}/assemblages/${id}/update`, assemblage);
+  }
+
+  deleteAssemblage(projectId: number, id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiprojectUrl}/${projectId}/assemblages/${id}/delete`);
+  }
+
 }

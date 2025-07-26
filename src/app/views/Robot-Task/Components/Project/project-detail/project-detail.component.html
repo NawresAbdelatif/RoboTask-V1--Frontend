@@ -22,10 +22,78 @@
         gap: 3px;
     }
 
+    body, .main-content { background: #f8fafc !important; }
+    .project-detail-fullpage {
+        width: 100%;
+        min-height: 100vh;
+        padding: 36px 2vw 44px 2vw;
+        background: #f8fafc;
+    }
+    .project-header-line {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 2px 12px #1976d217;
+        padding: 28px 36px 20px 36px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+    }
+
+    .project-details-grid {
+        display: flex;
+        gap: 32px;
+        align-items: flex-start;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+    }
+    .main-details {
+        background: #fff;
+        border-radius: 13px;
+        padding: 26px 30px 18px 30px;
+        min-width: 350px;
+        flex: 2 1 370px;
+        box-shadow: 0 2px 12px #1976d218;
+    }
+    .assemblage-section {
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 40px;
+        margin-top: 8px;
+        background: none;
+    }
+    .actions-bar {
+        width: 100%;
+        margin-top: 0;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 6vw 0 0;
+    }
+    @media (max-width: 1000px) {
+        .project-header-line, .main-details {
+            padding: 18px 12px 14px 14px;
+        }
+        .main-details { min-width: 0; }
+    }
+    @media (max-width: 800px) {
+        .project-details-grid {
+            flex-direction: column;
+            gap: 9px;
+        }
+    }
+    @media (max-width: 600px) {
+        .project-header-line { flex-direction: column; align-items: flex-start; gap: 13px; }
+        .main-details { padding: 16px 4vw 13px 4vw; }
+        .actions-bar { padding: 0 1vw 0 0; }
+    }
+
 </style>
 
-<div class="project-detail-page" *ngIf="!loading && project">
-    <div class="project-header-pro fullpage">
+<div class="project-detail-fullpage" *ngIf="!loading && project">
+    <!-- HEADER -->
+    <div class="project-header-line">
         <div class="header-left">
             <div class="icon-box">
                 <mat-icon class="main-icon">calendar_today</mat-icon>
@@ -33,18 +101,18 @@
             <div>
                 <div class="project-title">{{ project.name }}</div>
                 <span class="project-ref-badge" *ngIf="project.reference">
-                    <mat-icon style="font-size:18px;vertical-align:middle;">tag</mat-icon>
-                 {{ project.reference }}
-</span>
+          <mat-icon style="font-size:18px;vertical-align:middle;">tag</mat-icon>
+                    {{ project.reference }}
+        </span>
             </div>
         </div>
         <div class="header-right">
       <span class="status-badge"
             [ngClass]="{
-              'planned': project.status === 'PLANNED',
-              'inprogress': project.status === 'IN_PROGRESS',
-              'completed': project.status === 'COMPLETED'
-            }">
+          'planned': project.status === 'PLANNED',
+          'inprogress': project.status === 'IN_PROGRESS',
+          'completed': project.status === 'COMPLETED'
+        }">
         <mat-icon class="status-icon">
           {{
             project.status === 'PLANNED' ? 'schedule' :
@@ -54,72 +122,72 @@
         </mat-icon>
           {{ getStatusLabel(project.status) }}
       </span>
-            <button mat-mini-fab color="primary"
-                    aria-label="Ajouter un collaborateur"
-                    *ngIf="canAddCollaborator()"
-                    (click)="openAddCollaboratorDialog()"
-                    class="add-collab-btn">
+            <button mat-mini-fab color="primary" *ngIf="canAddCollaborator()"
+                    (click)="openAddCollaboratorDialog()" class="add-collab-btn">
                 <mat-icon>person_add</mat-icon>
             </button>
         </div>
     </div>
 
-    <hr class="header-divider"/>
-
     <!-- DÉTAILS -->
-    <div class="project-details-content">
-        <div class="project-description">
-            <span><strong>Description :</strong></span>
-            <span class="desc-text">{{ project.description || '(Aucune description)' }}</span>
+    <div class="project-details-grid">
+        <div class="main-details">
+            <div class="project-description">
+                <span><strong>Description :</strong></span>
+                <span class="desc-text">{{ project.description || '(Aucune description)' }}</span>
+            </div>
+            <div class="project-infos">
+                <div>
+          <span class="info-label">
+            <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>
+            Début :
+          </span>
+                    <span class="info-value">{{ project.startDate | date }}</span>
+                </div>
+                <div>
+          <span class="info-label">
+            <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>
+            Fin :
+          </span>
+                    <span class="info-value">{{ project.endDate | date }}</span>
+                </div>
+                <div>
+                    <span class="info-label">Créateur(rice)&nbsp;:</span>
+                    <span class="creator-badge">
+            <mat-icon style="font-size:17px;vertical-align:middle;color:#1976d2">person</mat-icon>
+            <span style="font-weight:bold; color:#1976d2;">{{ project.creatorUsername }}</span>
+          </span>
+                </div>
+                <div class="collaborators-list">
+                    <span class="info-label">collaborateur(rice)s :</span>
+                    <span *ngIf="!project.collaborators?.length" class="info-value">(Aucun)</span>
+                    <ul *ngIf="project.collaborators?.length" class="collab-list">
+                        <li *ngFor="let c of project.collaborators" class="collab-list-item">
+              <span class="collaborator-avatar"
+                    [ngStyle]="{'background': getColorForUser(c.username)}"
+                    matTooltip="{{ c.username + ' (' + c.email + ')' }}">
+                {{ getInitials(c.username) }}
+              </span>
+                            <span class="collaborator-fullname">{{ c.username }}</span>
+                            <button *ngIf="canAddCollaborator()"
+                                    mat-icon-button color="warn"
+                                    (click)="removeCollaborator(c.email, c.username)" style="margin-left:6px;">
+                                <mat-icon>person_remove</mat-icon>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-
-        <div class="project-infos">
-            <div>
-  <span class="info-label">
-    <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>
-    Début :
-  </span>
-                <span class="info-value">{{ project.startDate | date }}</span>
-            </div>
-            <div>
-  <span class="info-label">
-    <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>
-    Fin :
-  </span>
-                <span class="info-value">{{ project.endDate | date }}</span>
-            </div>
-
-            <div>
-                <span class="info-label">Créateur(rice)&nbsp;:</span>
-                <span class="creator-badge">
-    <mat-icon style="font-size:17px;vertical-align:middle;color:#1976d2">person</mat-icon>
-    <span style="font-weight:bold; color:#1976d2;">{{ project.creatorUsername }}</span>
-  </span>
-            </div>
-            <div class="collaborators-list">
-                <span class="info-label">collaborateur(rice)s :</span>
-                <span *ngIf="!project.collaborators?.length" class="info-value">(Aucun)</span>
-                <ul *ngIf="project.collaborators?.length" class="collab-list">
-                    <li *ngFor="let c of project.collaborators" class="collab-list-item">
-      <span class="collaborator-avatar"
-            [ngStyle]="{'background': getColorForUser(c.username)}"
-            matTooltip="{{ c.username + ' (' + c.email + ')' }}">
-        {{ getInitials(c.username) }}
-      </span>
-                        <span class="collaborator-fullname">{{ c.username }}</span>
-                        <button *ngIf="canAddCollaborator()"
-                                mat-icon-button color="warn"
-                                (click)="removeCollaborator(c.email, c.username)" style="margin-left:6px;">
-                            <mat-icon>person_remove</mat-icon>
-                        </button>
-
-                    </li>
-                </ul>
-            </div>
-
-        </div>
+        <!-- Tu peux ajouter ici d'autres blocs latéraux si besoin -->
     </div>
 
+    <!-- ASSEMBLAGES -->
+    <div class="assemblage-section">
+        <app-assemblage-list [projectId]="project?.id"></app-assemblage-list>
+    </div>
+
+    <!-- ACTIONS -->
     <div class="actions-bar">
         <button mat-button color="primary" (click)="retourListe()">
             <mat-icon style="vertical-align:middle;">arrow_back</mat-icon>

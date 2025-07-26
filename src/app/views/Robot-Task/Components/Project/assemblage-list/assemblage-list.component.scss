@@ -1,0 +1,138 @@
+.assemblage-list-container {
+  max-width: 1000px;
+  margin: 30px auto 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 20px 0 rgba(25, 118, 210, 0.07);
+  padding: 32px 24px 28px 24px;
+}
+
+.assemblage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.assemblage-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.32rem;
+  font-weight: 700;
+  gap: 7px;
+}
+.assemblage-icon {
+  color: #1976d2;
+  font-size: 1.7em !important;
+}
+.assemblage-search {
+  margin-bottom: 18px;
+  min-width: 270px;
+}
+.assemblage-table-wrapper {
+  overflow-x: auto;
+  margin-top: 8px;
+  border-radius: 10px;
+  background: #fcfcff;
+  box-shadow: 0 2px 8px #1976d21a;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: transparent;
+}
+
+th, td {
+  font-size: 1.04em;
+  padding: 12px 8px;
+}
+th {
+  font-weight: 600;
+  background: #f5faff;
+  border-bottom: 2px solid #e0eafc;
+}
+
+tr.mat-row:hover {
+  background: #f0f6ff;
+  transition: background 0.18s;
+}
+.mat-icon-button {
+  margin-right: 6px;
+}
+.no-assemblage-msg {
+  margin: 36px 0 0 0;
+  text-align: center;
+  color: #b0b7c4;
+  font-size: 1.07rem;
+  letter-spacing: 0.2px;
+}
+.center-spinner {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+@media (max-width: 700px) {
+  .assemblage-list-container {
+    padding: 10px 2vw;
+  }
+  table th, table td {
+    padding: 7px 2px;
+    font-size: 0.96em;
+  }
+}
+.assemblage-list-container {
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 2px 12px #1976d216;
+  padding: 20px 15px;
+  margin-bottom: 22px;
+  margin-top: 0;
+}
+.assemblage-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+.assemblage-count-badge {
+  margin-left: 14px;
+  background: linear-gradient(95deg, #42a5f5, #1565c0 70%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.08rem;
+  border-radius: 13px;
+  padding: 3px 12px 3px 8px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 6px #1565c033;
+  animation: badge-pop 0.3s cubic-bezier(0.19,1,0.22,1);
+}
+
+@keyframes badge-pop {
+  0% { transform: scale(0.7);}
+  70% { transform: scale(1.1);}
+  100% { transform: scale(1);}
+}
+
+.assemblage-nom-badge {
+  display: inline-block;
+  background: linear-gradient(95deg, #e3edfc 60%, #c7e6fb 100%);
+  color: #1976d2;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: 14px;
+  padding: 5px 12px 5px 12px;
+  box-shadow: 0 2px 10px #1976d212;
+  letter-spacing: 0.3px;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.assemblage-nom-badge:hover {
+  background: linear-gradient(95deg, #d1eaff 70%, #b3e5fc 100%);
+  box-shadow: 0 4px 18px #1976d23a;
+  color: #0d47a1;
+  cursor: pointer;
+}
+
+

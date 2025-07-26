@@ -31,6 +31,9 @@ import { ProjectAddCollaboratorDialogComponent } from './project-add-collaborato
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProjectArchivedListComponent } from './project-archived-list/project-archived-list.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AssemblageListComponent } from './assemblage-list/assemblage-list.component';
+import { MatTableModule } from '@angular/material/table';
+import { AssemblageDialogComponent } from './assemblage-dialog/assemblage-dialog.component';
 
 
 @NgModule({
@@ -41,7 +44,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         ConfirmDialogComponent,
         ProjectDetailComponent,
         ProjectAddCollaboratorDialogComponent,
-        ProjectArchivedListComponent
+        ProjectArchivedListComponent,
+        AssemblageListComponent,
+        AssemblageDialogComponent
     ],
     imports: [
         CommonModule,
@@ -79,7 +84,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatSelectModule,
         MatOptionModule,
         MatPaginatorModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        MatTableModule
 
 
 
