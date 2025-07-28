@@ -4,14 +4,15 @@
             <mat-icon style="margin-right:7px;">widgets</mat-icon>
             <span style="font-weight:600;">Assemblages</span>
             <span class="assemblage-count-badge" *ngIf="assemblages?.length !== undefined">
-  <mat-icon style="font-size:19px;vertical-align:middle;">dashboard_customize</mat-icon>
+                <mat-icon style="font-size:19px;vertical-align:middle;">dashboard_customize</mat-icon>
                 {{ assemblages.length }}
-</span>
+            </span>
         </div>
         <button mat-mini-fab color="primary" (click)="openAdd()">
             <mat-icon>add</mat-icon>
         </button>
     </div>
+
     <mat-form-field appearance="outline" class="assemblage-search">
         <mat-label>Recherche...</mat-label>
         <input matInput [(ngModel)]="search" placeholder="Nom" (ngModelChange)="onSearchChange()">
@@ -20,32 +21,53 @@
         </button>
     </mat-form-field>
 
-    <div *ngIf="loading" class="center-spinner"><mat-spinner diameter="30"></mat-spinner></div>
-    <div class="assemblage-table-wrapper" *ngIf="!loading && assemblages.length">
-        <table mat-table [dataSource]="assemblages">
+    <div *ngIf="loading" class="center-spinner">
+        <mat-spinner diameter="30"></mat-spinner>
+    </div>
 
+    <div class="assemblage-table-wrapper" *ngIf="!loading && assemblages.length">
+        <table mat-table
+               [dataSource]="assemblages"
+               cdkDropList
+               (cdkDropListDropped)="drop($event)">
+
+            <!-- Drag handle column -->
+            <ng-container matColumnDef="drag">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let a" cdkDragHandle>
+<!--                    <mat-icon matTooltip="Glisser pour réordonner" style="cursor: grab; color: #1976d2;">-->
+<!--                        pan_tool-->
+<!--                    </mat-icon>-->
+                </td>
+            </ng-container>
+
+            <!-- Nom column -->
             <ng-container matColumnDef="nom">
                 <th mat-header-cell *matHeaderCellDef>Nom</th>
                 <td mat-cell *matCellDef="let a">
-  <span class="assemblage-nom-badge">
-    {{ a.nom }}
-  </span>
+                    <span class="assemblage-nom-badge">{{ a.nom }}</span>
                 </td>
-
-
             </ng-container>
+
+            <!-- Description column -->
             <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef>Description</th>
                 <td mat-cell *matCellDef="let a">{{ a.description }}</td>
             </ng-container>
+
+            <!-- Date creation column -->
             <ng-container matColumnDef="dateCreation">
                 <th mat-header-cell *matHeaderCellDef>Date création</th>
                 <td mat-cell *matCellDef="let a">{{ a.dateCreation | date:'short' }}</td>
             </ng-container>
+
+            <!-- Creator column -->
             <ng-container matColumnDef="creator">
                 <th mat-header-cell *matHeaderCellDef>Créateur</th>
                 <td mat-cell *matCellDef="let a">{{ a.creatorUsername }}</td>
             </ng-container>
+
+            <!-- Actions column -->
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let a">
@@ -58,10 +80,22 @@
                 </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="['nom', 'description', 'dateCreation', 'creator', 'actions']"></tr>
-            <tr mat-row *matRowDef="let row; columns: ['nom', 'description', 'dateCreation', 'creator', 'actions']"></tr>
-        </table>
-    </div>
+            <!-- Table rows -->
+<!--            <tr mat-header-row *matHeaderRowDef="cols"></tr>-->
+<!--            <tr mat-row *matRowDef="let row; columns: cols" cdkDrag></tr>-->
+         <tr mat-header-row *matHeaderRowDef="cols"></tr><
+
+             <tr mat-row *matRowDef="let row; columns: cols"
+
+                 (click)="goToSousAssemblages(row)"
+
+                 cdkDrag style="cursor:pointer;">
+
+            </tr>
+            </table>
+            </div>
+
+
     <div *ngIf="!loading && !assemblages.length" class="no-assemblage-msg">
         Aucun assemblage trouvé.
     </div>

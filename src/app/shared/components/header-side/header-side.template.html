@@ -86,44 +86,45 @@
           </div>
         </div>
         <div class="notif-clear" (click)="clearAllNotifications()">
-          Clear all notifications
+          Supprimer toutes les notifications
         </div>
       </ng-container>
       <ng-template #noNotif>
-        <div class="notif-empty">No notifications</div>
+        <div class="notif-empty">Aucune notification</div>
       </ng-template>
     </div>
   </mat-menu>
 
 
 
+
   <!-- Top left user menu -->
-  <button
-          mat-icon-button
-          [matMenuTriggerFor]="accountMenu"
-          class="topbar-button-right img-button"
-  >
-    <div
-            class="avatar-initial"
-            [ngStyle]="{
-    'background': avatarBgColor,
-    'color': avatarTextColor
-  }"
-            style="
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:1.3rem;
-    font-weight:bold;
-    user-select:none;
-    text-transform:uppercase;"
-    >
-      {{ (userName ? userName[0] : 'U') | uppercase }}
+  <button mat-icon-button [matMenuTriggerFor]="accountMenu" class="topbar-button-right mr-16 img-button">
+    <!-- AVATAR STATIQUE COMMUN -->
+    <div class="avatar-static">
+      <mat-icon class="avatar-icon">person</mat-icon>
     </div>
+
+    <style>
+      .avatar-static {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #e8f3ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+      }
+
+      .avatar-icon {
+        font-size: 1.7rem;
+        color: #1976d2;
+      }
+    </style>
+
   </button>
+
 
 
   <mat-menu #accountMenu="matMenu">

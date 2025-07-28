@@ -37,20 +37,13 @@ export class SignUpComponent implements OnInit {
       username: new UntypedFormControl('', Validators.required),
       email: new UntypedFormControl('', [Validators.required, Validators.email]),
       password: new UntypedFormControl('', Validators.required),
-      role: new UntypedFormControl('', Validators.required) // Ajout du champ rôle
     });
   }
 
   signup() {
     if (this.signupForm.invalid) return;
-    const { username, email, password, role } = this.signupForm.value;
-
-    const userPayload = {
-      username,
-      email,
-      password,
-      roles: [role] // envoie sous forme de tableau
-    };
+    const { username, email, password } = this.signupForm.value;
+    const userPayload = { username, email, password };
 
     this.loading = true;
     this.errorMsg = '';

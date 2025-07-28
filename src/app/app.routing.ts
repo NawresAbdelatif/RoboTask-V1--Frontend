@@ -9,6 +9,9 @@ import {VerifyEmailComponent} from "./views/Robot-Task/Components/verify-email/v
 import {ActivateComponent} from "./views/Robot-Task/Components/activate/activate.component";
 import {ForgotPasswordComponent} from "./views/Robot-Task/Components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./views/Robot-Task/Components/reset-password/reset-password.component";
+import {
+  SousAssemblageListComponent
+} from "./views/Robot-Task/Components/Project/sous-assemblage-list/sous-assemblage-list.component";
 
 export const rootRouterConfig: Routes = [
 
@@ -71,6 +74,12 @@ export const rootRouterConfig: Routes = [
         path: 'projets',
         loadChildren: () => import('./views/Robot-Task/Components/Project/projects.module').then(m => m.ProjectsModule),
         data: { title: 'Projets', breadcrumb: 'PROJETS' }
+      },
+      {
+        path: 'assemblages/:assemblageId/sous-assemblages',
+        component: SousAssemblageListComponent,
+        canActivate: [AuthGuard],
+        data: { title: 'Sous-assemblages' }
       },
 
       {

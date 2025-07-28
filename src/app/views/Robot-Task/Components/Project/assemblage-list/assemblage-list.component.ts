@@ -4,6 +4,8 @@ import { Assemblage } from '../../../Models/assemblage.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AssemblageDialogComponent } from '../assemblage-dialog/assemblage-dialog.component'; // adapte le chemin !
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assemblage-list',
@@ -11,7 +13,7 @@ import { AssemblageDialogComponent } from '../assemblage-dialog/assemblage-dialo
   styleUrls: ['./assemblage-list.component.scss']
 })
 export class AssemblageListComponent implements OnInit {
-  @Input() projectId!: number; // On attend un id de projet parent
+  @Input() projectId!: number;
   assemblages: Assemblage[] = [];
   search = '';
   page = 0;
@@ -22,8 +24,11 @@ export class AssemblageListComponent implements OnInit {
  showForm = false;
   isEdit = false;
   current: Assemblage = { nom: '', description: '' };
+  cols = ['drag', 'nom', 'description', 'dateCreation', 'creator', 'actions'];
 
-  constructor(private robotService: RobotTaskService, private snackBar: MatSnackBar, private dialog: MatDialog ) {}
+  constructor(private robotService: RobotTaskService, private snackBar: MatSnackBar,
+              private dialog: MatDialog,  private router: Router
+  ) {}
 
   ngOnInit() {
     this.load();
@@ -128,4 +133,26 @@ export class AssemblageListComponent implements OnInit {
     this.page = 0;
     this.load();
   }
+
+    drop(event: CdkDragDrop<Assemblage[]>) {
+        moveItemInArray(this.assemblages, event.previousIndex, event.currentIndex);
+        const orderedIds = this.assemblages.map(a => a.id);
+        this.robotService.reorderAssemblages(this.projectId, orderedIds).subscribe({
+            next: () => {
+                this.snackBar.open('Ordre sauvegardé', 'Fermer', { duration: 1500 });
+                this.load(); // <<<< recharge la liste depuis le backend pour afficher l’ordre exact sauvegardé
+            },
+            error: () => this.snackBar.open('Erreur de sauvegarde ordre', 'Fermer', { duration: 2500 })
+        });
+    }
+
+    goToSousAssemblages(assemblage: Assemblage) {
+        this.router.navigate(
+            ['/assemblages', assemblage.id, 'sous-assemblages'],
+            { state: { assemblageName: assemblage.nom } }
+        );
+    }
+
+
+
 }

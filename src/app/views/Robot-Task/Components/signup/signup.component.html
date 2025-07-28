@@ -27,21 +27,28 @@
                         <mat-error *ngIf="signupForm.controls['email'].hasError('email')">Email invalide</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" class="full-width mb-6">
-                        <mat-label>Type de compte</mat-label>
-                        <mat-select formControlName="role" required>
-                            <mat-option value="CREATOR">
-                                🚀 Créateur – Je veux créer et gérer des projets
-                            </mat-option>
-                            <mat-option value="EXECUTOR">
-                                🛠️ Exécuteur – Je veux exécuter des tâches
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="signupForm.controls['role'].hasError('required')">
-                            Type de compte obligatoire
-                        </mat-error>
-                    </mat-form-field>
+<!--                    <mat-form-field appearance="outline" class="full-width mb-6">-->
+<!--                        <mat-label>Type de compte</mat-label>-->
+<!--                        <mat-select formControlName="role" required>-->
+<!--                            <mat-option value="CREATOR">-->
+<!--                                🚀 Créateur – Je veux créer et gérer des projets-->
+<!--                            </mat-option>-->
+<!--                            <mat-option value="EXECUTOR">-->
+<!--                                🛠️ Exécuteur – Je veux exécuter des tâches-->
+<!--                            </mat-option>-->
+<!--                        </mat-select>-->
+<!--                        <mat-error *ngIf="signupForm.controls['role'].hasError('required')">-->
+<!--                            Type de compte obligatoire-->
+<!--                        </mat-error>-->
+<!--                    </mat-form-field>-->
 
+                    <div class="signup-role-note">
+                        <mat-icon aria-hidden="true" fontIcon="info" class="info-icon">info</mat-icon>
+                        <span>
+                            Votre compte sera créé comme <b>Visiteur</b>.<br>
+                            L’administrateur pourra ensuite vous donner des droits supplémentaires.
+                        </span>
+                    </div>
 
                     <!-- Password -->
                     <mat-form-field appearance="outline" class="full-width mb-6">

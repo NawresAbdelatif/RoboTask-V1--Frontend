@@ -17,6 +17,7 @@ import {PasswordChange} from "../Models/password-change.model";
 import {Piece} from "../Models/piece.model";
 import {Outil} from "../Models/outil.model";
 import {Assemblage} from "../Models/assemblage.model";
+import {SousAssemblage} from "../Models/sous-assemblage.model";
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,8 @@ export class RobotTaskService {
   private apilogsUrl = 'http://localhost:8090/api/logs';
   private apiPieces = 'http://localhost:8090/api/pieces';
   private apiOutils = 'http://localhost:8090/api/outils';
+  private apiSousAssemblages = 'http://localhost:8090/api/sous-assemblages';
+
   private _currentUser$ = new BehaviorSubject<any>(this.getStoredUser());
   public currentUser$ = this._currentUser$.asObservable();
   constructor(private http: HttpClient) {}
@@ -126,6 +129,10 @@ export class RobotTaskService {
     return this.http.post(`${this.apiUrl}/reset-password?token=${token}`, { password: newPassword });
   }
 
+  getEnabledUsersCount() {
+    return this.http.get<number>(`${this.apiUrl}/users/count-enabled`);
+  }
+
   //////////////////////Logs///////////////////////
 
   getLogs(page = 0, size = 8): Observable<{ content: LogEntry[], totalElements: number }> {
@@ -199,7 +206,9 @@ export class RobotTaskService {
     return this.http.put(`${this.apiprojectUrl}/${projectId}/unarchive`, {});
   }
 
-
+  getActiveProjectsCount(): Observable<number> {
+    return this.http.get<number>(`${this.apiprojectUrl}/stats/active-count`);
+  }
   ////////////////////Notification////////////////////
 
   getNotifications(): Observable<Notification[]> {
@@ -241,6 +250,15 @@ export class RobotTaskService {
   uploadImage(formData: FormData) {
     return this.http.post(`${this.apiPieces}/upload-image`, formData, { responseType: 'text' });
   }
+
+  getTotalPieces(): Observable<number> {
+    return this.http.get<number>(`${this.apiPieces}/count`);
+  }
+
+  getTotalPiecesQuantite(): Observable<number> {
+    return this.http.get<number>(`${this.apiPieces}/quantite-total`);
+  }
+
   ////////////////////Outils////////////////////
 
   getAllOutils(page = 0, size = 5, search = ''): Observable<any> {
@@ -266,6 +284,14 @@ export class RobotTaskService {
   uploadImageOutil(formData: FormData) {
     return this.http.post(`${this.apiOutils}/upload-image`, formData, { responseType: 'text' });
   }
+  getTotalOutils(): Observable<number> {
+    return this.http.get<number>(`${this.apiOutils}/count`);
+  }
+
+  getTotalOutilsQuantite(): Observable<number> {
+    return this.http.get<number>(`${this.apiOutils}/quantite-total`);
+  }
+
 
   ////////////////////Assemblage////////////////////
 
@@ -287,6 +313,27 @@ export class RobotTaskService {
 
   deleteAssemblage(projectId: number, id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiprojectUrl}/${projectId}/assemblages/${id}/delete`);
+  }
+  reorderAssemblages(projectId: number, orderedIds: number[]): Observable<any> {
+    return this.http.put<any>(`${this.apiprojectUrl}/${projectId}/assemblages/reorder`, orderedIds);
+  }
+
+  ////////////////////SousAssemblage////////////////////
+
+  getByAssemblage(assemblageId: number): Observable<SousAssemblage[]> {
+    return this.http.get<SousAssemblage[]>(`${this.apiSousAssemblages}/by-assemblage/${assemblageId}`);
+  }
+
+  create(sousAssemblage: SousAssemblage, email: string): Observable<SousAssemblage> {
+    return this.http.post<SousAssemblage>(this.apiSousAssemblages + '?email=' + encodeURIComponent(email), sousAssemblage);
+  }
+
+  update(id: number, sousAssemblage: SousAssemblage, email: string): Observable<SousAssemblage> {
+    return this.http.put<SousAssemblage>(`${this.apiSousAssemblages}/${id}?email=${encodeURIComponent(email)}`, sousAssemblage);
+  }
+
+  delete(id: number, email: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiSousAssemblages}/${id}?email=${encodeURIComponent(email)}`);
   }
 
 }

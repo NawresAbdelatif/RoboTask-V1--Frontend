@@ -34,6 +34,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AssemblageListComponent } from './assemblage-list/assemblage-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { AssemblageDialogComponent } from './assemblage-dialog/assemblage-dialog.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { SousAssemblageListComponent } from './sous-assemblage-list/sous-assemblage-list.component';
+import { SousAssemblageDialogComponent } from './sous-assemblage-dialog/sous-assemblage-dialog.component';
 
 
 @NgModule({
@@ -46,7 +49,9 @@ import { AssemblageDialogComponent } from './assemblage-dialog/assemblage-dialog
         ProjectAddCollaboratorDialogComponent,
         ProjectArchivedListComponent,
         AssemblageListComponent,
-        AssemblageDialogComponent
+        AssemblageDialogComponent,
+        SousAssemblageListComponent,
+        SousAssemblageDialogComponent
     ],
     imports: [
         CommonModule,
@@ -85,7 +90,9 @@ import { AssemblageDialogComponent } from './assemblage-dialog/assemblage-dialog
         MatOptionModule,
         MatPaginatorModule,
         MatAutocompleteModule,
-        MatTableModule
+        MatTableModule,
+        DragDropModule
+
 
 
 

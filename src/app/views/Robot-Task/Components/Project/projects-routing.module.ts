@@ -4,6 +4,7 @@ import {ProjectListComponent} from "./project-list/project-list.component";
 import {ProjectCreateComponent} from "./project-create/project-create.component";
 import {ProjectDetailComponent} from "./project-detail/project-detail.component";
 import {ProjectArchivedListComponent} from "./project-archived-list/project-archived-list.component";
+import {SousAssemblageListComponent} from "./sous-assemblage-list/sous-assemblage-list.component";
 
 const routes: Routes = [
     { path: 'list', component: ProjectListComponent },
@@ -11,6 +12,8 @@ const routes: Routes = [
     { path: 'create', component: ProjectCreateComponent },
     { path: '', redirectTo: 'list', pathMatch: 'full' },
     { path: ':id', component: ProjectDetailComponent },
+    { path: ':assemblageId/sous-assemblages', component: SousAssemblageListComponent },
+
 
 ];
 

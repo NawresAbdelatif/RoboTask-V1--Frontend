@@ -31,7 +31,6 @@ export class HeaderSideComponent implements OnInit {
 
   public matxThemes;
   public layoutConf: any;
-  // notifications: Notification[] = [];
   unreadCount = 0;
   notifications: Notification[] = [];
   constructor(
@@ -79,6 +78,8 @@ export class HeaderSideComponent implements OnInit {
   // }
 
   onNotificationsMenuOpened() {
+    this.notifications.forEach(n => n.read = true);
+    this.unreadCount = 0;
     this.robotaskService.markAllAsRead().subscribe(() => {
       this.fetchNotifications();
     });
@@ -86,16 +87,19 @@ export class HeaderSideComponent implements OnInit {
 
 
 
+
+
   timeAgo(dateStr: string): string {
     const now = new Date();
     const date = new Date(dateStr);
-    const diff = Math.floor((+now - +date) / 60000); // minutes
-    if (diff < 1) return 'just now';
-    if (diff < 60) return diff + ' min ago';
+    const diff = Math.floor((+now - +date) / 60000);
+    if (diff < 1) return 'à l’instant';
+    if (diff < 60) return `il y a ${diff} minute${diff > 1 ? 's' : ''}`;
     const hours = Math.floor(diff / 60);
-    if (hours < 24) return hours + ' h ago';
-    return date.toLocaleDateString();
+    if (hours < 24) return `il y a ${hours} heure${hours > 1 ? 's' : ''}`;
+    return `le ${date.toLocaleDateString('fr-FR')}`;
   }
+
 
   clearAllNotifications() {
     this.robotaskService.clearNotifications().subscribe(() => {

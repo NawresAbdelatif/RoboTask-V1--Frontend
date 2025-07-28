@@ -2,6 +2,7 @@ export type ProjectStatus = 'PLANNED' | 'IN_PROGRESS' | 'COMPLETED';
 export interface Collaborator {
     username: string;
     email: string;
+    roles: string[];
 }
 export interface ProjectResponse {
     id: number;

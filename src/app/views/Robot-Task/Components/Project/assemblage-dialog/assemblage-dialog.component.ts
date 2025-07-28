@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Assemblage } from '../../../Models/assemblage.model';
+import {SousAssemblage} from "../../../Models/sous-assemblage.model";
 
 @Component({
   selector: 'app-assemblage-dialog',
@@ -9,6 +10,8 @@ import { Assemblage } from '../../../Models/assemblage.model';
 })
 export class AssemblageDialogComponent {
   assemblage: Assemblage;
+  sousAssemblage: SousAssemblage;
+
 
   constructor(
       public dialogRef: MatDialogRef<AssemblageDialogComponent>,
@@ -21,6 +24,9 @@ export class AssemblageDialogComponent {
     this.dialogRef.close();
   }
   onSave() {
-    this.dialogRef.close(this.assemblage);
+    this.dialogRef.close({
+      ...this.assemblage,
+      assemblageId: this.data.assemblage.id
+    });
   }
 }

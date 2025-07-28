@@ -101,27 +101,27 @@
             <div>
                 <div class="project-title">{{ project.name }}</div>
                 <span class="project-ref-badge" *ngIf="project.reference">
-          <mat-icon style="font-size:18px;vertical-align:middle;">tag</mat-icon>
+                    <mat-icon style="font-size:18px;vertical-align:middle;">tag</mat-icon>
                     {{ project.reference }}
-        </span>
+                </span>
             </div>
         </div>
         <div class="header-right">
-      <span class="status-badge"
-            [ngClass]="{
-          'planned': project.status === 'PLANNED',
-          'inprogress': project.status === 'IN_PROGRESS',
-          'completed': project.status === 'COMPLETED'
-        }">
-        <mat-icon class="status-icon">
-          {{
-            project.status === 'PLANNED' ? 'schedule' :
-                project.status === 'IN_PROGRESS' ? 'autorenew' :
-                    project.status === 'COMPLETED' ? 'check_circle' : 'help'
-            }}
-        </mat-icon>
-          {{ getStatusLabel(project.status) }}
-      </span>
+            <span class="status-badge"
+                  [ngClass]="{
+                      'planned': project.status === 'PLANNED',
+                      'inprogress': project.status === 'IN_PROGRESS',
+                      'completed': project.status === 'COMPLETED'
+                  }">
+                <mat-icon class="status-icon">
+                    {{
+                    project.status === 'PLANNED' ? 'schedule' :
+                        project.status === 'IN_PROGRESS' ? 'autorenew' :
+                            project.status === 'COMPLETED' ? 'check_circle' : 'help'
+                    }}
+                </mat-icon>
+                {{ getStatusLabel(project.status) }}
+            </span>
             <button mat-mini-fab color="primary" *ngIf="canAddCollaborator()"
                     (click)="openAddCollaboratorDialog()" class="add-collab-btn">
                 <mat-icon>person_add</mat-icon>
@@ -129,62 +129,60 @@
         </div>
     </div>
 
-    <!-- DÉTAILS -->
-    <div class="project-details-grid">
-        <div class="main-details">
-            <div class="project-description">
-                <span><strong>Description :</strong></span>
-                <span class="desc-text">{{ project.description || '(Aucune description)' }}</span>
+    <!-- DETAILS + ASSEMBLAGES : tout dans le même bloc -->
+    <div class="main-details">
+        <!-- Détails projet -->
+        <div class="project-description">
+            <span><strong>Description:</strong></span>
+            <span class="desc-text">{{ project.description || '(Aucune description)' }}</span>
+        </div>
+        <div class="project-infos">
+            <div>
+                <span class="info-label">
+                    <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>
+                    Début :
+                </span>
+                <span class="info-value">{{ project.startDate | date }}</span>
             </div>
-            <div class="project-infos">
-                <div>
-          <span class="info-label">
-            <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>
-            Début :
-          </span>
-                    <span class="info-value">{{ project.startDate | date }}</span>
-                </div>
-                <div>
-          <span class="info-label">
-            <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>
-            Fin :
-          </span>
-                    <span class="info-value">{{ project.endDate | date }}</span>
-                </div>
-                <div>
-                    <span class="info-label">Créateur(rice)&nbsp;:</span>
-                    <span class="creator-badge">
-            <mat-icon style="font-size:17px;vertical-align:middle;color:#1976d2">person</mat-icon>
-            <span style="font-weight:bold; color:#1976d2;">{{ project.creatorUsername }}</span>
-          </span>
-                </div>
-                <div class="collaborators-list">
-                    <span class="info-label">collaborateur(rice)s :</span>
-                    <span *ngIf="!project.collaborators?.length" class="info-value">(Aucun)</span>
-                    <ul *ngIf="project.collaborators?.length" class="collab-list">
-                        <li *ngFor="let c of project.collaborators" class="collab-list-item">
-              <span class="collaborator-avatar"
-                    [ngStyle]="{'background': getColorForUser(c.username)}"
-                    matTooltip="{{ c.username + ' (' + c.email + ')' }}">
-                {{ getInitials(c.username) }}
-              </span>
-                            <span class="collaborator-fullname">{{ c.username }}</span>
-                            <button *ngIf="canAddCollaborator()"
-                                    mat-icon-button color="warn"
-                                    (click)="removeCollaborator(c.email, c.username)" style="margin-left:6px;">
-                                <mat-icon>person_remove</mat-icon>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
+            <div>
+                <span class="info-label">
+                    <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>
+                    Fin :
+                </span>
+                <span class="info-value">{{ project.endDate | date }}</span>
+            </div>
+            <div>
+                <span class="info-label">Créateur(rice)&nbsp;:</span>
+                <span class="creator-badge">
+                    <mat-icon style="font-size:17px;vertical-align:middle;color:#1976d2">person</mat-icon>
+                    <span style="font-weight:bold; color:#1976d2;">{{ project.creatorUsername }}</span>
+                </span>
+            </div>
+            <div class="collaborators-list">
+                <span class="info-label">collaborateur(rice)s :</span>
+                <span *ngIf="!project.collaborators?.length" class="info-value">(Aucun)</span>
+                <ul *ngIf="project.collaborators?.length" class="collab-list">
+                    <li *ngFor="let c of project.collaborators" class="collab-list-item">
+                        <span class="collaborator-avatar"
+                              [ngStyle]="{'background': getColorForUser(c.username)}"
+                              matTooltip="{{ c.username + ' (' + c.email + ')' }}">
+                            {{ getInitials(c.username) }}
+                        </span>
+                        <span class="collaborator-fullname">{{ c.username }}</span>
+                        <button *ngIf="canAddCollaborator()"
+                                mat-icon-button color="warn"
+                                (click)="removeCollaborator(c.email, c.username)" style="margin-left:6px;">
+                            <mat-icon>person_remove</mat-icon>
+                        </button>
+                    </li>
+                </ul>
             </div>
         </div>
-        <!-- Tu peux ajouter ici d'autres blocs latéraux si besoin -->
-    </div>
 
-    <!-- ASSEMBLAGES -->
-    <div class="assemblage-section">
-        <app-assemblage-list [projectId]="project?.id"></app-assemblage-list>
+        <!-- Assemblages juste en dessous -->
+        <div class="assemblage-section">
+            <app-assemblage-list [projectId]="project?.id"></app-assemblage-list>
+        </div>
     </div>
 
     <!-- ACTIONS -->
@@ -195,4 +193,5 @@
         </button>
     </div>
 </div>
+
 <div *ngIf="loading" class="center-spinner"><mat-spinner></mat-spinner></div>

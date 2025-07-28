@@ -104,3 +104,26 @@ mat-card {
 .signup-bottom-link a:hover {
   text-decoration: underline;
 }
+.signup-role-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #e3f2fd;
+  border-left: 4px solid #1976d2;
+  color: #1976d2;
+  font-size: 0.98em;
+  margin-bottom: 18px;
+  margin-top: 2px;
+  padding: 8px 14px 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px #1976d210;
+}
+.signup-role-note .info-icon {
+  font-size: 1.5em;
+  margin-top: 2px;
+  color: #1976d2;
+}
+.signup-role-note b {
+  font-weight: 600;
+  color: #12589e;
+}

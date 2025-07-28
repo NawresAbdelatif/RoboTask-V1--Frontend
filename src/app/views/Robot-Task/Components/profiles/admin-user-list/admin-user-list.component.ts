@@ -24,12 +24,16 @@ export class AdminUserListComponent implements OnInit {
     'ROLE_ADMIN',
     'ROLE_CREATOR',
     'ROLE_EXECUTOR',
+    'ROLE_VISITOR'
 
-  ];
+
+];
   roleLabels: Record<string, string> = {
     'ROLE_ADMIN': 'Admin',
     'ROLE_CREATOR': 'Créateur',
     'ROLE_EXECUTOR': 'Exécuteur',
+    'ROLE_VISITOR': 'Visiteur'
+
   };
   successMsg = '';
   currentUserId: number | null = null;

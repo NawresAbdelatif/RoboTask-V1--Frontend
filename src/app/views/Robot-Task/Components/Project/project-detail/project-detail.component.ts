@@ -75,10 +75,20 @@ export class ProjectDetailComponent implements OnInit {
 
   canAddCollaborator(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    // Autoriser si admin ou créateur
-    return this.project &&
-        (user.username === this.project.creatorUsername ||
-            (user.roles && user.roles.includes('ROLE_ADMIN')));
+    if (!this.project || !user) return false;
+
+    // Admin
+    if (user.roles && user.roles.includes('ROLE_ADMIN')) return true;
+
+    // Créateur du projet
+    if (user.username === this.project.creatorUsername) return true;
+
+    // Collaborateur du projet avec rôle CREATOR
+    const isProjectCollaboratorCreator = this.project.collaborators?.some(c =>
+        c.username === user.username &&
+        c.roles?.includes('ROLE_CREATOR')
+    );
+    return !!isProjectCollaboratorCreator;
   }
 
 

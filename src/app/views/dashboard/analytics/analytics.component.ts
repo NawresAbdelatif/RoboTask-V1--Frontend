@@ -16,6 +16,12 @@ import { RobotTaskService } from "../../Robot-Task/Services/robot-task.service";
 export class AnalyticsComponent implements OnInit, AfterViewInit {
   dailyTrafficChartBar: any;
   doughNutPieOptions: any;
+  activeUsersCount: number = 0;
+  activeProjectsCount: number = 0;
+  totalPiecesCount: number = 0;
+  totalPiecesQuantite: number = 0;
+  totalOutilsCount: number = 0;
+  totalOutilsQuantite: number = 0;
 
   statCardList = [
     { icon: "people", title: "New Leads", amount: "3,050", color: "primary" },
@@ -49,9 +55,8 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {}
 
   ngOnInit() {
-    // Données dynamiques du chart : nombre de projets créés par année
+
     this.projectService.getProjectsCountByYear().subscribe(data => {
-      // Ex : data = {2021: 5, 2022: 12, 2023: 18, 2024: 9}
       const years = Object.keys(data);
       const counts = Object.values(data);
 
@@ -113,7 +118,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
       };
     });
 
-    // Les autres inits du dashboard (inchangé)
     this.themeService.onThemeChange.subscribe(activeTheme => {
       this.initDoughNutPieOptions(activeTheme);
     });
@@ -178,10 +182,26 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         ]
       };
     });
-
+    this.projectService.getEnabledUsersCount().subscribe(count => {
+      this.activeUsersCount = count;
+    });
+    this.projectService.getActiveProjectsCount().subscribe(count => {
+      this.activeProjectsCount = count;
+    });
+    this.projectService.getTotalPieces().subscribe(count => {
+      this.totalPiecesCount = count;
+    });
+    this.projectService.getTotalPiecesQuantite().subscribe(count => {
+      this.totalPiecesQuantite = count;
+    });
+    this.projectService.getTotalOutils().subscribe(count => {
+      this.totalOutilsCount = count;
+    });
+    this.projectService.getTotalOutilsQuantite().subscribe(count => {
+      this.totalOutilsQuantite = count;
+    });
   }
 
-  // Le chart camembert (inchangé/statique)
   initDoughNutPieOptions(theme) {
     this.doughNutPieOptions = {
       backgroundColor: "transparent",

@@ -134,5 +134,27 @@ tr.mat-row:hover {
   color: #0d47a1;
   cursor: pointer;
 }
+.assemblage-list-container {
+  background: none !important;  /* ou transparent */
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+.assemblage-section {
+  margin-top: 30px;
+  border-top: 1.5px solid #f1f4fa;
+  padding-top: 20px;
+}
+::ng-deep .cdk-drag-preview {
+  box-shadow: 0 5px 10px rgba(33,33,33,.15);
+  border-radius: 8px;
+  opacity: 0.85;
+}
+::ng-deep .cdk-drag-animating {
+  transition: transform 200ms cubic-bezier(0,0,0.2,1);
+}
+.mat-icon[cdkDragHandle] {
+  cursor: grab;
+}
 
 

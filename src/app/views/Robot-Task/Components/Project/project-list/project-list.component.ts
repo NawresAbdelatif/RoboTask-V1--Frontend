@@ -13,6 +13,7 @@ import { PageEvent } from '@angular/material/paginator';
 import {Router} from "@angular/router";
 import { RefreshProjectListService } from '../../../Services/refresh-project-list.service';
 import { Subscription } from 'rxjs';
+import {LinkedinShareDialogComponent} from "./linkedin-share-dialog.component";
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -260,5 +261,29 @@ export class ProjectListComponent implements OnInit {
     });
   }
 
+  openLinkedInShareDialog(project: ProjectResponse) {
+    const postContent =
+        `🚀 Chez ACWA Robotics, nous poursuivons notre engagement pour l'innovation et la créativité !\n\n` +
+        `Nous sommes ravis d’annoncer le lancement d’un **nouveau projet ambitieux** : Le robot **${project.name}**.\n\n` +
+        `💡 ${project.description || 'explorer de nouvelles frontières en robotique et automatisation.'}\n\n` +
+        `📅 Période du projet : du ${new Date(project.startDate).toLocaleDateString('fr-FR')} au ${new Date(project.endDate).toLocaleDateString('fr-FR')}.\n\n` +
+        `👏 Félicitations à toutes les équipes impliquées !\n\n` +
+        `#Innovation #Robotique #Créativité #Projet #${project.name.replace(/\s+/g, '')} via ROBOTASK`;
 
+    const dialogRef = this.dialog.open(LinkedinShareDialogComponent, {
+      width: '500px',
+      data: { content: postContent }
+    });
+
+    dialogRef.afterClosed().subscribe(userContent => {
+      if (userContent !== null && userContent.trim() !== '') {
+        const url = encodeURIComponent(window.location.origin + '/projets/' + project.id);
+        const summary = encodeURIComponent(userContent);
+        window.open(
+            `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${encodeURIComponent(project.name)}&summary=${summary}`,
+            '_blank'
+        );
+      }
+    });
+  }
 }
