@@ -134,5 +134,16 @@ tr.mat-row:hover {
   color: #0d47a1;
   cursor: pointer;
 }
+.assemblage-list-container {
+  background: none !important;  /* ou transparent */
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+.assemblage-section {
+  margin-top: 30px;
+  border-top: 1.5px solid #f1f4fa;
+  padding-top: 20px;
+}
 
 

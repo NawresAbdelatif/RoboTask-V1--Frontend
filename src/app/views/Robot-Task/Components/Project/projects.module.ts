@@ -85,7 +85,8 @@ import { AssemblageDialogComponent } from './assemblage-dialog/assemblage-dialog
         MatOptionModule,
         MatPaginatorModule,
         MatAutocompleteModule,
-        MatTableModule
+        MatTableModule,
+
 
 
 

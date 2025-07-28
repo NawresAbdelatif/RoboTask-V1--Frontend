@@ -52,6 +52,9 @@ import {PieceListComponent} from "./views/Robot-Task/Components/pieces/piece-lis
 import {PieceDialogComponent} from "./views/Robot-Task/Components/pieces/piece-dialog/piece-dialog.component";
 import {OutilListComponent} from "./views/Robot-Task/Components/outils/outil-list/outil-list.component";
 import {OutilDialogComponent} from "./views/Robot-Task/Components/outils/outil-dialog/outil-dialog.component";
+import {
+    LinkedinShareDialogComponent
+} from "./views/Robot-Task/Components/Project/project-list/linkedin-share-dialog.component";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -99,7 +102,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatDialogModule,
         MatProgressSpinnerModule,
 ],
-  declarations: [AppComponent, RobotTaskComponent, UserComponent,SignUpComponent,ActivateComponent,ForgotPasswordComponent,ResetPasswordComponent,PieceListComponent,PieceDialogComponent,OutilListComponent,OutilDialogComponent],
+  declarations: [AppComponent, RobotTaskComponent, UserComponent,SignUpComponent,ActivateComponent,ForgotPasswordComponent,ResetPasswordComponent,PieceListComponent,PieceDialogComponent,OutilListComponent,OutilDialogComponent,LinkedinShareDialogComponent],
   providers: [
     { provide: ErrorHandler, useClass: ErrorHandlerService },
     // { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },

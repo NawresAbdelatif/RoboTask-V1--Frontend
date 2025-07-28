@@ -28,6 +28,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdminUserListComponent } from './admin-user-list/admin-user-list.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+
 @NgModule({
     declarations: [
         LogsComponent,

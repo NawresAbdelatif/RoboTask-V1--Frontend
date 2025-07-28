@@ -126,6 +126,10 @@ export class RobotTaskService {
     return this.http.post(`${this.apiUrl}/reset-password?token=${token}`, { password: newPassword });
   }
 
+  getEnabledUsersCount() {
+    return this.http.get<number>(`${this.apiUrl}/users/count-enabled`);
+  }
+
   //////////////////////Logs///////////////////////
 
   getLogs(page = 0, size = 8): Observable<{ content: LogEntry[], totalElements: number }> {
@@ -199,7 +203,9 @@ export class RobotTaskService {
     return this.http.put(`${this.apiprojectUrl}/${projectId}/unarchive`, {});
   }
 
-
+  getActiveProjectsCount(): Observable<number> {
+    return this.http.get<number>(`${this.apiprojectUrl}/stats/active-count`);
+  }
   ////////////////////Notification////////////////////
 
   getNotifications(): Observable<Notification[]> {
@@ -241,6 +247,15 @@ export class RobotTaskService {
   uploadImage(formData: FormData) {
     return this.http.post(`${this.apiPieces}/upload-image`, formData, { responseType: 'text' });
   }
+
+  getTotalPieces(): Observable<number> {
+    return this.http.get<number>(`${this.apiPieces}/count`);
+  }
+
+  getTotalPiecesQuantite(): Observable<number> {
+    return this.http.get<number>(`${this.apiPieces}/quantite-total`);
+  }
+
   ////////////////////Outils////////////////////
 
   getAllOutils(page = 0, size = 5, search = ''): Observable<any> {
@@ -266,6 +281,14 @@ export class RobotTaskService {
   uploadImageOutil(formData: FormData) {
     return this.http.post(`${this.apiOutils}/upload-image`, formData, { responseType: 'text' });
   }
+  getTotalOutils(): Observable<number> {
+    return this.http.get<number>(`${this.apiOutils}/count`);
+  }
+
+  getTotalOutilsQuantite(): Observable<number> {
+    return this.http.get<number>(`${this.apiOutils}/quantite-total`);
+  }
+
 
   ////////////////////Assemblage////////////////////
 

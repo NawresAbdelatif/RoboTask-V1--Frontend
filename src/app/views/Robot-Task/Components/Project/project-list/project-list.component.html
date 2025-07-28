@@ -344,6 +344,16 @@
                 </div>
 
                 <div class="project-menu">
+                    <button mat-icon-button matTooltip="Partager sur LinkedIn"
+                            (click)="openLinkedInShareDialog(project)">
+                        <mat-icon style="color:#0A66C2;font-weight:bold">linkedin</mat-icon>
+                    </button>
+<!--                    <button mat-icon-button matTooltip="Partager sur LinkedIn"-->
+<!--                            (click)="openLinkedInShareDialog(project)">-->
+<!--                        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg"-->
+<!--                             alt="LinkedIn"-->
+<!--                             style="width:22px;height:22px;filter:drop-shadow(0 1px 3px #0A66C266);" />-->
+<!--                    </button>-->
                     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions projet">
                         <mat-icon>more_vert</mat-icon>
                     </button>

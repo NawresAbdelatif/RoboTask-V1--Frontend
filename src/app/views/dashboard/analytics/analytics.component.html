@@ -6,22 +6,91 @@
   <div fxLayout="row wrap">
     <div fxFlex="100" fxFlex.sm="70" fxFlex.gt-sm="70">
       <div fxLayout="row wrap">
-        <div *ngFor="let item of statCardList" fxFlex="100" fxFlex.sm="50" fxFlex.gt-sm="50">
-          <mat-card class="p-24" fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-            <div fxLayout="row" fxLayoutAlign="center center">
-              <mat-icon class="text-48 text-{{item.color}}">{{
-                item.icon
-                }}</mat-icon>
-              <div class="ml-12">
-                <p class="m-0 text-muted mb-4">{{ item.title }}</p>
-                <h5 class="m-0 text-{{item.color}}">{{ item.amount }}</h5>
+        <div fxLayout="row wrap">
+          <!-- 1ère card custom -->
+          <div fxFlex="100" fxFlex.sm="50" fxFlex.gt-sm="50">
+            <mat-card class="p-24" fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="text-48 text-primary">people</mat-icon>
+                <div class="ml-12">
+                  <p class="m-0 text-muted mb-4">Utilisateurs actifs</p>
+                  <h5 class="m-0 text-primary">{{ activeUsersCount }}</h5>
+                </div>
               </div>
-            </div>
-            <button mat-icon-button matTooltip="view more">
-              <mat-icon class="mat-18">arrow_right_alt</mat-icon>
-            </button>
-          </mat-card>
+              <button mat-icon-button matTooltip="Voir les utilisateurs">
+                <mat-icon class="mat-18">arrow_right_alt</mat-icon>
+              </button>
+            </mat-card>
+          </div>
+
+          <!-- 2e card custom -->
+          <div fxFlex="100" fxFlex.sm="50" fxFlex.gt-sm="50">
+            <mat-card class="p-24" fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="text-48 text-warn">folder_open</mat-icon>
+                <div class="ml-12">
+                  <p class="m-0 text-muted mb-4">Projets non archivés</p>
+                  <h5 class="m-0 text-warn">{{ activeProjectsCount }}</h5>
+                </div>
+              </div>
+              <button mat-icon-button matTooltip="Voir les projets" [routerLink]="['/projets/list']">
+                <mat-icon class="mat-18">arrow_right_alt</mat-icon>
+              </button>
+            </mat-card>
+          </div>
+
+          <div fxFlex="100" fxFlex.sm="50" fxFlex.gt-sm="50">
+            <mat-card class="p-24" fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="text-48 text-accent">precision_manufacturing</mat-icon>
+                <div class="ml-12">
+                  <p class="m-0 text-muted mb-4">Total pièces</p>
+                  <h5 class="m-0 text-accent">
+                    {{ totalPiecesCount }} types / {{ totalPiecesQuantite }} en stock
+                  </h5>
+                </div>
+              </div>
+              <button mat-icon-button matTooltip="Voir les pièces" [routerLink]="['/pieces/list']">
+                <mat-icon class="mat-18">arrow_right_alt</mat-icon>
+              </button>
+            </mat-card>
+          </div>
+
+          <div fxFlex="100" fxFlex.sm="50" fxFlex.gt-sm="50">
+            <mat-card class="p-24" fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon class="text-48 text-accent">handyman</mat-icon>
+                <div class="ml-12">
+                  <p class="m-0 text-muted mb-4">Total outils</p>
+                  <h5 class="m-0 text-accent">
+                    {{ totalOutilsCount }} types / {{ totalOutilsQuantite }} en stock
+                  </h5>
+                </div>
+              </div>
+              <button mat-icon-button matTooltip="Voir les outils" [routerLink]="['/outils/list']">
+                <mat-icon class="mat-18">arrow_right_alt</mat-icon>
+              </button>
+            </mat-card>
+          </div>
+
+
+          <!-- Les autres cards dynamiques -->
+<!--          <div *ngFor="let item of statCardList.slice(2)" fxFlex="100" fxFlex.sm="50" fxFlex.gt-sm="50">-->
+<!--            <mat-card class="p-24" fxFlex fxLayout="row" fxLayoutAlign="space-between center">-->
+<!--              <div fxLayout="row" fxLayoutAlign="center center">-->
+<!--                <mat-icon class="text-48 text-{{item.color}}">{{ item.icon }}</mat-icon>-->
+<!--                <div class="ml-12">-->
+<!--                  <p class="m-0 text-muted mb-4">{{ item.title }}</p>-->
+<!--                  <h5 class="m-0 text-{{item.color}}">{{ item.amount }}</h5>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <button mat-icon-button matTooltip="view more">-->
+<!--                <mat-icon class="mat-18">arrow_right_alt</mat-icon>-->
+<!--              </button>-->
+<!--            </mat-card>-->
+<!--          </div>-->
         </div>
+
       </div>
 
       <mat-card class="p-0 overflow-x-auto" fxLayout="row wrap">
