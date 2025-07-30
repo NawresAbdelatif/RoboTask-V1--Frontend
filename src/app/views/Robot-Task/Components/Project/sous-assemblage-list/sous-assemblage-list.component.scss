@@ -1,0 +1,51 @@
+.sous-assemblages-list-page {
+  max-width: 950px;
+  margin: 0 auto;
+  .header {
+    display: flex;
+    align-items: center;
+    .title {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-left: 1rem;
+    }
+    .spacer { flex: 1; }
+  }
+  .sous-assemblages-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 1.4rem;
+  }
+  .sous-assemblage-card {
+    min-width: 270px;
+    flex: 1 1 330px;
+    box-shadow: 0 2px 14px #e3e3e3;
+    border-radius: 1.1rem;
+    .description { margin-bottom: 8px; }
+    .meta {
+      display: flex;
+      gap: 1.1rem;
+      color: #787878;
+      font-size: 0.93em;
+      align-items: center;
+      margin-top: 5px;
+    }
+    .statut {
+      font-size: 0.92em;
+      border-radius: 1em;
+      padding: 2px 10px;
+      background: #e3e9f5;
+      color: #2056c7;
+      &.EN_COURS { background: #fff3cd; color: #c59607; }
+      &.TERMINE { background: #c9f2c5; color: #37a53e; }
+      &.NON_DEMARRE { background: #e4e4e4; color: #686868; }
+    }
+  }
+  .no-sous-assemblage-msg {
+    margin: 2rem;
+    color: #888;
+    text-align: center;
+    font-style: italic;
+  }
+}
