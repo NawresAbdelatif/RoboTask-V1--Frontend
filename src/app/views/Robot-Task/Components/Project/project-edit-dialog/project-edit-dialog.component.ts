@@ -25,7 +25,7 @@ export class ProjectEditDialogComponent {
       description: data.description,
       status: data.status,
       startDate: data.startDate,
-      endDate: data.endDate,
+      // endDate: data.endDate,
     };
   }
 

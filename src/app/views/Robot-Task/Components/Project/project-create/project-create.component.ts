@@ -14,7 +14,7 @@ export class ProjectCreateComponent {
     description: '',
     status: 'PLANNED',
     startDate: '',
-    endDate: ''
+    // endDate: ''
   };
 
   constructor(public dialogRef: MatDialogRef<ProjectCreateComponent>) {}

@@ -28,7 +28,7 @@ export class OutilDialogComponent {
       reference: [data.outil?.reference || '', Validators.required],
       designation: [data.outil?.designation || '', Validators.required],
       specification: [data.outil?.specification || '', Validators.required],
-      quantite: [data.outil?.quantite || 1, [Validators.required, Validators.min(1)]],
+      // quantite: [data.outil?.quantite || 1, [Validators.required, Validators.min(1)]],
       imageUrl: [data.outil?.imageUrl || ''],
       description: [data.outil?.description || '']
     });

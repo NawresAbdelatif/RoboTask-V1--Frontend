@@ -295,11 +295,12 @@ export class RobotTaskService {
 
   ////////////////////Assemblage////////////////////
 
-  getAssemblages(projectId: number, page = 0, size = 5, search = ''): Observable<any> {
+  getAssemblages(projectId: number, page = 0, size = 5, search = '', statut = ''): Observable<any> {
     let params = new HttpParams()
         .set('page', page)
         .set('size', size);
     if (search) params = params.set('search', search);
+    if (statut) params = params.set('statut', statut);
     return this.http.get<any>(`${this.apiprojectUrl}/${projectId}/assemblages`, { params });
   }
 

@@ -266,7 +266,7 @@ export class ProjectListComponent implements OnInit {
         `🚀 Chez ACWA Robotics, nous poursuivons notre engagement pour l'innovation et la créativité !\n\n` +
         `Nous sommes ravis d’annoncer le lancement d’un **nouveau projet ambitieux** : Le robot **${project.name}**.\n\n` +
         `💡 ${project.description || 'explorer de nouvelles frontières en robotique et automatisation.'}\n\n` +
-        `📅 Période du projet : du ${new Date(project.startDate).toLocaleDateString('fr-FR')} au ${new Date(project.endDate).toLocaleDateString('fr-FR')}.\n\n` +
+        `📅 Ce projet sera lancé : le ${new Date(project.startDate).toLocaleDateString('fr-FR')}.toLocaleDateString('fr-FR')}.\n\n` +
         `👏 Félicitations à toutes les équipes impliquées !\n\n` +
         `#Innovation #Robotique #Créativité #Projet #${project.name.replace(/\s+/g, '')} via ROBOTASK`;
 

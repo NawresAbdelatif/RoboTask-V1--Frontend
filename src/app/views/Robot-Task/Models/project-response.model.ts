@@ -11,7 +11,7 @@ export interface ProjectResponse {
     description: string;
     status: ProjectStatus;
     startDate: string;
-    endDate: string;
+    // endDate: string;
     creatorUsername: string;
     collaboratorsUsernames: string[];
     creator?: { username: string }

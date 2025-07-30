@@ -144,13 +144,13 @@
                 </span>
                 <span class="info-value">{{ project.startDate | date }}</span>
             </div>
-            <div>
-                <span class="info-label">
-                    <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>
-                    Fin :
-                </span>
-                <span class="info-value">{{ project.endDate | date }}</span>
-            </div>
+<!--            <div>-->
+<!--                <span class="info-label">-->
+<!--                    <mat-icon style="font-size:17px;vertical-align:middle;opacity:0.8;">event</mat-icon>-->
+<!--                    Fin :-->
+<!--                </span>-->
+<!--                <span class="info-value">{{ project.endDate | date }}</span>-->
+<!--            </div>-->
             <div>
                 <span class="info-label">Créateur(rice)&nbsp;:</span>
                 <span class="creator-badge">
@@ -183,15 +183,16 @@
         <div class="assemblage-section">
             <app-assemblage-list [projectId]="project?.id"></app-assemblage-list>
         </div>
+        <div class="actions-bar">
+            <button mat-button color="primary" (click)="retourListe()">
+                <mat-icon style="vertical-align:middle;">arrow_back</mat-icon>
+                Retour à la liste
+            </button>
+        </div>
     </div>
 
     <!-- ACTIONS -->
-    <div class="actions-bar">
-        <button mat-button color="primary" (click)="retourListe()">
-            <mat-icon style="vertical-align:middle;">arrow_back</mat-icon>
-            Retour à la liste
-        </button>
-    </div>
+
 </div>
 
 <div *ngIf="loading" class="center-spinner"><mat-spinner></mat-spinner></div>

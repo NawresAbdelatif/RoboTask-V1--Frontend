@@ -158,3 +158,70 @@ tr.mat-row:hover {
 }
 
 
+.statut-badge-brouillon { color: #666; background: #e3e3e3; padding: 3px 8px; border-radius: 10px; }
+.statut-badge-complete { color: #fff; background: #43a047; padding: 3px 8px; border-radius: 10px; }
+.statut-badge-archive { color: #fff; background: #A975CC; padding: 3px 8px; border-radius: 10px; }
+
+
+.reference-badge {
+  background: #e3f0ff;
+  color: #1a72e7;
+  font-weight: 500;
+  font-size: 0.8rem;
+  border-radius: 2em;
+  padding: 5px 18px 5px 18px;
+  letter-spacing: 1.5px;
+  box-shadow: 0 1px 3px rgba(26, 114, 231, 0.06);
+  display: inline-block;
+  transition: background .2s, color .2s;
+}
+.mat-header-cell, .mat-cell {
+  vertical-align: middle;
+}
+
+.mat-column-reference .mat-header-cell,
+.mat-column-reference .mat-cell {
+  text-align: center;
+}
+
+.table-responsive { width: 100%; overflow-x: auto; }
+@media (max-width: 700px) {
+  table { min-width: 800px; }
+  th.mat-header-cell.creator, td.mat-cell.creator,
+  th.mat-header-cell.dateCreation, td.mat-cell.dateCreation {
+    display: none;
+  }
+  th.mat-header-cell, td.mat-cell { text-align: center; }
+}
+
+.responsive-filters {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+
+  flex-wrap: wrap;
+}
+
+.assemblage-search,
+.assemblage-filter-statut {
+  flex: 0 1 220px;
+  min-width: 140px;
+  max-width: 260px;
+}
+
+@media (max-width: 600px) {
+  .responsive-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .assemblage-search,
+  .assemblage-filter-statut {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+
+

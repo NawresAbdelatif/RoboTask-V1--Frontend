@@ -174,7 +174,7 @@ export class OutilListComponent implements OnInit {
       Référence: outil.reference,
       Désignation: outil.designation,
       specification: outil.specification,
-      Quantité: outil.quantite,
+      // Quantité: outil.quantite,
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(exportData);
@@ -191,12 +191,12 @@ export class OutilListComponent implements OnInit {
     const pageWidth = doc.internal.pageSize.getWidth();
     doc.text('Liste des pièces', pageWidth / 2, 15, { align: 'center' });
 
-    const columns = ["Référence", "Désignation","Spécification","Quantité", "Description"];
+    const columns = ["Référence", "Désignation","Spécification", "Description"];
     const rows = this.outils.map(outil => [
       outil.reference,
       outil.designation,
       outil.specification,
-      outil.quantite,
+      // outil.quantite,
       outil.description
     ]);
 

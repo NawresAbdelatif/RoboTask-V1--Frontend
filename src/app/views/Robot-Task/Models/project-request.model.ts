@@ -7,6 +7,6 @@ export interface ProjectRequest {
     description: string;
     status: ProjectStatus;
     startDate: string;
-    endDate: string;
+    // endDate: string;
 
 }

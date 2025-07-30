@@ -171,7 +171,7 @@ export class PieceListComponent implements OnInit {
     const exportData = this.pieces.map(piece => ({
       Référence: piece.reference,
       Désignation: piece.designation,
-      Quantité: piece.quantite,
+      // Quantité: piece.quantite,
       Observation: piece.observation
     }));
 
@@ -189,11 +189,11 @@ export class PieceListComponent implements OnInit {
     const pageWidth = doc.internal.pageSize.getWidth();
     doc.text('Liste des pièces', pageWidth / 2, 15, { align: 'center' });
 
-    const columns = ["Référence", "Désignation", "Quantité", "Observation"];
+    const columns = ["Référence", "Désignation", "Observation"];
     const rows = this.pieces.map(piece => [
       piece.reference,
       piece.designation,
-      piece.quantite,
+      // piece.quantite,
       piece.observation
     ]);
 

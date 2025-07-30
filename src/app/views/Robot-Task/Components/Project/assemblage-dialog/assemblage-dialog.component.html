@@ -1,11 +1,30 @@
 <h4 mat-dialog-title>{{ data.isEdit ? 'Modifier' : 'Ajouter' }} un assemblage</h4>
 <div mat-dialog-content>
     <form>
-        <mat-form-field>
-            <input matInput placeholder="Nom" [(ngModel)]="assemblage.nom" name="nom" required>
+        <!-- Référence en premier -->
+        <mat-form-field appearance="fill" style="width:100%">
+            <mat-label>Référence</mat-label>
+            <input matInput [(ngModel)]="assemblage.reference" name="reference" required>
         </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Description" [(ngModel)]="assemblage.description" name="description">
+
+        <mat-form-field appearance="fill" style="width:100%">
+            <mat-label>Nom</mat-label>
+            <input matInput [(ngModel)]="assemblage.nom" name="nom" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="width:100%">
+            <mat-label>Description</mat-label>
+            <input matInput [(ngModel)]="assemblage.description" name="description">
+        </mat-form-field>
+
+        <!-- Statut à la fin -->
+        <mat-form-field appearance="fill" style="width:100%">
+            <mat-label>Statut</mat-label>
+            <mat-select [(ngModel)]="assemblage.statut" name="statut" required>
+                <mat-option value="BROUILLON">Brouillon</mat-option>
+                <mat-option value="COMPLETE">Complété</mat-option>
+                <mat-option value="ARCHIVE">Archivé</mat-option>
+            </mat-select>
         </mat-form-field>
     </form>
 </div>

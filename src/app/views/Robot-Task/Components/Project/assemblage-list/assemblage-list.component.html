@@ -13,19 +13,32 @@
         </button>
     </div>
 
-    <mat-form-field appearance="outline" class="assemblage-search">
-        <mat-label>Recherche...</mat-label>
-        <input matInput [(ngModel)]="search" placeholder="Nom" (ngModelChange)="onSearchChange()">
-        <button mat-button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search='';onSearchChange()">
-            <mat-icon>close</mat-icon>
-        </button>
-    </mat-form-field>
+    <div class="responsive-filters">
+        <mat-form-field appearance="outline" class="assemblage-search">
+            <mat-label>Recherche...</mat-label>
+            <input matInput [(ngModel)]="search" placeholder="Nom" (ngModelChange)="onSearchChange()">
+            <button mat-button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search='';onSearchChange()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="assemblage-filter-statut">
+            <mat-label>Statut</mat-label>
+            <mat-select [(ngModel)]="selectedStatut" (selectionChange)="onStatutChange()">
+                <mat-option value="">Tous</mat-option>
+                <mat-option value="BROUILLON">Brouillon</mat-option>
+                <mat-option value="COMPLETE">Complété</mat-option>
+                <mat-option value="ARCHIVE">Archivé</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
 
     <div *ngIf="loading" class="center-spinner">
         <mat-spinner diameter="30"></mat-spinner>
     </div>
 
     <div class="assemblage-table-wrapper" *ngIf="!loading && assemblages.length">
+        <div class="table-responsive">
         <table mat-table
                [dataSource]="assemblages"
                cdkDropList
@@ -41,11 +54,17 @@
                 </td>
             </ng-container>
 
+            <!-- Reference column -->
+            <ng-container matColumnDef="reference">
+                <th mat-header-cell *matHeaderCellDef>Référence</th>
+                <td mat-cell *matCellDef="let a" class="reference-badge">{{ a.reference }}</td>
+            </ng-container>
+
             <!-- Nom column -->
             <ng-container matColumnDef="nom">
                 <th mat-header-cell *matHeaderCellDef>Nom</th>
                 <td mat-cell *matCellDef="let a">
-                    <span class="assemblage-nom-badge">{{ a.nom }}</span>
+                    <span>{{ a.nom }}</span>
                 </td>
             </ng-container>
 
@@ -65,6 +84,21 @@
             <ng-container matColumnDef="creator">
                 <th mat-header-cell *matHeaderCellDef>Créateur</th>
                 <td mat-cell *matCellDef="let a">{{ a.creatorUsername }}</td>
+            </ng-container>
+
+            <!-- Status column -->
+
+            <ng-container matColumnDef="statut">
+                <th mat-header-cell *matHeaderCellDef>Statut</th>
+                <td mat-cell *matCellDef="let a">
+                <span [ngClass]="{
+            'statut-badge-brouillon': a.statut === 'BROUILLON',
+            'statut-badge-complete': a.statut === 'COMPLETE',
+            'statut-badge-archive': a.statut === 'ARCHIVE'
+        }">
+            {{ a.statut }}
+        </span>
+                </td>
             </ng-container>
 
             <!-- Actions column -->
@@ -92,7 +126,9 @@
                  cdkDrag style="cursor:pointer;">
 
             </tr>
+
             </table>
+        </div>
             </div>
 
 

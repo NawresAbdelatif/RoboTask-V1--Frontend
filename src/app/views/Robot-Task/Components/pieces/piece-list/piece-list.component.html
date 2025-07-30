@@ -8,9 +8,9 @@
     </mat-form-field>
 
     <div class="toolbar-actions">
-        <button mat-icon-button matTooltip="Légende des badges" (click)="openBadgeLegendDialog()" class="legend-btn">
-            <mat-icon>info</mat-icon>
-        </button>
+<!--        <button mat-icon-button matTooltip="Légende des badges" (click)="openBadgeLegendDialog()" class="legend-btn">-->
+<!--            <mat-icon>info</mat-icon>-->
+<!--        </button>-->
 
         <!-- Bouton Exporter avec menu déroulant -->
         <button mat-stroked-button [matMenuTriggerFor]="exportMenu">
@@ -50,14 +50,14 @@
                 <mat-header-cell *matHeaderCellDef> Désignation </mat-header-cell>
                 <mat-cell *matCellDef="let piece"> {{piece.designation}} </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="quantite">
-                <mat-header-cell *matHeaderCellDef> QTÉ </mat-header-cell>
-                <mat-cell *matCellDef="let piece">
-          <span class="qte-cell" [ngClass]="getQteBadgeClass(piece.quantite)">
-            {{piece.quantite}}
-          </span>
-                </mat-cell>
-            </ng-container>
+<!--            <ng-container matColumnDef="quantite">-->
+<!--                <mat-header-cell *matHeaderCellDef> QTÉ </mat-header-cell>-->
+<!--                <mat-cell *matCellDef="let piece">-->
+<!--          <span class="qte-cell" [ngClass]="getQteBadgeClass(piece.quantite)">-->
+<!--            {{piece.quantite}}-->
+<!--          </span>-->
+<!--                </mat-cell>-->
+<!--            </ng-container>-->
             <ng-container matColumnDef="image">
                 <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
                 <mat-cell *matCellDef="let piece">
@@ -87,8 +87,8 @@
                     </button>
                 </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="['reference','designation','quantite','image','observation','actions']"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: ['reference','designation','quantite','image','observation','actions'];"></mat-row>
+            <mat-header-row *matHeaderRowDef="['reference','designation','image','observation','actions']"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: ['reference','designation','image','observation','actions'];"></mat-row>
         </mat-table>
     </div>
 </div>
@@ -98,12 +98,12 @@
     <div class="piece-card" *ngFor="let piece of pieces">
         <div class="ref">{{piece.reference}}</div>
         <div class="desc">{{piece.designation}}</div>
-        <div class="qte">
-            Qté :
-            <span class="qte-cell" [ngClass]="getQteBadgeClass(piece.quantite)">
-        {{piece.quantite}}
-      </span>
-        </div>
+<!--        <div class="qte">-->
+<!--            Qté :-->
+<!--            <span class="qte-cell" [ngClass]="getQteBadgeClass(piece.quantite)">-->
+<!--        {{piece.quantite}}-->
+<!--      </span>-->
+<!--        </div>-->
         <div class="img" *ngIf="piece.imageUrl">
             <img
                     [src]="'http://localhost:8090' + piece.imageUrl"

@@ -2,7 +2,7 @@ export interface Piece {
     id?: number;
     reference: string;
     designation: string;
-    quantite: number;
+    // quantite: number;
     imageUrl?: string;
     observation?: string;
 }

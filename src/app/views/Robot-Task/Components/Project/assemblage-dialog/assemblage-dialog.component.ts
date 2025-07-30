@@ -17,7 +17,13 @@ export class AssemblageDialogComponent {
       public dialogRef: MatDialogRef<AssemblageDialogComponent>,
       @Inject(MAT_DIALOG_DATA) public data: { assemblage: Assemblage, isEdit: boolean }
   ) {
-    this.assemblage = { ...data.assemblage };
+    this.assemblage = {
+      reference: '',
+      nom: '',
+      description: '',
+      statut: 'BROUILLON',
+      ...data.assemblage
+    };
   }
 
   onCancel() {

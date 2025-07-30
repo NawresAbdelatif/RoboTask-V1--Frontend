@@ -20,11 +20,12 @@ export class AssemblageListComponent implements OnInit {
   size = 5;
   total = 0;
   loading = false;
-
+  selectedStatut: string = '';
  showForm = false;
   isEdit = false;
-  current: Assemblage = { nom: '', description: '' };
-  cols = ['drag', 'nom', 'description', 'dateCreation', 'creator', 'actions'];
+  current: Assemblage = { reference: '', nom: '', description: '', statut: 'BROUILLON' };
+
+    cols = ['drag', 'reference', 'nom', 'description', 'dateCreation', 'creator', 'statut', 'actions'];
 
   constructor(private robotService: RobotTaskService, private snackBar: MatSnackBar,
               private dialog: MatDialog,  private router: Router
@@ -34,29 +35,31 @@ export class AssemblageListComponent implements OnInit {
     this.load();
   }
 
-  load() {
-    if (!this.projectId) return;
-    this.loading = true;
-    this.robotService.getAssemblages(this.projectId, this.page, this.size, this.search)
-        .subscribe({
-          next: res => {
-            this.assemblages = res.content;
-            this.total = res.totalElements;
-            this.loading = false;
-          },
-          error: _ => {
-            this.snackBar.open('Erreur de chargement', 'Fermer', { duration: 2500 });
-            this.loading = false;
-          }
-        });
-  }
+    load() {
+        if (!this.projectId) return;
+        this.loading = true;
+        this.robotService.getAssemblages(this.projectId, this.page, this.size, this.search, this.selectedStatut)
+            .subscribe({
+                next: res => {
+                    this.assemblages = res.content;
+                    this.total = res.totalElements;
+                    this.loading = false;
+                },
+                error: _ => {
+                    this.snackBar.open('Erreur de chargement', 'Fermer', { duration: 2500 });
+                    this.loading = false;
+                }
+            });
+    }
 
-  openAdd() {
-    const dialogRef = this.dialog.open(AssemblageDialogComponent, {
-      width: '400px',
-      data: { assemblage: { nom: '', description: '' }, isEdit: false }
-    });
-    dialogRef.afterClosed().subscribe(result => {
+
+    openAdd() {
+      const dialogRef = this.dialog.open(AssemblageDialogComponent, {
+          width: '400px',
+          data: { assemblage: { reference: '', nom: '', description: '', statut: 'BROUILLON' }, isEdit: false }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.robotService.createAssemblage(this.projectId, result).subscribe({
           next: _ => {
@@ -122,7 +125,7 @@ export class AssemblageListComponent implements OnInit {
   }
   cancel() {
     this.showForm = false;
-    this.current = { nom: '', description: '' };
+      this.current = { reference: '', nom: '', description: '', statut: 'BROUILLON' };
   }
   onPage(event: any) {
     this.page = event.pageIndex;
@@ -134,6 +137,10 @@ export class AssemblageListComponent implements OnInit {
     this.load();
   }
 
+  onStatutChange() {
+        this.page = 0;
+        this.load();
+    }
     drop(event: CdkDragDrop<Assemblage[]>) {
         moveItemInArray(this.assemblages, event.previousIndex, event.currentIndex);
         const orderedIds = this.assemblages.map(a => a.id);
@@ -151,6 +158,14 @@ export class AssemblageListComponent implements OnInit {
             ['/assemblages', assemblage.id, 'sous-assemblages'],
             { state: { assemblageName: assemblage.nom } }
         );
+    }
+    statutLabel(statut: string) {
+        switch(statut) {
+            case 'BROUILLON': return 'Brouillon';
+            case 'COMPLETE': return 'Complété';
+            case 'ARCHIVE': return 'Archivé';
+            default: return statut;
+        }
     }
 
 

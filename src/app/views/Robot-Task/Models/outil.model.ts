@@ -3,7 +3,7 @@ export interface Outil {
     reference: string;
     designation: string;
     specification: string;
-    quantite: number;
+    // quantite: number;
     imageUrl?: string;
     description?: string;
 }

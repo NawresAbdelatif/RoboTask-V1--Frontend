@@ -25,7 +25,7 @@ export class PieceDialogComponent {
     this.pieceForm = this.fb.group({
       reference: [data.piece?.reference || '', Validators.required],
       designation: [data.piece?.designation || '', Validators.required],
-      quantite: [data.piece?.quantite || 1, [Validators.required, Validators.min(1)]],
+      // quantite: [data.piece?.quantite || 1, [Validators.required, Validators.min(1)]],
       imageUrl: [data.piece?.imageUrl || ''],
       observation: [data.piece?.observation || '']
     });
