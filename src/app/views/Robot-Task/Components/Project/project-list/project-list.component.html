@@ -228,7 +228,16 @@
 
 <div style="padding:0;" fxLayout="column wrap">
     <div class="projets-header">
-        <mat-card-title class="mx-8">Liste des projets</mat-card-title>
+        <div class="header-assemblages" @fadeSlideIn>
+            <mat-icon class="icon-main">construction</mat-icon>
+            <span class="title-main">Modes Opératoires</span>
+            <span class="badge-main">
+    <mat-icon class="icon-badge">smart_toy</mat-icon>
+                {{ totalElements }}
+  </span>
+        </div>
+
+
         <div class="filters-row">
             <!-- Barre de recherche -->
             <mat-form-field class="search-field" appearance="outline">
@@ -248,9 +257,9 @@
                 <mat-label>État</mat-label>
                 <mat-select [(ngModel)]="statusFilter" (selectionChange)="onSearchChange()">
                     <mat-option value="">Tous</mat-option>
-                    <mat-option value="PLANNED">Planifié</mat-option>
-                    <mat-option value="IN_PROGRESS">En cours</mat-option>
-                    <mat-option value="COMPLETED">Terminé</mat-option>
+                    <mat-option value="BROUILLON">BROUILLON</mat-option>
+                    <mat-option value="COMPLETE">COMPLETE</mat-option>
+<!--                    <mat-option value="ARCHIVE">ARCHIVE</mat-option>-->
                 </mat-select>
             </mat-form-field>
         </div>
@@ -259,7 +268,7 @@
             <mat-icon>add</mat-icon>
             Nouveau projet
         </button>
-    </div>
+     </div>
     <!-- Messages d’action projet -->
     <mat-card *ngIf="successMsg" class="success-alert" role="alert">
         <mat-icon class="success-icon" aria-hidden="true">check_circle</mat-icon>
@@ -274,11 +283,12 @@
     <div *ngIf="errorMsg && projects.length > 0" class="text-red text-center">{{errorMsg}}</div>
     <div *ngIf="!loading && projects.length === 0" class="text-center" style="margin: 40px auto; font-size: 1.2rem; color: #888;">
         <mat-icon style="font-size: 48px; color: #ccc;">folder_off</mat-icon>
-        <div style="margin-top: 10px;">Aucun projet trouvé.</div>
+        <div style="margin-top: 10px;">Aucun mode opératoire trouvé.</div>
     </div>
 
 
     <div *ngFor="let project of projects; let projIdx = index">
+
         <mat-card
                 class="project-card-flex reduced-card"
                 >
@@ -311,32 +321,28 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="project-collabs">
-                    <ng-container *ngFor="let user of project.collaboratorsUsernames; let i = index">
+                <div class="project-collabs" style="display: flex; align-items: center;">
+                    <ng-container *ngFor="let user of project.collaboratorsUsernames.slice(0, 3)">
                         <div class="avatar-initial"
-                             [ngStyle]="{
-           'background': getColorForUser(user),
-           'color': '#fff'
-         }"
-                             *ngIf="i < 3"
-                             [matTooltip]="user">
+                             [ngStyle]="{ 'background': getColorForUser(user) }"
+                             matTooltip="{{ user }}">
                             {{ user[0] | uppercase }}
                         </div>
                     </ng-container>
-                    <p *ngIf="project.collaboratorsUsernames.length > 3"
-                       class="rounded-circle d-flex avatar-sm m-0 mat-bg-warn text-14 align-items-center justify-content-center"
-                       style="margin-left:4px;">
-                        +{{ project.collaboratorsUsernames.length - 3 }}
-                    </p>
-                </div>
+                    <span *ngIf="project.collaboratorsUsernames.length > 3" class="plus-more-exterior">
+                    +{{ project.collaboratorsUsernames.length - 3 }}
+                  </span>
+                    </div>
+
+
+
                 <div class="project-status">
                     <mat-chip
                             class="status-chip"
                             [ngStyle]="{
-    'background-color': getProjectStatus(project.status).color,
-    'color': '#fff'
-  }"
+                        'background-color': getProjectStatus(project.status).color,
+                        'color': '#fff'
+                      }"
                             selected>
                         {{ getProjectStatus(project.status).label }}
                     </mat-chip>

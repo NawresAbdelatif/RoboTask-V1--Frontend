@@ -1,5 +1,5 @@
 
-export type ProjectStatus = 'PLANNED' | 'IN_PROGRESS' | 'COMPLETED';
+export type ProjectStatus = 'BROUILLON' | 'COMPLETE' | 'ARCHIVE';
 
 export interface ProjectRequest {
     reference: string;

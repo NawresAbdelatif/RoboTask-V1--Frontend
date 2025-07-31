@@ -87,12 +87,12 @@ export class ProjectArchivedListComponent implements OnInit {
 
   getProjectStatus(status: string) {
     switch (status) {
-      case 'PLANNED':
-        return { color: '#1976d2', label: 'Planifié' };
-      case 'IN_PROGRESS':
-        return { color: '#EE7A46', label: 'En cours' };
-      case 'COMPLETED':
-        return { color: '#43a047', label: 'Terminé' };
+      case 'BROUILLON':
+        return { color: '#0084FA', label: 'BROUILLON' };
+      case 'COMPLETE':
+        return { color: '#43a047', label: 'COMPLETE' };
+      case 'ARCHIVE':
+        return { color: '#EE7A46', label: 'ARCHIVE' };
       default:
         return { color: 'default', label: status };
     }
@@ -101,7 +101,6 @@ export class ProjectArchivedListComponent implements OnInit {
   getColorForUser(username: string): string {
     return getColorForUser(username);
   }
-
 
 
   deleteProject(project: ProjectResponse) {

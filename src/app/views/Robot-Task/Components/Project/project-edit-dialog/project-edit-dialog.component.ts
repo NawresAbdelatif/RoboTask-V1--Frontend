@@ -11,7 +11,7 @@ import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component
 })
 export class ProjectEditDialogComponent {
   project: ProjectRequest;
-  statusList: ProjectStatus[] = ['PLANNED', 'IN_PROGRESS', 'COMPLETED'];
+  statusList: ProjectStatus[] = ['BROUILLON', 'COMPLETE', 'ARCHIVE'];
 
   constructor(
       private dialogRef: MatDialogRef<ProjectEditDialogComponent>,

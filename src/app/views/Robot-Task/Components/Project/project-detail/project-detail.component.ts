@@ -58,17 +58,17 @@ export class ProjectDetailComponent implements OnInit {
 
   getStatusLabel(status: string) {
     switch (status) {
-      case 'PLANNED': return 'Planifié';
-      case 'IN_PROGRESS': return 'En cours';
-      case 'COMPLETED': return 'Terminé';
+      case 'BROUILLON': return 'BROUILLON';
+      case 'COMPLETE': return 'COMPLETE';
+      case 'ARCHIVE': return 'ARCHIVE';
       default: return status;
     }
   }
   getStatusColor(status: string) {
     switch (status) {
-      case 'PLANNED': return '#1976d2';
-      case 'IN_PROGRESS': return '#EE7A46';
-      case 'COMPLETED': return '#43a047';
+      case 'BROUILLON': return '#0084FA';
+      case 'ARCHIVE': return '#EE7A46';
+      case 'COMPLETE': return '#43a047';
       default: return '#bdbdbd';
     }
   }

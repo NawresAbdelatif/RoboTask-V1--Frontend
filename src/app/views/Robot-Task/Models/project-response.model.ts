@@ -1,4 +1,4 @@
-export type ProjectStatus = 'PLANNED' | 'IN_PROGRESS' | 'COMPLETED';
+export type ProjectStatus = 'BROUILLON' | 'COMPLETE' | 'ARCHIVE';
 export interface Collaborator {
     username: string;
     email: string;

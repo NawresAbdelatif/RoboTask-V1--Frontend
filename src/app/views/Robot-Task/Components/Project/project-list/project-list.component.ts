@@ -6,6 +6,7 @@ import { ProjectCreateComponent } from "../project-create/project-create.compone
 import { ProjectRequest } from "../../../Models/project-request.model";
 import { getColorForUser } from "../../color.util";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 import { ProjectEditDialogComponent } from "../project-edit-dialog/project-edit-dialog.component";
 import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.component";
@@ -17,7 +18,17 @@ import {LinkedinShareDialogComponent} from "./linkedin-share-dialog.component";
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.scss']
+  styleUrls: ['./project-list.component.scss'],
+  animations: [
+    trigger('fadeSlideIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-18px) scale(0.97)' }),
+        animate('520ms cubic-bezier(.57,.02,.39,1.15)',
+            style({ opacity: 1, transform: 'translateY(0) scale(1)' })
+        )
+      ])
+    ])
+  ]
 })
 export class ProjectListComponent implements OnInit {
   projects: ProjectResponse[] = [];
@@ -215,12 +226,12 @@ export class ProjectListComponent implements OnInit {
   }
   getProjectStatus(status: string) {
     switch (status) {
-      case 'PLANNED':
-        return { color: '#1976d2', label: 'Planifié' };
-      case 'IN_PROGRESS':
-        return { color: '#EE7A46', label: 'En cours' };
-      case 'COMPLETED':
-        return { color: '#43a047', label: 'Terminé' };
+      case 'BROUILLON':
+        return { color: '#0084FA', label: 'BROUILLON' };
+      case 'COMPLETE':
+        return { color: '#43a047', label: 'COMPLETE' };
+      case 'ARCHIVE':
+        return { color: '#EE7A46', label: 'ARCHIVE' };
       default:
         return { color: 'default', label: status };
     }

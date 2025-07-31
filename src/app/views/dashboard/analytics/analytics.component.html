@@ -1,5 +1,11 @@
+<div class="dashboard-main-title-row">
+  <mat-icon class="main-analytics-icon">insert_chart</mat-icon>
+  <span class="dashboard-main-title">Statistiques & Analyses</span>
+</div>
+
+
 <div class="mat-bg-primary m-12 px-24 py-24 rounded">
-  <h5 class="text-white text-16 mb-16 font-weight-bold">Projets créés par année</h5>
+  <h5 class="text-white text-16 mb-16 font-weight-bold">Modes Opératoires créés par année</h5>
   <div height="180" echarts class="chart m-0" [options]="dailyTrafficChartBar"></div>
 </div>
 <div class="mt--72">
@@ -29,7 +35,7 @@
               <div fxLayout="row" fxLayoutAlign="center center">
                 <mat-icon class="text-48 text-warn">folder_open</mat-icon>
                 <div class="ml-12">
-                  <p class="m-0 text-muted mb-4">Projets non archivés</p>
+                  <p class="m-0 text-muted mb-4">Modes Opératoires non archivés</p>
                   <h5 class="m-0 text-warn">{{ activeProjectsCount }}</h5>
                 </div>
               </div>
@@ -245,7 +251,7 @@
     <div fxFlex="100" fxFlex.sm="30" fxFlex.gt-sm="30">
       <div fxLayout="row wrap">
         <mat-card fxFlex="100">
-          <mat-card-title class="mb-0">Répartition des statuts de projets</mat-card-title>
+          <mat-card-title class="mb-0">Répartition des statuts de modes opératoires</mat-card-title>
           <small class="text-muted">Pourcentage par statut</small>
           <div echarts [options]="doughNutPieOptions" style="height: 280px"></div>
         </mat-card>

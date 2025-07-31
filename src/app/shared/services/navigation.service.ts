@@ -39,13 +39,13 @@ export class NavigationService {
     },
 
     {
-      name: 'PROJETS',
+      name: 'MODES OPERATOIRES',
       type: 'dropDown',
       tooltip: 'Projets',
-      icon: 'work',
+      icon: 'construction',
       sub: [
-        { name: 'Liste Projets', state: 'projets/list' },
-        { name: 'Projets Archivés', state: 'projets/archived' }
+        { name: 'Liste ', state: 'projets/list' },
+        { name: 'Liste Archivés', state: 'projets/archived' }
         // { name: 'Créer Projet', state: 'projets/create' }
       ]
     },

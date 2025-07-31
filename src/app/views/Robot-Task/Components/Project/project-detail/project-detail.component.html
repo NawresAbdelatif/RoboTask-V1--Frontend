@@ -109,15 +109,15 @@
         <div class="header-right">
             <span class="status-badge"
                   [ngClass]="{
-                      'planned': project.status === 'PLANNED',
-                      'inprogress': project.status === 'IN_PROGRESS',
-                      'completed': project.status === 'COMPLETED'
+                      'BROUILLON': project.status === 'BROUILLON',
+                      'ARCHIVE': project.status === 'ARCHIVE',
+                      'COMPLETE': project.status === 'COMPLETE'
                   }">
                 <mat-icon class="status-icon">
                     {{
-                    project.status === 'PLANNED' ? 'schedule' :
-                        project.status === 'IN_PROGRESS' ? 'autorenew' :
-                            project.status === 'COMPLETED' ? 'check_circle' : 'help'
+                    project.status === 'BROUILLON' ? 'schedule' :
+                        project.status === 'ARCHIVE' ? 'autorenew' :
+                            project.status === 'COMPLETE' ? 'check_circle' : 'help'
                     }}
                 </mat-icon>
                 {{ getStatusLabel(project.status) }}

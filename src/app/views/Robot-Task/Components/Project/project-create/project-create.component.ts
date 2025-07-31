@@ -12,7 +12,7 @@ export class ProjectCreateComponent {
     reference: '',
     name: '',
     description: '',
-    status: 'PLANNED',
+    status: 'BROUILLON',
     startDate: '',
     // endDate: ''
   };

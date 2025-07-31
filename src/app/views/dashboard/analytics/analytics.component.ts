@@ -127,9 +127,9 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
     this.projectService.getProjectsCountByStatus().subscribe(data => {
       // data = {PLANNED: 7, IN_PROGRESS: 5, COMPLETED: 11}
       const statusLabels = {
-        'PLANNED': 'Planifié',
-        'IN_PROGRESS': 'En cours',
-        'COMPLETED': 'Terminé'
+        'BROUILLON': 'Brouillon',
+        'COMPLETE': 'Complété',
+        'ARCHIVE': 'Archivé'
       };
 
       const chartData = Object.keys(data).map(key => ({
@@ -138,9 +138,10 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
       }));
 
       const chartColors = [
-        '#1976d2', // PLANNED - bleu
-        '#ff9e43', // IN_PROGRESS - orange
-        '#43a047', // COMPLETED - vert
+        '#ff9e43',// Archive - orange
+        '#43a047',// COMPLété - vert
+        '#0084FA',// Brouilon-bleu
+
       ];
 
       this.doughNutPieOptions = {

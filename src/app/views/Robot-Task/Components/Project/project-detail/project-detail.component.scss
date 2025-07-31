@@ -55,8 +55,8 @@
   align-items: center;
   gap: 9px;
   font-weight: 600;
-  font-size: 1.25rem;
-  padding: 0 30px;
+  font-size: 1.2rem;
+  padding: 0 20px;
   height: 44px;
   border-radius: 28px;
   box-shadow: 0 1px 5px #0001;
@@ -64,12 +64,12 @@
   letter-spacing: 0.2px;
 }
 .status-badge .status-icon {
-  font-size: 1.58rem !important;
+  font-size: 1.4rem !important;
   opacity: 0.91;
 }
-.status-badge.planned { background: #1976d2; }
-.status-badge.inprogress { background: #FF9800; }
-.status-badge.completed { background: #43a047; }
+.status-badge.BROUILLON { background: #0084FA; }
+.status-badge.ARCHIVE { background: #EE7A46; }
+.status-badge.COMPLETE { background: #43a047; }
 .add-collab-btn {
   min-width: 0 !important;
   width: 40px !important;
@@ -371,4 +371,56 @@ body, .main-content { background: #f8fafc !important; }
   }
   .main-details { padding: 10px 2vw; }
   .actions-bar { padding: 0 1vw 0 0; }
+}
+.collab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 10px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.collab-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 140px;
+  background: #f6f8fa;
+  border-radius: 14px;
+  padding: 6px 12px 6px 7px;
+  margin-bottom: 0; /* On gère l'espacement via gap */
+  transition: box-shadow 0.15s;
+}
+.collab-list-item:hover {
+  box-shadow: 0 2px 8px #1976d220;
+}
+
+.collaborator-avatar {
+  width: 34px;
+  height: 34px;
+  font-size: 1.13rem;
+  min-width: 34px;
+  min-height: 34px;
+}
+
+.collaborator-fullname {
+  font-size: 1.07rem;
+  font-weight: 500;
+  color: #26304a;
+}
+
+/* MOBILE BREAKPOINT */
+@media (max-width: 700px) {
+  .collab-list {
+    flex-direction: column;
+    gap: 7px;
+  }
+  .collab-list-item {
+    width: 100%;
+    min-width: 0;
+    justify-content: flex-start;
+    padding: 8px 10px;
+    border-radius: 11px;
+  }
 }
